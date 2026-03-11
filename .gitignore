@@ -1,0 +1,8 @@
+motores/
+*.zip
+*.exe
+!README.md
+!index.html
+!style.css
+!script.js
+!*.bat
