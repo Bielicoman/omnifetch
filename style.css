@@ -432,47 +432,148 @@ body {
 
 /* Footer */
 .main-footer {
-    padding: 6rem 0;
+    padding: 8rem 0 4rem;
     border-top: 1px solid var(--border);
+    margin-top: 5rem;
+    background: linear-gradient(to bottom, transparent, var(--surface));
 }
 
 .footer-grid {
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-columns: 2fr 1fr 1fr 2fr;
     gap: 4rem;
+    align-items: start;
+}
+
+.footer-brand .logo-text {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
 }
 
 .footer-brand p {
     color: var(--text-dim);
-    margin-top: 1rem;
-    max-width: 300px;
-}
-
-.footer-links-group h5 {
-    color: white;
+    font-size: 0.9rem;
+    max-width: 250px;
     margin-bottom: 1.5rem;
-    font-size: 1.1rem;
 }
 
-.footer-links-group a {
+.footer-badges {
+    display: flex;
+    gap: 0.8rem;
+}
+
+.f-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    padding: 0.3rem 0.8rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    color: var(--primary);
+}
+
+.footer-column h5 {
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.8rem;
+    margin-bottom: 1.5rem;
+    opacity: 0.5;
+}
+
+.footer-ul {
+    list-style: none;
+}
+
+.footer-ul li {
+    margin-bottom: 0.8rem;
+}
+
+.footer-ul a {
+    color: var(--text-dim);
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: 0.3s;
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    color: var(--text-dim);
-    text-decoration: none;
-    margin-bottom: 1rem;
-    transition: 0.3s;
 }
 
-.footer-links-group a:hover { color: var(--primary); }
+.footer-ul a:hover {
+    color: var(--primary);
+    transform: translateX(5px);
+}
 
-.footer-name {
-    display: block;
-    margin-top: 0.5rem;
+.footer-ul svg {
+    width: 16px;
+    height: 16px;
+}
+
+.footer-attribution h5 {
+    margin-bottom: 1.2rem;
+}
+
+.footer-owner-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border);
+    padding: 0.8rem;
+    border-radius: 12px;
+    text-decoration: none;
+    transition: 0.3s;
+    margin-bottom: 1.5rem;
+}
+
+.footer-owner-card:hover {
+    background: rgba(0, 255, 136, 0.05);
+    border-color: var(--primary);
+}
+
+.footer-owner-card img {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+}
+
+.f-owner-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.f-name {
     color: white;
     font-weight: 700;
-    text-decoration: none;
-    font-size: 1.2rem;
+    font-size: 0.95rem;
+}
+
+.f-role {
+    color: var(--primary);
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.copyright {
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.heart-icon {
+    width: 14px;
+    height: 14px;
+    color: #ff4d4d;
+    fill: #ff4d4d;
+    animation: heartBeat 1.5s ease-in-out infinite;
+}
+
+@keyframes heartBeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
 }
 
 /* Code Overlay */
