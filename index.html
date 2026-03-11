@@ -3,19 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OmniFetch Ultimate - Alex Ascencio</title>
+    <title>OmniFetch Ultimate | Developed by Alex Ascencio</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- ScrollReveal -->
+    <script src="https://unpkg.com/scrollreveal"></script>
 </head>
-<body>
-    <div class="glass-bg"></div>
-    <div class="noise"></div>
+<body class="dark-mode">
+    <div class="blob-container">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+    <div class="noise-overlay"></div>
 
-    <header>
-        <div class="container hero">
-            <pre class="ascii-logo">
+    <nav class="navbar glass">
+        <div class="container nav-content">
+            <div class="logo-text">OMNIFETCH<span>ULTIMATE</span></div>
+            <div class="nav-links">
+                <a href="#tools">Arsenal</a>
+                <a href="#tutorial">Manual</a>
+                <a href="https://github.com/Bielicoman/omnifetch" target="_blank" class="github-link">
+                    <i data-lucide="github"></i>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero-section">
+        <div class="container hero-content">
+            <div class="badge-container">
+                <span class="badge">Version 3.0 Ultimate</span>
+            </div>
+            
+            <pre class="ascii-art">
  ██████╗ ███╗   ███╗███╗   ██╗██╗███████╗███████╗████████╗ ██████╗ ██╗  ██╗
 ██╔═══██╗████╗ ████║████╗  ██║██║██╔════╝██╔════╝╚══██╔══╝██╔════╝ ██║  ██║
 ██║   ██║██╔████╔██║██╔██╗ ██║██║█████╗  █████╗     ██║   ██║      ███████║
@@ -23,83 +48,136 @@
 ╚██████╔╝██║ ╚═╝ ██║██║ ╚████║██║██║     ███████╗   ██║   ╚██████╗ ██║  ██║
  ╚═════╝ ╚═╝     ╚═╝╚═╝  ╚═══╝╚═╝╚═╝     ╚══════╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝
             </pre>
-            <h1 class="glow-text">OmniFetch Ultimate</h1>
-            <p class="tagline">Ecossistema Profissional para Download e Conversão de Mídia</p>
-            <div class="author">
-                <span>Criado por <strong>Alex Ascencio</strong></span>
-                <span class="social">@alexascencioai</span>
-            </div>
-            <div class="main-cta">
-                <a href="OmniFetch_Ultimate.zip" class="btn btn-primary" download>
-                    <span class="btn-text">Baixar Suíte Completa (.ZIP)</span>
-                    <span class="btn-icon">📦</span>
+
+            <h1 class="glitch-text" data-text="OmniFetch">OmniFetch</h1>
+            <p class="hero-description">O toolkit definitivo de engenharia reversa e download para desenvolvedores, criativos e profissionais de mídia.</p>
+            
+            <div class="hero-actions">
+                <a href="OmniFetch_Ultimate.zip" class="btn-modern btn-glow" download>
+                    <span class="btn-shine"></span>
+                    <i data-lucide="download-cloud"></i>
+                    <span>Get Startted Now</span>
+                </a>
+                <a href="https://instagram.com/alexascencioai" target="_blank" class="owner-pill">
+                    <img src="https://unavatar.io/instagram/alexascencioai" alt="Alex Ascencio" class="owner-img">
+                    <div class="owner-info">
+                        <span class="name">Alex Ascencio</span>
+                        <span class="handle">@alexascencioai</span>
+                    </div>
                 </a>
             </div>
         </div>
     </header>
 
     <main class="container">
-        <section class="tools-grid">
-            <div class="card glass">
-                <div class="card-icon">🚀</div>
-                <h3>1. SETUP INSTALADOR</h3>
-                <p>Configura automaticamente o Python, FFmpeg e Calibre no seu sistema sem complicações.</p>
-                <button onclick="viewCode('setup')" class="btn btn-secondary">Ver Código</button>
+        <section id="tools" class="grid-section">
+            <div class="section-header">
+                <h2 class="section-title">O Arsenal</h2>
+                <p>Três motores independentes integrados em uma única suíte de comando.</p>
             </div>
-            <div class="card glass">
-                <div class="card-icon">⬇️</div>
-                <h3>2. OMNIFETCH BAIXADOR</h3>
-                <p>Baixe vídeos, playlists, áudios e documentos de mais de 1000 sites com um clique.</p>
-                <button onclick="viewCode('downloader')" class="btn btn-secondary">Ver Código</button>
-            </div>
-            <div class="card glass">
-                <div class="card-icon">⚡</div>
-                <h3>3. OMNIFETCH CONVERSOR</h3>
-                <p>O arsenal definitivo para converter mídia em dezenas de formatos profissionais.</p>
-                <button onclick="viewCode('conversor')" class="btn btn-secondary">Ver Código</button>
+            
+            <div class="arsenal-grid">
+                <div class="tool-card glass" data-tilt>
+                    <div class="icon-box"><i data-lucide="terminal"></i></div>
+                    <h3>01. Setup Engine</h3>
+                    <p>Instalação automatizada de dependências críticas (Python, FFmpeg, Calibre) com elevação de privilégios blindada.</p>
+                    <button onclick="viewCode('setup')" class="btn-outline">Inspect Source</button>
+                    <div class="card-glow"></div>
+                </div>
+
+                <div class="tool-card glass" data-tilt>
+                    <div class="icon-box"><i data-lucide="download"></i></div>
+                    <h3>02. Meta Downloader</h3>
+                    <p>Download tático de vídeo, áudio e metadados de 1000+ fontes. Suporte nativo a playlists e reconexão automática.</p>
+                    <button onclick="viewCode('downloader')" class="btn-outline">Inspect Source</button>
+                    <div class="card-glow"></div>
+                </div>
+
+                <div class="tool-card glass" data-tilt>
+                    <div class="icon-box"><i data-lucide="zap"></i></div>
+                    <h3>03. Universal Converter</h3>
+                    <p>Transcodificador multi-threaded baseado em FFmpeg. Converte mídia, imagens e documentos em formatos profissionais.</p>
+                    <button onclick="viewCode('conversor')" class="btn-outline">Inspect Source</button>
+                    <div class="card-glow"></div>
+                </div>
             </div>
         </section>
 
-        <section id="code-section" class="code-viewer hidden">
-            <div class="code-header">
-                <h4 id="code-title">Código Fonte</h4>
-                <button onclick="closeCode()" class="close-btn">&times;</button>
-            </div>
-            <pre><code id="code-content" class="language-batch"></code></pre>
-            <div class="code-footer">
-                <button onclick="copyCode()" class="btn btn-small">Copiar Código</button>
+        <section id="code-viewer" class="code-overlay hidden">
+            <div class="overlay-content glass">
+                <div class="overlay-header">
+                    <div class="header-left">
+                        <div class="window-dots">
+                            <span class="dot red"></span>
+                            <span class="dot yellow"></span>
+                            <span class="dot green"></span>
+                        </div>
+                        <h4 id="code-title">source.bat</h4>
+                    </div>
+                    <button onclick="closeCode()" class="close-btn"><i data-lucide="x"></i></button>
+                </div>
+                <div class="code-body">
+                    <pre><code id="code-content"></code></pre>
+                </div>
+                <div class="overlay-footer">
+                    <button onclick="copyCode()" class="btn-primary-small">
+                        <i data-lucide="copy"></i> <span>Copy Code</span>
+                    </button>
+                </div>
             </div>
         </section>
 
-        <section class="tutorial glass">
-            <h2>Manual de Operação</h2>
-            <div class="tutorial-steps">
-                <div class="step">
-                    <span class="step-num">01</span>
-                    <p>Extraia o arquivo .ZIP para uma pasta permanente.</p>
-                </div>
-                <div class="step">
-                    <span class="step-num">02</span>
-                    <p>Execute o <strong>1 SETUP.bat</strong> como Administrador.</p>
-                </div>
-                <div class="step">
-                    <span class="step-num">03</span>
-                    <p>Use o Downloader ou Conversor conforme sua necessidade.</p>
+        <section id="tutorial" class="tutorial-section glass">
+            <div class="tutorial-bg-text">ENGINE</div>
+            <div class="tutorial-content">
+                <h2>Deploy em 3 Passos</h2>
+                <div class="steps-grid">
+                    <div class="step-item">
+                        <div class="step-icon"><i data-lucide="layers"></i></div>
+                        <h4>Extract</h4>
+                        <p>Descompacte o arsenal em um diretório seguro.</p>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-icon"><i data-lucide="shield-check"></i></div>
+                        <h4>Bootstrap</h4>
+                        <p>Execute o SETUP como Admin para configurar os motores.</p>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-icon"><i data-lucide="command"></i></div>
+                        <h4>Execute</h4>
+                        <p>Chame o Downloader ou Conversor pelo terminal.</p>
+                    </div>
                 </div>
             </div>
         </section>
     </main>
 
-    <footer>
-        <div class="container footer-content">
-            <p>&copy; 2026 OmniFetch Suite. Todos os direitos reservados.</p>
-            <div class="footer-links">
-                <a href="https://github.com/Bielicoman/omnifetch" target="_blank">Repositório GitHub</a>
-                <a href="https://instagram.com/alexascencioai" target="_blank">Instagram: @alexascencioai</a>
+    <footer class="main-footer">
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <div class="logo-text">OMNIFETCH</div>
+                <p>The state-of-the-art download suite for modern builders.</p>
+            </div>
+            <div class="footer-links-group">
+                <h5>Social</h5>
+                <a href="https://instagram.com/alexascencioai" target="_blank"><i data-lucide="instagram"></i> Instagram</a>
+                <a href="https://github.com/Bielicoman/omnifetch" target="_blank"><i data-lucide="github"></i> GitHub</a>
+            </div>
+            <div class="footer-attribution">
+                <p>Designed and Engineerred with ❤️ by</p>
+                <a href="https://instagram.com/alexascencioai" target="_blank" class="footer-name">Alex Ascencio</a>
             </div>
         </div>
     </footer>
 
     <script src="script.js"></script>
+    <script>
+        // Init Lucide
+        lucide.createIcons();
+        
+        // ScrollReveal
+        ScrollReveal().reveal('.tool-card', { delay: 200, distance: '50px', origin: 'bottom', interval: 100 });
+        ScrollReveal().reveal('.section-header', { delay: 100, scale: 0.9 });
+    </script>
 </body>
 </html>
