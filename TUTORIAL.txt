@@ -1,0 +1,75 @@
+=========================================================
+      MANUAL DE OPERAÇÃO - SUÍTE OMNIFETCH ULTIMATE
+=========================================================
+
+Bem-vindo(a) ao OmniFetch! Você tem em mãos um ecossistema 
+profissional de nível de estúdio para baixar e converter 
+qualquer tipo de arquivo na internet, rodando direto no 
+seu computador, sem anúncios e sem limites.
+
+Siga os passos abaixo para dominar a ferramenta em 3 minutos.
+
+---------------------------------------------------------
+PASSO 1: A INSTALAÇÃO (Faça isso apenas uma vez)
+---------------------------------------------------------
+Antes de usar os programas, seu computador precisa dos 
+"motores" que fazem a mágica acontecer.
+
+1. Dê dois cliques no arquivo "1_INSTALADOR.bat".
+2. Uma tela azul do Windows (UAC) vai aparecer pedindo 
+   permissão de Administrador. Clique em "Sim".
+3. O script vai abrir uma tela preta e instalar tudo 
+   sozinho (Python, FFmpeg, Calibre, yt-dlp).
+4. Apenas aguarde a mensagem de "SUCESSO" e feche a tela.
+
+---------------------------------------------------------
+PASSO 2: COMO USAR O BAIXADOR (2_DOWLOADER.bat)
+---------------------------------------------------------
+Este programa baixa vídeos, músicas, PDFs, ZIPs e qualquer 
+outra coisa através de um link.
+
+1. Copie o link do que você quer baixar (ex: link do YouTube, 
+   link do Google Drive, link de um PDF).
+2. Dê dois cliques em "2_DOWLOADER.bat".
+3. Cole o link na tela preta (pode usar Ctrl+V ou clicar 
+   com o botão direito do mouse) e aperte Enter.
+   *Nota: Se for um link de Playlist do YouTube, ele vai 
+   perceber sozinho e perguntar se você quer baixar tudo 
+   ou só um vídeo!
+4. Escolha a Categoria (Letras de A até J).
+5. Escolha o Formato exato (Números de 1 a 100).
+6. Ele vai perguntar onde você quer salvar. Se você apenas 
+   apertar Enter sem digitar nada, ele salva direto na sua 
+   pasta "Downloads" padrão do Windows.
+
+---------------------------------------------------------
+PASSO 3: COMO USAR O CONVERSOR (3_CONVERSOR.bat)
+---------------------------------------------------------
+Este programa transforma arquivos que já estão no seu PC 
+em outros formatos (ex: PDF para Word, MP4 para MP3, etc).
+
+1. Dê dois cliques em "3_CONVERSOR.bat".
+2. Ele vai pedir o "Caminho do arquivo".
+   DICA DE OURO: Vá até o arquivo no seu computador, clique 
+   nele com o botão direito e escolha "Copiar como caminho".
+   Depois, cole na tela preta e aperte Enter. (Não se preocupe 
+   com aspas, o programa limpa elas sozinho).
+3. Escolha a Categoria (Letras de A até D).
+4. Escolha o Formato para o qual deseja converter.
+5. Aperte Enter para salvar na pasta padrão (Downloads) ou 
+   digite o caminho de outra pasta.
+
+---------------------------------------------------------
+DICAS E SOLUÇÃO DE PROBLEMAS
+---------------------------------------------------------
+- "A tela fechou do nada!": Isso geralmente acontece se 
+  você não rodou o Instalador primeiro. Volte ao Passo 1.
+- "Onde estão meus arquivos?": Se você não digitou uma 
+  pasta específica, procure na pasta "Downloads" do seu PC.
+- Segurança: O programa é blindado. Você pode colar links 
+  ou caminhos com aspas, espaços ou caracteres estranhos, 
+  ele foi programado para limpar a sujeira e funcionar.
+
+=========================================================
+Desenvolvido por Alex Ascencio - @alexascencioai
+=========================================================

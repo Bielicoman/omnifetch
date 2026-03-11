@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OmniFetch Ultimate - Alex Ascencio</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="glass-bg"></div>
+    <div class="noise"></div>
+
+    <header>
+        <div class="container hero">
+            <pre class="ascii-logo">
+ ██████╗ ███╗   ███╗███╗   ██╗██╗███████╗███████╗████████╗ ██████╗ ██╗  ██╗
+██╔═══██╗████╗ ████║████╗  ██║██║██╔════╝██╔════╝╚══██╔══╝██╔════╝ ██║  ██║
+██║   ██║██╔████╔██║██╔██╗ ██║██║█████╗  █████╗     ██║   ██║      ███████║
+██║   ██║██║╚██╔╝██║██║╚██╗██║██║██╔══╝  ██╔══╝     ██║   ██║      ██╔══██║
+╚██████╔╝██║ ╚═╝ ██║██║ ╚████║██║██║     ███████╗   ██║   ╚██████╗ ██║  ██║
+ ╚═════╝ ╚═╝     ╚═╝╚═╝  ╚═══╝╚═╝╚═╝     ╚══════╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝
+            </pre>
+            <h1 class="glow-text">OmniFetch Ultimate</h1>
+            <p class="tagline">Ecossistema Profissional para Download e Conversão de Mídia</p>
+            <div class="author">
+                <span>Criado por <strong>Alex Ascencio</strong></span>
+                <span class="social">@alexascencioai</span>
+            </div>
+            <div class="main-cta">
+                <a href="OmniFetch_Ultimate.zip" class="btn btn-primary" download>
+                    <span class="btn-text">Baixar Suíte Completa (.ZIP)</span>
+                    <span class="btn-icon">📦</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="tools-grid">
+            <div class="card glass">
+                <div class="card-icon">🚀</div>
+                <h3>1. SETUP INSTALADOR</h3>
+                <p>Configura automaticamente o Python, FFmpeg e Calibre no seu sistema sem complicações.</p>
+                <button onclick="viewCode('setup')" class="btn btn-secondary">Ver Código</button>
+            </div>
+            <div class="card glass">
+                <div class="card-icon">⬇️</div>
+                <h3>2. OMNIFETCH BAIXADOR</h3>
+                <p>Baixe vídeos, playlists, áudios e documentos de mais de 1000 sites com um clique.</p>
+                <button onclick="viewCode('downloader')" class="btn btn-secondary">Ver Código</button>
+            </div>
+            <div class="card glass">
+                <div class="card-icon">⚡</div>
+                <h3>3. OMNIFETCH CONVERSOR</h3>
+                <p>O arsenal definitivo para converter mídia em dezenas de formatos profissionais.</p>
+                <button onclick="viewCode('conversor')" class="btn btn-secondary">Ver Código</button>
+            </div>
+        </section>
+
+        <section id="code-section" class="code-viewer hidden">
+            <div class="code-header">
+                <h4 id="code-title">Código Fonte</h4>
+                <button onclick="closeCode()" class="close-btn">&times;</button>
+            </div>
+            <pre><code id="code-content" class="language-batch"></code></pre>
+            <div class="code-footer">
+                <button onclick="copyCode()" class="btn btn-small">Copiar Código</button>
+            </div>
+        </section>
+
+        <section class="tutorial glass">
+            <h2>Manual de Operação</h2>
+            <div class="tutorial-steps">
+                <div class="step">
+                    <span class="step-num">01</span>
+                    <p>Extraia o arquivo .ZIP para uma pasta permanente.</p>
+                </div>
+                <div class="step">
+                    <span class="step-num">02</span>
+                    <p>Execute o <strong>1 SETUP.bat</strong> como Administrador.</p>
+                </div>
+                <div class="step">
+                    <span class="step-num">03</span>
+                    <p>Use o Downloader ou Conversor conforme sua necessidade.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container footer-content">
+            <p>&copy; 2026 OmniFetch Suite. Todos os direitos reservados.</p>
+            <div class="footer-links">
+                <a href="https://github.com/Bielicoman/omnifetch" target="_blank">Repositório GitHub</a>
+                <a href="https://instagram.com/alexascencioai" target="_blank">Instagram: @alexascencioai</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
