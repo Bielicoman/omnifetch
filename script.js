@@ -2,21 +2,27 @@
 const codes = {
     setup: `@echo off
 chcp 65001 >nul
-title OmniFetch Instalador
+title OmniFetch Instalador Portatil
 color 0B
 
-:: --- AUTO-ELEVACAO BLINDADA ---
-net session >nul 2>&1
-if %errorLevel% neq 0 (
+:: --- ELEVACAO AUTOMATICA PARA ADMINISTRADOR ---
+>nul 2>&1 "%SYSTEMROOT%\\system32\\cacls.exe" "%SYSTEMROOT%\\system32\\config\\system"
+if '%errorlevel%' NEQ '0' (
+    echo  Solicitando privilegios de Administrador...
+    goto UACPrompt
+) else ( goto gotAdmin )
+
+:UACPrompt
     echo Set UAC = CreateObject^("Shell.Application"^) > "%temp%\\getadmin.vbs"
     echo UAC.ShellExecute "%~s0", "", "", "runas", 1 >> "%temp%\\getadmin.vbs"
     "%temp%\\getadmin.vbs"
     del "%temp%\\getadmin.vbs"
     exit /B
-)
-:: Forca o diretorio correto apos a elevacao
-cd /d "%~dp0"
-:: ------------------------------
+
+:gotAdmin
+    pushd "%CD%"
+    CD /D "%~dp0"
+:: ----------------------------------------------
 
 cls
 echo.
@@ -28,58 +34,36 @@ echo ╚██████╔╝██║ ╚═╝ ██║██║ ╚██
 echo  ╚═════╝ ╚═╝     ╚═╝╚═╝  ╚═══╝╚═╝╚═╝     ╚══════╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝
 echo.
 echo  =======================================
-echo  ✨ BEM-VINDO AO INSTALADOR OMNIFETCH! ✨
+echo  ✨ INSTALADOR OMNIFETCH PORTATIL ✨
 echo  =======================================
-echo  Este script ira configurar tudo para voce.
+echo  Baixando motores independentes (Zero Reinicios)...
 echo.
 
-echo  Verificando Python...
-python --version >nul 2>&1
-if %errorLevel% neq 0 (
-    echo  Instalando Python...
-    winget install Python.Python.3.12 --silent --accept-package-agreements --accept-source-agreements || goto fim_erro
-) else (
-    echo  Python OK.
-)
+:: Cria a pasta de motores se nao existir
+if not exist "%~dp0motores" mkdir "%~dp0motores"
+
+echo  [1/3] Baixando motor de Download (yt-dlp)...
+curl -L -o "%~dp0motores\\yt-dlp.exe" "https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp.exe"
 
 echo.
-echo  Instalando yt-dlp e dependencias de metadados...
-pip install yt-dlp mutagen --quiet --upgrade || goto fim_erro
-echo  yt-dlp e Mutagen OK.
+echo  [2/3] Baixando motor de Conversao (FFmpeg)...
+curl -L -o "%~dp0motores\\ffmpeg.zip" "https://github.com/BtbN/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-win64-gpl.zip"
+echo  Extraindo arquivos...
+powershell -Command "Expand-Archive -Path '%~dp0motores\\ffmpeg.zip' -DestinationPath '%~dp0motores\\ffmpeg_temp' -Force"
+move /y "%~dp0motores\\ffmpeg_temp\\*\\bin\\ffmpeg.exe" "%~dp0motores\\" >nul
+move /y "%~dp0motores\\ffmpeg_temp\\*\\bin\\ffprobe.exe" "%~dp0motores\\" >nul
+rmdir /s /q "%~dp0motores\\ffmpeg_temp"
+del /q "%~dp0motores\\ffmpeg.zip"
 
 echo.
-echo  Instalando FFmpeg...
-winget install Gyan.FFmpeg --silent --accept-package-agreements --accept-source-agreements || goto fim_erro
-echo  FFmpeg OK.
+echo  [3/3] Instalando motor de Documentos (Calibre)...
+winget install calibre.calibre --silent --accept-package-agreements --accept-source-agreements
 
-echo.
-echo  Instalando Calibre...
-winget install calibre.calibre --silent --accept-package-agreements --accept-source-agreements || goto fim_erro
-echo  Calibre OK.
-
-goto fim_sucesso
-
-:fim_sucesso
 echo.
 echo  =======================================
-echo  🎉 OMNIFETCH CONFIGURADO COM SUCESSO! 🎉
+echo  🎉 MOTORES PORTATEIS INSTALADOS! 🎉
 echo  =======================================
-echo  Agora voce pode usar os atalhos:
-echo  ➡️ "2_DOWLOADER.bat" para downloads.
-echo  ➡️ "3_CONVERSOR.bat" para conversoes.
-echo.
-echo  Pressione qualquer tecla para sair.
-pause >nul
-exit
-
-:fim_erro
-echo.
-echo  =======================================
-echo  ❌ INSTALACAO DO OMNIFETCH COM ERROS! ❌
-echo  =======================================
-echo  Alguns componentes podem nao ter sido instalados corretamente.
-echo  Por favor, revise as mensagens acima.
-echo.
+echo  Tudo pronto! NAO e necessario reiniciar o PC.
 echo  Pressione qualquer tecla para sair.
 pause >nul
 exit`,
@@ -499,6 +483,10 @@ if "%CATEGORIA%"=="4" goto menu_docs
 if "%CATEGORIA%"=="0" goto inicio
 goto menu_categorias
 
+:: ==========================================
+:: MENUS ESPECIFICOS
+:: ==========================================
+
 :menu_video
 cls
 echo.
@@ -587,6 +575,10 @@ set /p OPCAO=Sua escolha:
 if "%OPCAO%"=="99" goto menu_categorias
 goto processar_pasta
 
+:: ==========================================
+:: PROCESSAMENTO DE PASTA E ROTEAMENTO
+:: ==========================================
+
 :processar_pasta
 echo.
 set "PASTA="
@@ -619,6 +611,9 @@ echo  Opcao invalida. Tente novamente.
 pause
 goto menu_categorias
 
+:: ==========================================
+:: BLOCOS DE CONVERSAO - VIDEO (100s)
+:: ==========================================
 :conv_101
 call :checar_ffmpeg || goto fim_erro
 call %FFMPEG_PATH% -i "%ARQUIVO%" -c:v libx264 -preset slow -crf 18 -c:a aac -b:a 320k "%PASTA%\\%NOME%.mp4"
@@ -699,6 +694,9 @@ call :checar_ffmpeg || goto fim_erro
 call %FFMPEG_PATH% -i "%ARQUIVO%" -c:v libtheora -c:a libvorbis "%PASTA%\\%NOME%.ogv"
 goto fim_sucesso
 
+:: ==========================================
+:: BLOCOS DE CONVERSAO - AUDIO (200s)
+:: ==========================================
 :conv_201
 call :checar_ffmpeg || goto fim_erro
 call %FFMPEG_PATH% -i "%ARQUIVO%" -vn -c:a libmp3lame -b:a 320k "%PASTA%\\%NOME%.mp3"
@@ -779,6 +777,9 @@ call :checar_ffmpeg || goto fim_erro
 call %FFMPEG_PATH% -i "%ARQUIVO%" -vn -c:a copy "%PASTA%\\%NOME%.mka"
 goto fim_sucesso
 
+:: ==========================================
+:: BLOCOS DE CONVERSAO - IMAGEM (300s)
+:: ==========================================
 :conv_301
 call :checar_ffmpeg || goto fim_erro
 call %FFMPEG_PATH% -i "%ARQUIVO%" -vframes 1 -q:v 2 "%PASTA%\\%NOME%.jpg"
@@ -839,6 +840,9 @@ call :checar_ffmpeg || goto fim_erro
 call %FFMPEG_PATH% -i "%ARQUIVO%" -vframes 1 -c:v sgi "%PASTA%\\%NOME%.sgi"
 goto fim_sucesso
 
+:: ==========================================
+:: BLOCOS DE CONVERSAO - DOCS (400s)
+:: ==========================================
 :conv_401
 call :checar_calibre || goto fim_erro
 call %EBOOK_CONVERT_PATH% "%ARQUIVO%" "%PASTA%\\%NOME%.epub"
@@ -919,6 +923,10 @@ call :checar_calibre || goto fim_erro
 call %EBOOK_CONVERT_PATH% "%ARQUIVO%" "%PASTA%\\%NOME%.snb"
 goto fim_sucesso
 
+:: ==========================================
+:: FUNCOES DE CHECAGEM
+:: ==========================================
+
 :checar_ffmpeg
 where /q %FFMPEG_PATH%
 if errorlevel 1 (
@@ -934,6 +942,10 @@ if errorlevel 1 (
     exit /b 1
 )
 exit /b 0
+
+:: ==========================================
+:: RESULTADOS
+:: ==========================================
 
 :fim_sucesso
 if errorlevel 1 goto fim_erro

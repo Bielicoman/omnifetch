@@ -130,22 +130,51 @@
         <section id="tutorial" class="tutorial-section glass">
             <div class="tutorial-bg-text">ENGINE</div>
             <div class="tutorial-content">
+                <div class="section-badge">Manual de Operação</div>
                 <h2>Deploy em 3 Passos</h2>
                 <div class="steps-grid">
                     <div class="step-item">
-                        <div class="step-icon"><i data-lucide="layers"></i></div>
-                        <h4>Extract</h4>
-                        <p>Descompacte o arsenal em um diretório seguro.</p>
+                        <div class="step-icon"><i data-lucide="package-open"></i></div>
+                        <div class="step-number">01</div>
+                        <h4>Unpack</h4>
+                        <p>Extraia todos os arquivos do ZIP para uma pasta local segura (Ex: Desktop ou Documentos).</p>
                     </div>
                     <div class="step-item">
                         <div class="step-icon"><i data-lucide="shield-check"></i></div>
-                        <h4>Bootstrap</h4>
-                        <p>Execute o SETUP como Admin para configurar os motores.</p>
+                        <div class="step-number">02</div>
+                        <h4>Initialize</h4>
+                        <p>Execute o <b>1 SETUP.bat</b> como Administrador para calibrar os motores táticos.</p>
                     </div>
                     <div class="step-item">
-                        <div class="step-icon"><i data-lucide="command"></i></div>
+                        <div class="step-icon"><i data-lucide="zap"></i></div>
+                        <div class="step-number">03</div>
                         <h4>Execute</h4>
-                        <p>Chame o Downloader ou Conversor pelo terminal.</p>
+                        <p>Lançar o <b>Downloader</b> ou <b>Conversor</b>. Cole o link ou caminho e deixe a engenharia brilhar.</p>
+                    </div>
+                </div>
+
+                <div class="faq-container">
+                    <div class="faq-header">
+                        <i data-lucide="help-circle"></i>
+                        <h3>Troubleshooting & Suporte</h3>
+                    </div>
+                    <div class="faq-grid">
+                        <div class="faq-card">
+                            <h5>A tela fecha instantaneamente?</h5>
+                            <p>Provavelmente os motores (yt-dlp ou ffmpeg) não foram baixados. Execute o arquivo de SETUP novamente com privilégios de administrador.</p>
+                        </div>
+                        <div class="faq-card">
+                            <h5>Erro 403 / Proibidão no Download?</h5>
+                            <p>Sites como YouTube atualizam seus algoritmos. Rode o SETUP para atualizar o yt-dlp para a versão mais recente disponível.</p>
+                        </div>
+                        <div class="faq-card">
+                            <h5>Onde os arquivos são salvos?</h5>
+                            <p>Por padrão, tudo é enviado para a pasta <b>Downloads</b> do seu usuário Windows, a menos que você especifique um caminho manual.</p>
+                        </div>
+                        <div class="faq-card">
+                            <h5>É seguro executar os .bat?</h5>
+                            <p>100%. O código é aberto e você pode inspecionar cada linha. Não coletamos dados, não há anúncios, apenas automação pura.</p>
+                        </div>
                     </div>
                 </div>
             </div>

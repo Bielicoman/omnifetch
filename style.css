@@ -409,25 +409,97 @@ body {
     gap: 4rem;
 }
 
-.step-item {
-    text-align: center;
-}
-
-.step-icon {
-    width: 50px;
-    height: 50px;
-    margin: 0 auto 1.5rem;
-    color: var(--primary);
-}
-
-.step-item h4 {
-    font-size: 1.2rem;
-    margin-bottom: 1rem;
-    color: var(--primary);
-}
-
 .step-item p {
     color: var(--text-dim);
+}
+
+.section-badge {
+    display: table;
+    margin: 0 auto 1rem;
+    background: rgba(0, 255, 136, 0.1);
+    color: var(--primary);
+    padding: 0.4rem 1rem;
+    border-radius: 100px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.step-number {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 3rem;
+    font-weight: 900;
+    color: white;
+    opacity: 0.05;
+    position: absolute;
+    top: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: -1;
+}
+
+.step-item {
+    position: relative;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    transition: 0.3s;
+}
+
+.step-item:hover {
+    background: rgba(255, 255, 255, 0.04);
+    transform: translateY(-5px);
+}
+
+/* FAQ / Troubleshooting */
+.faq-container {
+    margin-top: 6rem;
+    padding-top: 4rem;
+    border-top: 1px solid var(--border);
+}
+
+.faq-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 3rem;
+}
+
+.faq-header i {
+    color: var(--primary);
+}
+
+.faq-header h3 {
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.faq-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+}
+
+.faq-card {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 2rem;
+    border-radius: 16px;
+    border-left: 3px solid var(--primary);
+}
+
+.faq-card h5 {
+    font-size: 1.1rem;
+    color: white;
+    margin-bottom: 0.8rem;
+}
+
+.faq-card p {
+    color: var(--text-dim);
+    font-size: 0.9rem;
+    line-height: 1.5;
 }
 
 /* Footer */
