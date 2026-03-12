@@ -247,6 +247,36 @@ body {
     font-weight: 600;
 }
 
+/* System Status Indicators */
+.system-status {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+.status-item {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+}
+
+.dot-small {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.green-bg { background: var(--primary); box-shadow: 0 0 10px var(--primary); }
+.blue-bg { background: #0088ff; box-shadow: 0 0 10px #0088ff; }
+
 /* Buttons */
 .hero-actions {
     display: flex;
