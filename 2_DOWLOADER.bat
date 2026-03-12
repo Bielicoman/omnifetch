@@ -1,4 +1,6 @@
 @echo off
+set "PATH=%~dp0;%PATH%"
+set "PATH=%~dp0motores;%PATH%"
 setlocal enabledelayedexpansion
 chcp 65001 >nul
 title OmniFetch Baixador Ultimate - Arsenal 100

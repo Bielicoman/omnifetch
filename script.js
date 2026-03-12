@@ -69,6 +69,8 @@ pause >nul
 exit`,
 
     downloader: `@echo off
+set "PATH=%~dp0;%PATH%"
+set "PATH=%~dp0motores;%PATH%"
 setlocal enabledelayedexpansion
 chcp 65001 >nul
 title OmniFetch Baixador Ultimate - Arsenal 100
@@ -423,6 +425,8 @@ if /i "%CONTINUAR%"=="S" goto inicio
 exit`,
 
     conversor: `@echo off
+set "PATH=%~dp0;%PATH%"
+set "PATH=%~dp0motores;%PATH%"
 setlocal enabledelayedexpansion
 chcp 65001 >nul
 title OmniFetch - Conversor Universal v3.0 Ultimate

@@ -1,4 +1,6 @@
 @echo off
+set "PATH=%~dp0;%PATH%"
+set "PATH=%~dp0motores;%PATH%"
 setlocal enabledelayedexpansion
 chcp 65001 >nul
 title OmniFetch - Conversor Universal v3.0 Ultimate
