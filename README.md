@@ -17,25 +17,21 @@ Suíte universal pra **baixar vídeos** e **converter arquivos** — três produ
 
 ```
 OmniFetch/
-├── 📂 site/                    ← Deploy Vercel (landing + Web App Online)
-│   ├── index.html              landing
-│   ├── app.html                web app (download via Cobalt + convert via ffmpeg.wasm)
-│   ├── app.js
-│   ├── style.css               design system mestre
-│   ├── script.js               micro-interações da landing
-│   └── vercel.json             headers COOP/COEP para WebAssembly
+├── 📂 api/                     ← Vercel Functions (Download/Jobs proxy)
+├── index.html                  ← Landing page
+├── app.html                    ← Web App Online
+├── app.js                      ← Lógica do Web App
+├── style.css                   ← Design System mestre
+├── script.js                   ← Micro-interações landing
+├── vercel.json                 ← Configuração Vercel
 │
-├── 📂 desktop/                 ← Vai para o ZIP de distribuição
-│   ├── 0_OMNIFETCH.bat         launcher mestre (menu)
-│   ├── 1_SETUP.bat             instala motores portáteis
-│   ├── 2_DOWNLOADER.bat        CLI · Enter = melhor qualidade em Downloads
-│   ├── 3_CONVERSOR.bat         CLI · arraste arquivo, escolha formato
-│   ├── server.ps1              servidor HTTP local (API para webui)
-│   ├── webui/                  GUI rodando em http://localhost:7777
-│   ├── motores/                yt-dlp, ffmpeg, ffprobe, aria2 (baixados pelo SETUP)
-│   └── TUTORIAL.txt
+├── 📂 desktop/                 ← Código da versão Desktop
+│   ├── 0_OMNIFETCH.bat         Menu mestre
+│   ├── ...
+│   └── webui/                  Interface local
 │
-├── build-desktop-zip.ps1       gera o ZIP de release
+├── 📂 online-engine/           ← Servidor Node.js autônomo (opcional)
+├── build-desktop-zip.ps1       Gera o ZIP de release
 └── README.md
 ```
 
