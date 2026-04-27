@@ -209,14 +209,15 @@ body {
 .nav-content {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 8px 24px;
-    display: flex;
-    justify-content: space-between;
+    padding: 12px 24px;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
     align-items: center;
     position: relative;
 }
 
 .logo-wrapper {
+    grid-column: 2;
     display: flex;
     align-items: center;
     gap: 12px;
@@ -247,9 +248,11 @@ body {
 }
 
 .nav-links {
+    grid-column: 3;
     display: flex;
-    gap: 32px;
+    gap: 24px;
     align-items: center;
+    justify-self: end;
 }
 
 .nav-links a {
