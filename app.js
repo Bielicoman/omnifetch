@@ -10,6 +10,8 @@ const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 // Pool de instancias Cobalt tenta uma apos a outra ate alguma funcionar.
 // A lista pode ser editada em "Avancado" pelo usuario.
 const DEFAULT_INSTANCES = [
+  'https://cobalt.moe/',
+  'https://cobalt.inst.m-99.net/',
   'https://cobalt.qis.sh/',
   'https://cobalt.bcow.xyz/',
   'https://cobalt-api.meowing.de/',
@@ -451,17 +453,44 @@ async function runDownload(url, item) {
   const cleanUrl = sanitizeUrl(url);
   updateItem(item, { sub: 'Tentando instancias publicas...', status: 'processing', indeterminate: true });
   
-  let data;
+  let data = null;
   try {
     data = await postWithFallback(buildDownloadBody(cleanUrl));
   } catch (err) {
-    // If it failed, try one more time with 'auto' quality and no codec forcing
-    updateItem(item, { sub: 'Refazendo com modo de compatibilidade...', indeterminate: true });
-    const body = buildDownloadBody(cleanUrl);
-    body.videoQuality = '720'; // Force 720p which is often more available
-    body.youtubeVideoCodec = null;
-    body.youtubeVideoContainer = null;
-    data = await postWithFallback(body);
+    try {
+      updateItem(item, { sub: 'Refazendo com modo de compatibilidade...', indeterminate: true });
+      const body = buildDownloadBody(cleanUrl);
+      body.videoQuality = '720'; 
+      body.youtubeVideoCodec = null;
+      body.youtubeVideoContainer = null;
+      data = await postWithFallback(body);
+    } catch (err2) {
+      console.warn('Cobalt falhou totalmente, tentando Piped...', err2);
+    }
+  }
+
+  // LAST RESORT: Piped API Fallback (Only for YouTube)
+  if (!data || data.status === 'error') {
+    try {
+      const videoId = cleanUrl.match(/(?:youtu\.be\/|youtube\.com\/(?:.*v=|.*\/|.*vi=))([^&?#]+)/)?.[1];
+      if (videoId) {
+        updateItem(item, { sub: 'Usando motor de emergencia Piped...', indeterminate: true });
+        const pipedInst = ['https://pipedapi.kavin.rocks', 'https://api.piped.victr.me', 'https://piped-api.lunar.icu'];
+        for (const inst of pipedInst) {
+          try {
+            const res = await fetch(`${inst}/streams/${videoId}`);
+            if (res.ok) {
+              const pData = await res.json();
+              const stream = pData.videoStreams?.find(s => s.quality === '720p' && s.format === 'mp4') || pData.videoStreams?.[0];
+              if (stream) {
+                data = { status: 'redirect', url: stream.url, filename: pData.title };
+                break;
+              }
+            }
+          } catch(e) {}
+        }
+      }
+    } catch(e) {}
   }
 
   if (data.status === 'error') {
@@ -886,11 +915,14 @@ async function initFFmpeg() {
       throw new Error('O conversor online precisa rodar em HTTPS ou localhost.');
     }
 
+    console.log('Iniciando carregamento de bibliotecas locais...');
     await loadScriptOnce('ffmpeg-wasm', [
       '/lib/ffmpeg.js',
+      'https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.12.10/dist/umd/ffmpeg.js'
     ]);
     await loadScriptOnce('ffmpeg-util', [
       '/lib/ffmpeg-util.js',
+      'https://cdn.jsdelivr.net/npm/@ffmpeg/util@0.12.1/dist/umd/index.js'
     ]);
 
     if (!window.FFmpegWASM?.FFmpeg || !window.FFmpegUtil?.fetchFile) {
@@ -907,11 +939,21 @@ async function initFFmpeg() {
       fill.style.width = Math.min(100, Math.max(0, progress * 100)) + '%';
     });
 
+    console.log('FFmpeg bibliotecas OK, iniciando ff.load()...');
     const baseURL = '/lib';
-    await ff.load({
-      coreURL: await toBlobURL(`${baseURL}/ffmpeg-core.js`, 'text/javascript'),
-      wasmURL: await toBlobURL(`${baseURL}/ffmpeg-core.wasm`, 'application/wasm'),
-    });
+    try {
+      await ff.load({
+        coreURL: await toBlobURL(`${baseURL}/ffmpeg-core.js`, 'text/javascript'),
+        wasmURL: await toBlobURL(`${baseURL}/ffmpeg-core.wasm`, 'application/wasm'),
+      });
+    } catch (loadErr) {
+      console.error('Erro ao carregar do /lib, tentando CDN...', loadErr);
+      const cdnBase = 'https://cdn.jsdelivr.net/npm/@ffmpeg/core@0.12.6/dist/umd';
+      await ff.load({
+        coreURL: await toBlobURL(`${cdnBase}/ffmpeg-core.js`, 'text/javascript'),
+        wasmURL: await toBlobURL(`${cdnBase}/ffmpeg-core.wasm`, 'application/wasm'),
+      });
+    }
 
     state.ffmpeg = ff;
     state.ffmpegReady = true;
