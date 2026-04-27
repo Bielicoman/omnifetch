@@ -7,7 +7,9 @@
     --card: #111111;
     --text: #ffffff;
     --text-dim: #888888;
-    --glass: rgba(15, 15, 15, 0.7);
+    --glass: rgba(255, 255, 255, 0.03);
+    --liquid-bg: rgba(255, 255, 255, 0.05);
+    --liquid-border: rgba(255, 255, 255, 0.12);
     --border: rgba(255, 255, 255, 0.08);
     --accent-glow: rgba(0, 255, 136, 0.25);
     --mx: 52%;
@@ -183,10 +185,10 @@ body {
     top: 0;
     left: 0;
     right: 0;
-    background: rgba(5, 5, 5, 0.85);
-    backdrop-filter: blur(12px) saturate(150%);
-    -webkit-backdrop-filter: blur(12px) saturate(150%);
-    border-bottom: 1px solid rgba(0, 255, 136, 0.15);
+    background: var(--liquid-bg);
+    backdrop-filter: blur(15px) saturate(150%);
+    -webkit-backdrop-filter: blur(15px) saturate(150%);
+    border-bottom: 1px solid var(--liquid-border);
     z-index: 1000;
     overflow: hidden;
     padding: 8px 0;
@@ -2070,4 +2072,45 @@ body {
 .v3-hero-content {
     text-align: center;
     padding: 120px 20px 80px;
+}
+
+/* ==========================================================================
+   LIQUID GLASS SYSTEM (Apple-Inspired)
+   ========================================================================== */
+.liquid-glass, .glass {
+    background: var(--liquid-bg);
+    backdrop-filter: blur(15px) saturate(150%);
+    -webkit-backdrop-filter: blur(15px) saturate(150%);
+    border: 1px solid var(--liquid-border);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    border-radius: 24px;
+    transition: all 0.4s ease;
+}
+
+.tool-card.glass {
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    text-align: left;
+    height: 100%;
+}
+
+.tool-card.glass:hover {
+    transform: translateY(-8px) scale(1.02);
+    border-color: rgba(0, 255, 136, 0.4);
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(0, 255, 136, 0.1);
+}
+
+.icon-box {
+    width: 50px;
+    height: 50px;
+    background: rgba(0, 255, 136, 0.1);
+    border: 1px solid rgba(0, 255, 136, 0.2);
+    border-radius: 12px;
+    display: grid;
+    place-items: center;
+    color: var(--primary);
+    margin-bottom: 8px;
 }
