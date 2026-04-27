@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "omnifetch-site",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["http-server", "./site", "-p", "8888", "-c-1", "--cors"],
+      "port": 8888
+    },
+    {
+      "name": "omnifetch-webui",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["http-server", "./desktop/webui", "-p", "8889", "-c-1", "--cors"],
+      "port": 8889
+    }
+  ]
+}

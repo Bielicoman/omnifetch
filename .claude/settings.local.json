@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -sL \"https://omnifetch.vercel.app/\")",
+      "PowerShell(try { $r = Invoke-WebRequest -Uri \"https://omnifetch.vercel.app/\" -UseBasicParsing -TimeoutSec 30; Write-Output \"STATUS: $\\($r.StatusCode\\)\"; Write-Output \"LENGTH: $\\($r.Content.Length\\)\"; Write-Output \"---HEAD---\"; Write-Output $r.Content.Substring\\(0, [Math]::Min\\(3000, $r.Content.Length\\)\\) } catch { Write-Output \"ERROR: $_\" })",
+      "WebSearch",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:instances.cobalt.best)",
+      "PowerShell($root = \"E:\\\\IA\\\\10_🛠️_Tools\\\\FERRAMENTAS\\\\OmniFetch\"; Remove-Item -LiteralPath \"$root\\\\1 - OMNICORE SETUP.bat\",\"$root\\\\2 - DOWNLOADER ULTIMATE.bat\",\"$root\\\\3 - CONVERT ULTIMATE.bat\",\"$root\\\\OmniFetch_Ultimate.zip\",\"$root\\\\cspell.json\" -Force -ErrorAction Continue; Remove-Item -LiteralPath \"$root\\\\0\" -Recurse -Force -ErrorAction Continue; Write-Output \"DELETADOS\"; Get-ChildItem -Force $root | Select-Object Mode, Length, Name | Format-Table -AutoSize)",
+      "WebFetch(domain:codeberg.org)",
+      "WebFetch(domain:hyper.lol)"
+    ]
+  }
+}

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OmniFetch Desktop</title>
+  <meta name="theme-color" content="#050505">
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="dark-mode app-body">
+  <div class="blob-container">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
+  <div class="noise-overlay"></div>
+
+  <header class="app-header">
+    <div class="container">
+      <a href="index.html" class="app-brand">
+        <span class="brand-mark"><i data-lucide="terminal"></i></span>
+        <span class="brand-name official-logo" data-text="OMNIFETCH">OMNIFETCH<span>DESKTOP</span></span>
+      </a>
+
+      <nav class="app-tabs" id="appTabs">
+        <button class="app-tab active" data-panel="download"><i data-lucide="download"></i><span>Baixar</span></button>
+        <button class="app-tab" data-panel="convert"><i data-lucide="repeat"></i><span>Converter</span></button>
+        <button class="app-tab" data-panel="queue"><i data-lucide="list"></i><span>Fila</span></button>
+        <button class="app-tab" data-panel="system"><i data-lucide="activity"></i><span>Sistema</span></button>
+      </nav>
+
+      <div class="engine-pill" id="enginePill" data-status="checking">
+        <span class="dot"></span>
+        <span id="engineLabel">Verificando</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="app-main">
+    <div class="container" style="max-width: 880px;">
+
+      <!-- DOWNLOAD -->
+      <section class="app-panel active" id="panel-download">
+        <div class="panel-header">
+          <h2>Baixar modo Desktop</h2>
+          <p>Roda <code>yt-dlp</code> nativo. Sem rate-limit, sem proxy, velocidade total.</p>
+        </div>
+
+        <div class="agent-alert" id="agentAlert" hidden>
+          <i data-lucide="power"></i>
+          <div>
+            <strong>Desktop Agent precisa estar ligado</strong>
+            <span>Abra <code>0_OMNIFETCH.bat</code> e escolha <code>[1] Web GUI local</code>. Depois use esta tela em <code>http://localhost:7777</code>.</span>
+          </div>
+        </div>
+
+        <div class="field-card">
+          <div class="field-row">
+            <label class="field-label" for="urlInput"><i data-lucide="link" style="width:14px;height:14px;color:var(--primary);"></i> URL do conteudo</label>
+            <div class="url-input-group">
+              <input type="url" id="urlInput" class="input" placeholder="https://youtube.com/watch?v=..." autocomplete="off" autofocus>
+              <button class="paste-btn" id="pasteBtn" type="button"><i data-lucide="clipboard"></i> COLAR</button>
+            </div>
+          </div>
+
+          <div class="field-row">
+            <label class="field-label"><i data-lucide="film" style="width:14px;height:14px;color:var(--primary);"></i> Modo</label>
+            <div class="chips" id="modeChips">
+              <button class="chip active" data-mode="video"><i data-lucide="video"></i><span>Video</span></button>
+              <button class="chip" data-mode="audio"><i data-lucide="music-2"></i><span>Apenas audio</span></button>
+              <button class="chip" data-mode="mute"><i data-lucide="volume-x"></i><span>Video sem audio</span></button>
+            </div>
+          </div>
+
+          <div class="field-row" id="videoQualityRow">
+            <label class="field-label"><i data-lucide="monitor" style="width:14px;height:14px;color:var(--primary);"></i> Qualidade</label>
+            <div class="chips" id="videoChips">
+              <button class="chip active" data-vq="best"><i data-lucide="zap"></i><span>Maxima</span></button>
+              <button class="chip" data-vq="2160"><span>4K</span></button>
+              <button class="chip" data-vq="1440"><span>2K</span></button>
+              <button class="chip" data-vq="1080"><span>1080p</span></button>
+              <button class="chip" data-vq="720"><span>720p</span></button>
+              <button class="chip" data-vq="480"><span>480p</span></button>
+            </div>
+          </div>
+
+          <div class="field-row" id="audioFormatRow" style="display:none;">
+            <label class="field-label"><i data-lucide="music" style="width:14px;height:14px;color:var(--primary);"></i> Formato de audio</label>
+            <div class="chips" id="audioChips">
+              <button class="chip active" data-af="mp3"><span>MP3 320</span></button>
+              <button class="chip" data-af="m4a"><span>M4A</span></button>
+              <button class="chip" data-af="opus"><span>OPUS</span></button>
+              <button class="chip" data-af="flac"><span>FLAC</span></button>
+              <button class="chip" data-af="wav"><span>WAV</span></button>
+            </div>
+          </div>
+
+          <div class="field-row">
+            <label class="field-label"><i data-lucide="folder" style="width:14px;height:14px;color:var(--primary);"></i> Pasta de destino</label>
+            <input type="text" class="input" id="destInput" placeholder="(padrao: ~/Downloads)">
+          </div>
+
+          <div class="btn-row" style="margin-top:1.25rem;">
+            <button class="btn" id="downloadBtn"><i data-lucide="download-cloud"></i> Baixar agora</button>
+            <button class="btn ghost" id="openDownloadsBtn" type="button"><i data-lucide="folder-open"></i> Abrir pasta</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- CONVERT -->
+      <section class="app-panel" id="panel-convert">
+        <div class="panel-header">
+          <h2>Converter modo Desktop</h2>
+          <p>Cole o caminho do arquivo (ou arraste um arquivo na janela). Sem limite de tamanho.</p>
+        </div>
+
+        <div class="field-card">
+          <div class="field-row">
+            <label class="field-label"><i data-lucide="file" style="width:14px;height:14px;color:var(--primary);"></i> Caminho do arquivo</label>
+            <div class="url-input-group">
+              <input type="text" id="filePathInput" class="input" placeholder="C:\caminho\para\arquivo.mp4">
+              <button class="paste-btn" id="pastePathBtn" type="button"><i data-lucide="clipboard"></i> COLAR</button>
+            </div>
+          </div>
+
+          <div class="field-row">
+            <label class="field-label" for="formatSelect"><i data-lucide="file-output" style="width:14px;height:14px;color:var(--primary);"></i> Converter para</label>
+            <select class="select" id="formatSelect">
+              <optgroup label="Video">
+                <option value="mp4">MP4 (H.264 / AAC)</option>
+                <option value="mkv">MKV (H.264 / FLAC)</option>
+                <option value="webm">WEBM (VP9 / Opus)</option>
+                <option value="mov">MOV (H.264 / AAC)</option>
+                <option value="gif">GIF animado</option>
+              </optgroup>
+              <optgroup label="Audio">
+                <option value="mp3">MP3 (320 kbps)</option>
+                <option value="wav">WAV (PCM 16-bit)</option>
+                <option value="flac">FLAC</option>
+                <option value="ogg">OGG</option>
+                <option value="opus">OPUS</option>
+                <option value="aac">AAC</option>
+                <option value="m4a">M4A</option>
+              </optgroup>
+              <optgroup label="Imagem">
+                <option value="jpg">JPG</option>
+                <option value="png">PNG</option>
+                <option value="webp">WEBP</option>
+              </optgroup>
+            </select>
+          </div>
+
+          <div class="field-row">
+            <label class="field-label"><i data-lucide="folder" style="width:14px;height:14px;color:var(--primary);"></i> Pasta de saida</label>
+            <input type="text" class="input" id="convertDest" placeholder="(padrao: mesma pasta do arquivo)">
+          </div>
+
+          <div class="btn-row" style="margin-top:1.25rem;">
+            <button class="btn" id="convertBtn"><i data-lucide="repeat"></i> Converter</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- QUEUE -->
+      <section class="app-panel" id="panel-queue">
+        <div class="panel-header">
+          <h2>Fila & resultados</h2>
+          <p>Tudo que voce baixou ou converteu nesta sessao.</p>
+        </div>
+        <div class="queue-list" id="queueList">
+          <div class="empty-state" id="emptyQueue">
+            <i data-lucide="inbox"></i>
+            <div>Nada por aqui ainda. Comece pela aba <b>Baixar</b> ou <b>Converter</b>.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SYSTEM -->
+      <section class="app-panel" id="panel-system">
+        <div class="panel-header">
+          <h2>Sistema local</h2>
+          <p>Diagnostico do agente Desktop, motores nativos, pasta de saida e jobs ativos.</p>
+        </div>
+
+        <div class="field-card">
+          <div class="btn-row" style="justify-content:space-between;align-items:center;margin-bottom:1rem;">
+            <strong>Saude do OmniFetch</strong>
+            <button class="btn ghost" id="refreshDiagnosticsBtn" type="button" style="font-size:0.85rem;padding:0.55rem 0.9rem;">
+              <i data-lucide="refresh-cw"></i> Atualizar
+            </button>
+          </div>
+          <div class="diagnostic-grid" id="diagnosticGrid">
+            <div class="empty-state"><i data-lucide="loader"></i><div>Carregando diagnostico...</div></div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <div class="toast-stack" id="toastStack"></div>
+
+  <script src="app.js"></script>
+  <script>lucide.createIcons();</script>
+</body>
+</html>

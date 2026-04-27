@@ -1,72 +1,106 @@
-# 🚀 OmniFetch Ultimate v3.0
+# OmniFetch · Trinity Edition
 
-![License](https://img.shields.io/badge/license-MIT-green)
-![Version](https://img.shields.io/badge/version-3.0.0--ultimate-00ff88)
-![Platform](https://img.shields.io/badge/platform-Windows-0088ff)
-![Developer](https://img.shields.io/badge/developer-Alex_Ascencio-8800ff)
+[![Version](https://img.shields.io/badge/version-4.0-00ff88)](https://github.com/Bielicoman/omnifetch)
+[![Platform](https://img.shields.io/badge/desktop-Windows-0088ff)](#)
+[![Web](https://img.shields.io/badge/web-omnifetch.vercel.app-00ff88)](https://omnifetch.vercel.app)
+[![License](https://img.shields.io/badge/license-MIT-888)](#)
 
-**OmniFetch Ultimate** is a professional-grade command-line ecosystem designed for high-performance downloading, transcoding, and media management. Built for developers, media professionals, and power users who demand speed, reliability, and precision.
+Suíte universal pra **baixar vídeos** e **converter arquivos** — três produtos compartilhando o mesmo design e o mesmo motor.
 
----
+| Produto | O que é | Onde está | Para quem |
+|---|---|---|---|
+| 🌐 **Site** | Landing page de divulgação | [omnifetch.vercel.app](https://omnifetch.vercel.app) | Quem está descobrindo |
+| 🟢 **Web App Online** | Baixa & converte direto no browser | [omnifetch.vercel.app/app](https://omnifetch.vercel.app/app) | Quem quer usar sem instalar |
+| 🖥️ **Desktop** | Pacote Windows com terminal CLI **+** GUI local em `localhost:7777` | [Releases](https://github.com/Bielicoman/omnifetch/releases/latest) | Quem quer poder máximo, sem limites |
 
-## 🛠️ The Arsenal
+## 📂 Estrutura do repositório
 
-The suite consists of three core independent engines:
+```
+OmniFetch/
+├── 📂 site/                    ← Deploy Vercel (landing + Web App Online)
+│   ├── index.html              landing
+│   ├── app.html                web app (download via Cobalt + convert via ffmpeg.wasm)
+│   ├── app.js
+│   ├── style.css               design system mestre
+│   ├── script.js               micro-interações da landing
+│   └── vercel.json             headers COOP/COEP para WebAssembly
+│
+├── 📂 desktop/                 ← Vai para o ZIP de distribuição
+│   ├── 0_OMNIFETCH.bat         launcher mestre (menu)
+│   ├── 1_SETUP.bat             instala motores portáteis
+│   ├── 2_DOWNLOADER.bat        CLI · Enter = melhor qualidade em Downloads
+│   ├── 3_CONVERSOR.bat         CLI · arraste arquivo, escolha formato
+│   ├── server.ps1              servidor HTTP local (API para webui)
+│   ├── webui/                  GUI rodando em http://localhost:7777
+│   ├── motores/                yt-dlp, ffmpeg, ffprobe, aria2 (baixados pelo SETUP)
+│   └── TUTORIAL.txt
+│
+├── build-desktop-zip.ps1       gera o ZIP de release
+└── README.md
+```
 
-### 1. ⚙️ Setup Engine (`1 SETUP.bat`)
-A robust bootstrap script that configures your entire environment in one click.
-- Automated installation of **Python 3.12**, **FFmpeg**, and **Calibre**.
-- Intelligent dependency management via `winget` and `pip`.
-- Secure UAC elevation for system-level configurations.
+## 🚀 Para usuários finais
 
-### 2. 📡 Meta Downloader (`2_DOWLOADER.bat`)
-The tactical heart of the suite. A wrapper for industrial-strength download protocols.
-- **1000+ Sources**: Native support for major platforms and direct URLs.
-- **Intelligent Playlists**: Automatic detection of mixes, lists, and series.
-- **Arsenal 100**: Over 100 predefined download profiles (4K, Lossless Audio, Docs, etc.).
+### Online (mais rápido)
+Vá em **[omnifetch.vercel.app/app](https://omnifetch.vercel.app/app)** e cole um link. Pronto.
 
-### 3. ⚡ Universal Converter (`3_CONVERSOR.bat`)
-A multi-threaded transcoding engine leveraging the full power of FFmpeg/Calibre.
-- **Multi-Format Matrix**: Convert between Video, Audio, Images, and E-books.
-- **Lossless Precision**: Optimized profiles for Pro-grade move format conversions (ProRes, DNxHD).
-- **Automation**: Batch processing logic for high-volume workflows.
+### Desktop (poder máximo)
+1. Baixe o ZIP em **[Releases](https://github.com/Bielicoman/omnifetch/releases/latest)**
+2. Extraia onde quiser
+3. Rode `1_SETUP.bat` — baixa os motores portáteis
+4. Rode `0_OMNIFETCH.bat` — escolha entre **Web GUI**, **Downloader CLI**, **Conversor CLI**
 
----
+> Atalho turbo do Downloader CLI: cole o link, aperte **ENTER duas vezes** → vídeo em melhor qualidade direto em `~/Downloads`.
 
-## 🚀 Quick Start
+## 🛠️ Para desenvolvedores
 
-1. **Clone/Download** the repository or get the [Latest Release](OmniFetch_Ultimate.zip).
-2. **Execute** `1 SETUP.bat` as Administrator (Right-click > Run as Admin).
-3. **Launch** either the Downloader or Conversor and follow the tactical terminal prompts.
+### Rodar o site localmente
+```bash
+cd site
+npx serve .
+# abre http://localhost:3000
+```
 
----
+### Rodar o Desktop em dev
+```cmd
+cd desktop
+1_SETUP.bat                  REM uma vez
+0_OMNIFETCH.bat              REM menu mestre
+```
 
-## 💎 Features & Specs
+### Gerar o ZIP de distribuição
+```powershell
+# da raiz do repo
+./build-desktop-zip.ps1 -Version 4.0.0
+# gera dist/OmniFetch-Desktop-v4.0.0.zip
 
-| Feature | Capability |
-| :--- | :--- |
-| **Max Resolution** | 8K / HDR Native |
-| **Audio Fidelity** | 32-bit Float / FLAC / WAV |
-| **Document Matrix** | PDF, EPUB, AZW3, DOCX, MD |
-| **Security** | Zero-bloat, No ads, Local execution |
-| **Engine** | yt-dlp / FFmpeg / Calibre / cURL |
+# ou incluindo os motores ja baixados (zip pesado, ~80 MB):
+./build-desktop-zip.ps1 -Version 4.0.0 -IncludeMotores
+```
 
----
+### Publicar no GitHub Releases
+```bash
+gh release create v4.0.0 dist/OmniFetch-Desktop-v4.0.0.zip \
+    --title "v4.0.0 — Trinity Edition" \
+    --notes-file CHANGELOG.md
+```
 
-## 👨‍💻 Developed By
+## 🧠 Como funciona
 
-**Alex Ascencio**
-Deep-tech enthusiast and AI architect focused on creating high-utility tools for the modern web.
+### Web App Online
+- **Download** → POST para uma instância [Cobalt](https://github.com/imputnet/cobalt) (configurável em "Avançado"; padrão é `api.cobalt.tools`, que tem proteção contra bots — recomendado self-host)
+- **Conversão** → [ffmpeg.wasm](https://github.com/ffmpegwasm/ffmpeg.wasm) carregado via CDN, roda 100% no browser do usuário (privacidade total, sem upload)
 
-- 📸 [Instagram: @alexascencioai](https://instagram.com/alexascencioai)
-- 🌐 [Official Website](https://github.com/Bielicoman/omnifetch) (Deploying on Vercel)
+### Desktop
+- **Terminal CLI** → batches puros chamando `yt-dlp.exe` e `ffmpeg.exe` da pasta `motores/`
+- **Web GUI** → `server.ps1` levanta `System.Net.HttpListener` na porta 7777, expõe `/api/download`, `/api/convert`, `/api/jobs/:id` e serve os estáticos de `webui/` — interface idêntica à online mas chamando os motores nativos
 
----
+## 🔒 Privacidade
 
-## 📄 License
+- Web App Online: **arquivos para conversão nunca saem do seu navegador** (FFmpeg WASM é local)
+- Desktop: **100% local**, nada vai para servidor algum
+- Site: zero analytics, zero cookies de tracking
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+## 📄 Licença
 
----
-
-<p align="center"><i>"Code is poetry, execution is precision."</i></p>
+MIT — feito por [Alex Ascencio](https://instagram.com/alexascencioai).

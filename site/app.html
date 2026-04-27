@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OmniFetch Web App | Baixar & Converter</title>
+  <meta name="description" content="Web App OmniFetch baixe videos e converta arquivos direto no seu navegador.">
+  <meta name="theme-color" content="#050505">
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="dark-mode app-body">
+  <div class="custom-cursor" id="cursor"></div>
+  <div class="custom-cursor-dot" id="cursorDot"></div>
+
+  <div class="blob-container">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
+  <div class="noise-overlay"></div>
+
+  <header class="app-header">
+    <div class="container">
+      <a href="index.html" class="app-brand">
+        <span class="brand-mark"><i data-lucide="terminal"></i></span>
+        <span class="brand-name official-logo" data-text="OMNIFETCH">OMNIFETCH<span>WEB</span></span>
+      </a>
+
+      <nav class="app-tabs" id="appTabs">
+        <button class="app-tab active" data-panel="download">
+          <i data-lucide="download"></i><span>Baixar</span>
+        </button>
+        <button class="app-tab" data-panel="convert">
+          <i data-lucide="repeat"></i><span>Converter</span>
+        </button>
+      </nav>
+
+      <div class="engine-pill" id="enginePill" data-status="checking">
+        <span class="dot"></span>
+        <span id="engineLabel">Verificando</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="app-main">
+    <div class="container" style="max-width: 880px;">
+
+      <!-- =================== DOWNLOAD PANEL =================== -->
+      <section class="app-panel active" id="panel-download">
+        <div class="panel-header">
+          <h2>Baixar de qualquer lugar</h2>
+          <p>Cole um link do YouTube, Vimeo, Instagram, TikTok, X e aperte baixar. Padrao = melhor qualidade.</p>
+        </div>
+
+        <div class="field-card">
+          <div class="field-row">
+            <label class="field-label" for="urlInput">
+              <i data-lucide="link" style="width:14px;height:14px;color:var(--primary);"></i> URL do conteudo
+            </label>
+            <div class="url-input-group">
+              <input
+                type="url"
+                id="urlInput"
+                class="input"
+                placeholder="https://youtube.com/watch?v=..."
+                autocomplete="off"
+                autofocus
+              >
+              <button class="paste-btn" id="pasteBtn" type="button" title="Colar da area de transferencia">
+                <i data-lucide="clipboard"></i> COLAR
+              </button>
+            </div>
+          </div>
+
+          <div class="field-row">
+            <label class="field-label">
+              <i data-lucide="film" style="width:14px;height:14px;color:var(--primary);"></i> Modo
+            </label>
+            <div class="chips" id="modeChips">
+              <button class="chip active" data-mode="auto"><i data-lucide="video"></i><span>Auto (Video)</span></button>
+              <button class="chip" data-mode="audio"><i data-lucide="music-2"></i><span>Apenas audio</span></button>
+              <button class="chip" data-mode="mute"><i data-lucide="volume-x"></i><span>Video sem audio</span></button>
+              <button class="chip" data-mode="file"><i data-lucide="file-down"></i><span>Arquivo/PDF</span></button>
+            </div>
+          </div>
+
+          <div class="field-row" id="videoQualityRow">
+            <label class="field-label">
+              <i data-lucide="monitor" style="width:14px;height:14px;color:var(--primary);"></i> Qualidade do video
+            </label>
+            <div class="chips" id="videoChips">
+              <button class="chip active" data-vq="max"><i data-lucide="zap"></i><span>Maxima</span></button>
+              <button class="chip" data-vq="2160"><span>4K</span></button>
+              <button class="chip" data-vq="1440"><span>2K</span></button>
+              <button class="chip" data-vq="1080"><span>1080p</span></button>
+              <button class="chip" data-vq="720"><span>720p</span></button>
+              <button class="chip" data-vq="480"><span>480p</span></button>
+            </div>
+          </div>
+
+          <div class="field-row" id="audioFormatRow" style="display:none;">
+            <label class="field-label">
+              <i data-lucide="music" style="width:14px;height:14px;color:var(--primary);"></i> Formato de audio
+            </label>
+            <div class="chips" id="audioChips">
+              <button class="chip active" data-af="mp3"><span>MP3</span></button>
+              <button class="chip" data-af="opus"><span>OPUS</span></button>
+              <button class="chip" data-af="wav"><span>WAV</span></button>
+              <button class="chip" data-af="ogg"><span>OGG</span></button>
+              <button class="chip" data-af="best"><i data-lucide="sparkles"></i><span>Melhor nativo</span></button>
+            </div>
+          </div>
+
+          <div class="btn-row" style="margin-top:1.25rem;">
+            <button class="btn" id="downloadBtn">
+              <i data-lucide="download-cloud"></i> Baixar agora
+            </button>
+            <button class="btn secondary" id="addQueueBtn" type="button">
+              <i data-lucide="list-plus"></i> Adicionar na fila
+            </button>
+            <button class="btn ghost" id="advancedBtn" type="button">
+              <i data-lucide="settings-2"></i> Avancado
+            </button>
+          </div>
+
+          <div id="advancedPanel" style="display:none;margin-top:1rem;">
+            <div class="field-row">
+              <label class="field-label"><i data-lucide="server" style="width:14px;height:14px;color:var(--primary);"></i> Motores online</label>
+              <small style="color:var(--text-dim);font-size:0.82rem;margin-bottom:0.6rem;display:block;">
+                Primeiro o OmniFetch tenta a sua Online Engine. Se ela nao existir, usa instancias Cobalt como fallback publico limitado.
+              </small>
+              <ul class="instance-list" id="instanceList"></ul>
+
+              <div class="url-input-group" style="margin-top:0.75rem;">
+                <input type="url" class="input" id="newInstance" placeholder="https://sua-instancia.exemplo.com/">
+                <button class="paste-btn" id="addInstanceBtn" type="button" title="Adicionar a lista">
+                  <i data-lucide="plus"></i> ADD
+                </button>
+              </div>
+
+              <div class="url-input-group" style="margin-top:0.75rem;">
+                <input type="url" class="input" id="onlineEngineInput" placeholder="Motor OmniFetch online: https://seu-engine.com">
+                <button class="paste-btn" id="saveEngineBtn" type="button" title="Salvar motor online">
+                  <i data-lucide="cloud-cog"></i> ENGINE
+                </button>
+              </div>
+
+              <div class="url-input-group" style="margin-top:0.75rem;">
+                <input type="password" class="input" id="apiTokenInput" placeholder="Token/API key opcional da sua instancia">
+                <button class="paste-btn" id="clearTokenBtn" type="button" title="Limpar token">
+                  <i data-lucide="key-round"></i> TOKEN
+                </button>
+              </div>
+
+              <div class="btn-row" style="margin-top:0.75rem;">
+                <button class="btn ghost" id="resetInstancesBtn" type="button" style="font-size:0.85rem;padding:0.55rem 0.9rem;">
+                  <i data-lucide="rotate-ccw"></i> Restaurar lista padrao
+                </button>
+              </div>
+
+              <small style="color:var(--text-dim);font-size:0.78rem;margin-top:0.6rem;display:block;">
+                Para o site publico funcionar sem Desktop, configure <code>OMNIFETCH_ENGINE_URL</code> no Vercel apontando para a Online Engine.
+              </small>
+            </div>
+          </div>
+        </div>
+
+        <div class="field-card queue-dock">
+          <div class="queue-dock-head">
+            <div>
+              <strong>Fila de downloads</strong>
+              <span>Cole varios links, um por linha, ou adicione o link atual.</span>
+            </div>
+            <div class="btn-row compact">
+              <button class="btn secondary" id="startQueueBtn" type="button">
+                <i data-lucide="play"></i> Iniciar fila
+              </button>
+              <button class="btn ghost" id="clearQueueBtn" type="button">
+                <i data-lucide="trash-2"></i> Limpar
+              </button>
+            </div>
+          </div>
+          <textarea id="bulkLinksInput" class="input queue-textarea" rows="4" placeholder="https://youtube.com/watch?v=...&#10;https://vimeo.com/..."></textarea>
+          <div class="queue-list compact-list" id="queueList">
+            <div class="empty-state compact-empty" id="emptyQueue">
+              <i data-lucide="inbox"></i>
+              <div>Nada na fila ainda.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="field-card" style="background: linear-gradient(135deg, rgba(0, 136, 255, 0.06), rgba(0, 255, 136, 0.04)); border-color: rgba(0, 136, 255, 0.2);">
+          <div style="display:flex;gap:1rem;align-items:flex-start;">
+            <div style="width:36px;height:36px;border-radius:10px;background:rgba(0,136,255,0.15);color:#0088ff;display:grid;place-items:center;flex-shrink:0;">
+              <i data-lucide="info"></i>
+            </div>
+            <div style="flex:1;">
+              <strong style="display:block;margin-bottom:0.3rem;">Quer maxima compatibilidade?</strong>
+              <span style="color:var(--text-dim);font-size:0.9rem;">A versao Online usa a OmniFetch Engine quando configurada. A versao Desktop continua sendo o fallback mais forte: <code>yt-dlp</code> + <code>ffmpeg</code> nativos, downloads 4K, arquivos grandes e conversao local.</span>
+              <div class="local-bridge-status" id="localBridgeStatus" data-status="checking" style="margin-top:0.85rem;">
+                <span class="dot-small"></span>
+                <strong>Verificando Desktop Agent</strong>
+                <small>Se estiver aberto, o site usa o motor local automaticamente.</small>
+              </div>
+              <div style="margin-top:0.8rem;">
+                <a href="downloads/OmniFetch-Desktop-v4.0.0.zip" download class="btn secondary" style="font-size:0.85rem;padding:0.6rem 1rem;">
+                  <i data-lucide="download-cloud"></i> Baixar Desktop
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================== CONVERT PANEL =================== -->
+      <section class="app-panel" id="panel-convert">
+        <div class="panel-header">
+          <h2>Converter arquivo local</h2>
+          <p>Com Online Engine ativo, converte no servidor. Sem engine, FFmpeg roda no navegador e funciona melhor com arquivos ate ~500&nbsp;MB.</p>
+        </div>
+
+        <div class="field-card">
+          <div class="dropzone" id="dropzone">
+            <input type="file" id="fileInput" hidden>
+            <i data-lucide="upload-cloud"></i>
+            <div class="dz-title">Clique ou arraste um arquivo</div>
+            <div class="dz-hint">video, audio ou imagem max ~500&nbsp;MB</div>
+          </div>
+
+          <div class="field-row" style="margin-top:1.25rem;">
+            <label class="field-label" for="formatSelect">
+              <i data-lucide="file-output" style="width:14px;height:14px;color:var(--primary);"></i> Converter para
+            </label>
+            <select class="select" id="formatSelect">
+              <optgroup label="Video">
+                <option value="mp4">MP4 (H.264 / AAC)</option>
+                <option value="webm">WEBM (VP9 / Opus)</option>
+                <option value="mkv">MKV (H.264 / FLAC)</option>
+                <option value="mov">MOV (H.264 / AAC)</option>
+                <option value="gif">GIF animado</option>
+              </optgroup>
+              <optgroup label="Audio">
+                <option value="mp3">MP3 (320 kbps)</option>
+                <option value="wav">WAV (PCM 16-bit)</option>
+                <option value="flac">FLAC (lossless)</option>
+                <option value="ogg">OGG (Vorbis)</option>
+                <option value="opus">OPUS</option>
+                <option value="aac">AAC</option>
+                <option value="m4a">M4A</option>
+              </optgroup>
+              <optgroup label="Imagem (1 frame se video)">
+                <option value="jpg">JPG</option>
+                <option value="png">PNG</option>
+                <option value="webp">WEBP</option>
+              </optgroup>
+            </select>
+          </div>
+
+          <div class="btn-row" style="margin-top:1.25rem;">
+            <button class="btn" id="convertBtn" disabled>
+              <i data-lucide="repeat"></i> Converter
+            </button>
+            <button class="btn ghost" id="clearFileBtn" type="button" style="display:none;">
+              <i data-lucide="x"></i> Limpar
+            </button>
+          </div>
+        </div>
+
+        <div class="field-card" id="ffmpegStatusCard" style="display:none;">
+          <div style="display:flex;gap:0.75rem;align-items:center;">
+            <i data-lucide="cpu" style="color:var(--primary);"></i>
+            <div style="flex:1;">
+              <strong id="ffmpegStatusText">Carregando FFmpeg</strong>
+              <div class="progress-track" style="margin-top:0.5rem;"><div class="progress-fill" id="ffmpegLoadFill" style="width:0%"></div></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <div class="toast-stack" id="toastStack"></div>
+
+  <script src="app.js" type="module"></script>
+  <script>lucide.createIcons();</script>
+</body>
+</html>

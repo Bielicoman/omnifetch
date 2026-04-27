@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OmniFetch Ultimate | Baixar Desktop e Usar Online</title>
+  <meta name="description" content="OmniFetch baixa videos, PDFs, audios e arquivos por link, alem de converter videos, imagens e audios. Use online no navegador ou baixe o Desktop gratis.">
+  <meta name="theme-color" content="#050505">
+
+  <meta property="og:title" content="OmniFetch Downloader & Conversor Universal">
+  <meta property="og:description" content="Baixe videos do YouTube, Vimeo, TikTok e converta arquivos em alta qualidade. Online ou Desktop.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://omnifetch.vercel.app/">
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://unpkg.com/scrollreveal"></script>
+</head>
+<body class="dark-mode">
+  <div class="custom-cursor" id="cursor"></div>
+  <div class="custom-cursor-dot" id="cursorDot"></div>
+
+  <div class="blob-container">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
+  <div class="noise-overlay"></div>
+
+  <nav class="navbar glass">
+    <div class="container nav-content">
+      <a href="index.html" class="logo-wrapper">
+        <div class="brand-mark"><i data-lucide="terminal"></i></div>
+        <div class="logo-text official-logo" data-text="OMNIFETCH">OMNIFETCH<span>ULTIMATE</span></div>
+      </a>
+      <div class="nav-links">
+        <a href="app.html">Usar Online</a>
+        <a href="downloads/OmniFetch-Desktop-v4.0.0.zip" download>Baixar Desktop</a>
+        <a href="#faq">FAQ</a>
+        <a href="app.html" class="github-link" title="Abrir Web App">
+          <i data-lucide="layout-grid"></i>
+        </a>
+        <a href="https://github.com/Bielicoman/omnifetch" target="_blank" class="github-link">
+          <i data-lucide="github"></i>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero-section">
+    <div class="container hero-content">
+      <div class="badge-container">
+        <span class="badge">v4.0 Trinity Edition</span>
+      </div>
+
+      <pre class="ascii-art official-ascii" aria-label="Logo oficial OmniFetch em estilo terminal">
+ OOO   M   M  N   N  III  FFFFF  EEEEE  TTTTT  CCCC  H   H
+O   O  MM MM  NN  N   I   F      E        T   C      H   H
+O   O  M M M  N N N   I   FFFF   EEEE     T   C      HHHHH
+O   O  M   M  N  NN   I   F      E        T   C      H   H
+ OOO   M   M  N   N  III  F      EEEEE    T    CCCC  H   H
+      </pre>
+
+      <h1 class="glitch-text" data-text="OmniFetch">OmniFetch</h1>
+      <p class="hero-description">Baixe videos, PDFs e arquivos por link. Converta videos, imagens e audios. Use <b>direto no navegador</b> ou baixe a <b>versao Desktop gratis</b> para maxima compatibilidade.</p>
+
+      <div class="dual-path">
+        <a href="app.html" class="path-card primary">
+          <span class="path-tag">Sem instalar</span>
+          <div class="path-icon"><i data-lucide="globe"></i></div>
+          <h3>Usar no navegador</h3>
+          <p>Abra o downloader e o conversor universal online. Quando a OmniFetch Engine estiver conectada, o site baixa e converte sem abrir o Desktop.</p>
+          <span class="path-cta">Abrir Downloader Online <i data-lucide="arrow-right"></i></span>
+        </a>
+        <a href="downloads/OmniFetch-Desktop-v4.0.0.zip" class="path-card" download>
+          <span class="path-tag">Gratis para Windows</span>
+          <div class="path-icon"><i data-lucide="download-cloud"></i></div>
+          <h3>Baixar Desktop</h3>
+          <p>Pacote completo com Launcher, Downloader, Conversor e OmniTools. O setup instala yt-dlp, ffmpeg e aria2 automaticamente.</p>
+          <span class="path-cta">Baixar OmniFetch Desktop <i data-lucide="arrow-right"></i></span>
+        </a>
+      </div>
+
+      <div class="system-status">
+        <span class="status-item"><span class="dot-small green-bg"></span> Web App: pronto</span>
+        <span class="status-item"><span class="dot-small blue-bg"></span> Engine: conectavel</span>
+        <span class="status-item"><span class="dot-small green-bg"></span> Desktop: v4.0</span>
+      </div>
+
+      <a href="https://instagram.com/alexascencioai" target="_blank" class="owner-pill">
+        <img src="https://github.com/Bielicoman.png" alt="Alex Ascencio" class="owner-img">
+        <div class="owner-info">
+          <span class="name">Alex Ascencio</span>
+          <span class="handle">@alexascencioai</span>
+        </div>
+      </a>
+    </div>
+  </header>
+
+  <main class="container">
+    <section id="products" class="grid-section">
+      <div class="section-header">
+        <h2 class="section-title">Online + Desktop, no mesmo ecossistema</h2>
+        <p>O site e o app local usam a mesma experiencia. O Desktop e o fallback forte; a Online Engine transforma o site em ferramenta real de download e conversao.</p>
+      </div>
+
+      <div class="arsenal-grid">
+        <div class="tool-card glass">
+          <div class="icon-box"><i data-lucide="globe"></i></div>
+          <h3>Web App Online</h3>
+          <p>Funciona no navegador, sem instalacao. Baixa videos/arquivos via OmniFetch Engine e converte arquivos pelo servidor ou FFmpeg no navegador.</p>
+          <a href="app.html" class="btn-outline" style="text-decoration:none;display:inline-block;">Abrir agora</a>
+        </div>
+
+        <div class="tool-card glass">
+          <div class="icon-box"><i data-lucide="terminal"></i></div>
+          <h3>Terminal CLI</h3>
+          <p>Batches com cores, atalhos e UX cuidada. Aperte <b>Enter</b> e o video ja vai para Downloads na maior qualidade disponivel.</p>
+          <a href="downloads/OmniFetch-Desktop-v4.0.0.zip" class="btn-outline" download style="text-decoration:none;display:inline-block;">Baixar Desktop</a>
+        </div>
+
+        <div class="tool-card glass">
+          <div class="icon-box"><i data-lucide="layout-dashboard"></i></div>
+          <h3>Desktop GUI</h3>
+          <p>Interface grafica identica Online, mas rodando no <code>localhost:7777</code> com motores nativos, velocidade maxima e menos bloqueios.</p>
+          <a href="downloads/OmniFetch-Desktop-v4.0.0.zip" class="btn-outline" download style="text-decoration:none;display:inline-block;">Baixar pacote</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="how" class="tutorial-section glass">
+      <div class="tutorial-bg-text">FLOW</div>
+      <div class="tutorial-content">
+        <div class="section-badge">Como usar</div>
+        <h2>Em 3 passos</h2>
+        <div class="steps-grid">
+          <div class="step-item">
+            <div class="step-number">01</div>
+            <h4><i data-lucide="link" style="vertical-align:-3px;width:18px;height:18px;color:var(--primary);"></i> Cole o link</h4>
+              <p>Copie a URL de um video, PDF, imagem, audio ou arquivo direto e cole no campo principal.</p>
+          </div>
+          <div class="step-item">
+            <div class="step-number">02</div>
+            <h4><i data-lucide="settings-2" style="vertical-align:-3px;width:18px;height:18px;color:var(--primary);"></i> Escolha qualidade</h4>
+            <p>Pulou? Sem stress: o padrao e a melhor qualidade disponivel. Se nao, escolha entre 4K, 1080p, MP3 320k, etc.</p>
+          </div>
+          <div class="step-item">
+            <div class="step-number">03</div>
+            <h4><i data-lucide="download" style="vertical-align:-3px;width:18px;height:18px;color:var(--primary);"></i> Baixe</h4>
+            <p>Online: arquivo cai no <b>Downloads</b> do navegador. Desktop: cai na pasta que voce escolher.</p>
+          </div>
+        </div>
+
+        <div class="faq-container" id="faq">
+          <div class="faq-header">
+            <i data-lucide="help-circle"></i>
+            <h3>Perguntas frequentes</h3>
+          </div>
+          <div class="faq-grid">
+            <div class="faq-card">
+              <h5>Qual a diferenca entre Online e Desktop?</h5>
+              <p>Online e mais rapido pra comecar (zero instalacao). Desktop e mais poderoso: roda os motores nativos, sem limite de tamanho, sem rate-limit, e funciona offline.</p>
+            </div>
+            <div class="faq-card">
+              <h5>E gratis e seguro?</h5>
+              <p>Sim. O projeto e aberto, sem anuncios e sem coleta de dados no front-end. Com Online Engine, o arquivo e processado no servidor; sem engine, conversoes leves rodam no proprio navegador.</p>
+            </div>
+            <div class="faq-card">
+              <h5>De quais sites posso baixar?</h5>
+              <p>YouTube, Vimeo, Instagram, TikTok, Twitter/X, Twitch, Reddit, Facebook e +1000 sites suportados pelo <code>yt-dlp</code>. A versao Online precisa de uma OmniFetch Engine conectada para cobertura maxima.</p>
+            </div>
+            <div class="faq-card">
+              <h5>Onde os arquivos sao salvos?</h5>
+              <p>Online: pasta padrao de Downloads do navegador. Desktop: por padrao em <code>%USERPROFILE%\Downloads</code>, mas voce pode escolher qualquer pasta.</p>
+            </div>
+            <div class="faq-card">
+              <h5>O Desktop precisa de que?</h5>
+              <p>Apenas Windows 10/11. O <code>1_SETUP.bat</code> baixa <code>yt-dlp</code> e <code>ffmpeg</code> portateis automaticamente sem PATH global, sem mexer no sistema.</p>
+            </div>
+            <div class="faq-card">
+              <h5>Erro 403 / video nao baixa?</h5>
+              <p>Sites mudam protocolos com frequencia. No Desktop, rode o <code>1_SETUP.bat</code> para atualizar o <code>yt-dlp</code>. Na Online, mantenha uma OmniFetch Engine configurada.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="main-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <div class="logo-text official-logo" data-text="OMNIFETCH">OMNIFETCH</div>
+        <p>Suite universal de download e conversao de midia. Open source, privada, rapida.</p>
+        <div class="footer-badges">
+          <span class="f-badge">v4.0</span>
+          <span class="f-badge">Trinity</span>
+          <span class="f-badge">MIT</span>
+        </div>
+      </div>
+      <div class="footer-column">
+        <h5>Produtos</h5>
+        <ul class="footer-ul">
+          <li><a href="app.html"><i data-lucide="globe"></i> Web App</a></li>
+          <li><a href="downloads/OmniFetch-Desktop-v4.0.0.zip" download><i data-lucide="download"></i> Desktop</a></li>
+          <li><a href="#products"><i data-lucide="layout-grid"></i> Comparativo</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h5>Comunidade</h5>
+        <ul class="footer-ul">
+          <li><a href="https://github.com/Bielicoman/omnifetch" target="_blank"><i data-lucide="github"></i> GitHub</a></li>
+          <li><a href="https://instagram.com/alexascencioai" target="_blank"><i data-lucide="instagram"></i> Instagram</a></li>
+          <li><a href="#faq"><i data-lucide="help-circle"></i> FAQ</a></li>
+        </ul>
+      </div>
+      <div class="footer-attribution">
+        <h5>Feito por</h5>
+        <a href="https://instagram.com/alexascencioai" target="_blank" class="footer-owner-card">
+          <img src="https://github.com/Bielicoman.png" alt="Alex Ascencio">
+          <div class="f-owner-text">
+            <span class="f-name">Alex Ascencio</span>
+            <span class="f-role">AI & Tools Engineer</span>
+          </div>
+        </a>
+        <p class="copyright">Desenhado e construido com <i data-lucide="heart" class="heart-icon"></i> no Brasil</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    lucide.createIcons();
+    if (window.ScrollReveal) {
+      ScrollReveal().reveal('.path-card', { delay: 150, distance: '40px', origin: 'bottom', interval: 120 });
+      ScrollReveal().reveal('.tool-card', { delay: 200, distance: '50px', origin: 'bottom', interval: 100 });
+      ScrollReveal().reveal('.section-header', { delay: 100, scale: 0.92 });
+      ScrollReveal().reveal('.step-item', { delay: 100, distance: '30px', origin: 'bottom', interval: 100 });
+      ScrollReveal().reveal('.faq-card', { delay: 80, distance: '20px', origin: 'bottom', interval: 80 });
+    }
+  </script>
+</body>
+</html>

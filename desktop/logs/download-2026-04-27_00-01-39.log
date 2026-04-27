@@ -1,0 +1,14 @@
+[youtube] Extracting URL: https://www.youtube.com/watch?v=tciUzddEc_E&pp=ugUEEgJwdADD
+[youtube] tciUzddEc_E: Downloading webpage
+WARNING: [youtube] No supported JavaScript runtime could be found. Only deno is enabled by default; to use another runtime add  --js-runtimes RUNTIME[:PATH]  to your command/config. YouTube extraction without a JS runtime has been deprecated, and some formats may be missing. See  https://github.com/yt-dlp/yt-dlp/wiki/EJS  for details on installing one
+[youtube] tciUzddEc_E: Downloading android vr player API JSON
+[info] tciUzddEc_E: Downloading 1 format(s): 399+251
+[info] Downloading video thumbnail 41 ...
+[info] Writing video thumbnail 41 to: C:\Users\ascen\Downloads\Criando um site que DÁ DINHEIRO com 1 PÁGINA SÓ (Passo a Passo) [tciUzddEc_E].webp
+WARNING: webm doesn't support embedding a thumbnail, mkv will be used
+[download] Destination: C:\Users\ascen\Downloads\Criando um site que DÁ DINHEIRO com 1 PÁGINA SÓ (Passo a Passo) [tciUzddEc_E].f399.mp4
+
+aria2 will resume download if the transfer is restarted.
+If there are any errors, then see the log file. See '-l' option in help/man page for details.
+
+ERROR: Interrupted by user
