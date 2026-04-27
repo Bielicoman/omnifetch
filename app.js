@@ -1039,8 +1039,13 @@ $('#convertBtn').addEventListener('click', async () => {
       throw new Error('Aguarde o FFmpeg terminar de carregar ou use o Online Engine.');
     }
 
-    const inName = 'in.' + (file.name.split('.').pop() || 'bin');
+    const inExt = file.name.split('.').pop() || 'bin';
+    const sessionId = Date.now();
+    const inName = `in_${sessionId}.${inExt}`;
+    const outName_fs = `out_${sessionId}.${target}`;
+    
     const ff = state.ffmpeg;
+    updateItem(item, { sub: 'Processando arquivo...' });
     await ff.writeFile(inName, await state.fetchFile(file));
 
     const onProg = ({ progress }) => {
@@ -1050,16 +1055,16 @@ $('#convertBtn').addEventListener('click', async () => {
 
     const args = recipe.args(inName);
     // ensure unique output name
-    args[args.length - 1] = recipe.out;
+    args[args.length - 1] = outName_fs;
     await ff.exec(args);
 
-    const data = await ff.readFile(recipe.out);
+    const data = await ff.readFile(outName_fs);
     const blob = new Blob([data.buffer], { type: recipe.mime });
     const url = URL.createObjectURL(blob);
 
     // cleanup
     try { await ff.deleteFile(inName); } catch {}
-    try { await ff.deleteFile(recipe.out); } catch {}
+    try { await ff.deleteFile(outName_fs); } catch {}
     if (typeof ff.off === 'function') ff.off('progress', onProg);
 
     updateItem(item, {
@@ -1081,13 +1086,19 @@ $('#convertBtn').addEventListener('click', async () => {
     a.remove();
     toast('Conversao concluida!', 'success');
   } catch (err) {
-    console.error(err);
+    console.error('Erro na conversao:', err);
     updateItem(item, {
       sub: 'Erro: ' + (err.message || err),
       status: 'error',
       indeterminate: false,
     });
     toast('Falha na conversao: ' + (err.message || err), 'error', 7000);
+    
+    // Se for erro de sistema de arquivos, forcar recarregamento do FFmpeg
+    if (err.message?.includes('FS')) {
+      state.ffmpegReady = false;
+      initFFmpeg(); 
+    }
   } finally {
     btn.disabled = false;
   }
