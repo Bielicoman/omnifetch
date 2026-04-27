@@ -10,17 +10,17 @@ const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 // Pool de instancias Cobalt tenta uma apos a outra ate alguma funcionar.
 // A lista pode ser editada em "Avancado" pelo usuario.
 const DEFAULT_INSTANCES = [
+  'https://cobalt-api.meowing.de/',
   'https://cobalt.moe/',
+  'https://api.cobalt.tools/',
   'https://cobalt.inst.m-99.net/',
   'https://cobalt.qis.sh/',
   'https://cobalt.bcow.xyz/',
-  'https://cobalt-api.meowing.de/',
   'https://cobalt-backend.canine.tools/',
   'https://kityune.imput.net/',
   'https://capi.3kh0.net/',
   'https://nachos.imput.net/',
   'https://sunny.imput.net/',
-  'https://api.cobalt.tools/',
   'https://co.eepy.today/',
 ];
 
@@ -489,8 +489,35 @@ async function runDownload(url, item) {
             }
           } catch(e) {}
         }
+      } catch(e) {}
+  }
+
+  // LAST RESORT 2: Invidious API Fallback
+  if (!data || data.status === 'error') {
+    try {
+      const videoId = cleanUrl.match(/(?:youtu\.be\/|youtube\.com\/(?:.*v=|.*\/|.*vi=))([^&?#]+)/)?.[1];
+      if (videoId) {
+        updateItem(item, { sub: 'Usando motor de emergencia Invidious...', indeterminate: true });
+        const invInst = ['https://invidious.snopyta.org', 'https://yewtu.be', 'https://vid.puffyan.us'];
+        for (const inst of invInst) {
+          try {
+            const res = await fetch(`${inst}/api/v1/videos/${videoId}`);
+            if (res.ok) {
+              const iData = await res.json();
+              const fmt = iData.formatStreams?.find(f => f.quality === '720p' || f.quality === 'medium') || iData.formatStreams?.[0];
+              if (fmt) {
+                data = { status: 'redirect', url: fmt.url, filename: iData.title };
+                break;
+              }
+            }
+          } catch(e) {}
+        }
       }
     } catch(e) {}
+  }
+
+  if (!data) {
+    throw new Error('Nenhuma API publica aceitou no momento. O YouTube esta bloqueando a maioria dos motores online.');
   }
 
   if (data.status === 'error') {
