@@ -7,6 +7,49 @@
 const $ = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 
+// Custom Cursor logic
+(() => {
+  const cursor = $('#cursor');
+  const dot = $('#cursorDot');
+  if (!cursor || !dot) return;
+
+  document.addEventListener('mousemove', e => {
+    const x = e.clientX;
+    const y = e.clientY;
+    dot.style.left = `${x}px`;
+    dot.style.top = `${y}px`;
+    cursor.style.left = `${x}px`;
+    cursor.style.top = `${y}px`;
+  });
+
+  document.addEventListener('mousedown', () => {
+    cursor.style.transform = 'translate(-50%, -50%) scale(0.8)';
+    cursor.style.borderColor = '#0088ff';
+  });
+
+  document.addEventListener('mouseup', () => {
+    cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+    cursor.style.borderColor = 'var(--cursor-color)';
+  });
+
+  const hoverables = 'a, button, .chip, .tool-card, .path-card, .dz-file, .qi-btn, .dropzone';
+  document.addEventListener('mouseover', e => {
+    if (e.target.closest(hoverables)) {
+      cursor.style.transform = 'translate(-50%, -50%) scale(1.8)';
+      cursor.style.background = 'rgba(0, 255, 136, 0.1)';
+      cursor.style.borderWidth = '1px';
+    }
+  });
+
+  document.addEventListener('mouseout', e => {
+    if (e.target.closest(hoverables)) {
+      cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+      cursor.style.background = 'transparent';
+      cursor.style.borderWidth = '2px';
+    }
+  });
+})();
+
 // Pool de instancias Cobalt tenta uma apos a outra ate alguma funcionar.
 // A lista pode ser editada em "Avancado" pelo usuario.
 const DEFAULT_INSTANCES = [
@@ -1260,45 +1303,3 @@ window.addEventListener('focus', async () => {
   } catch {}
 });
 
-// Custom Cursor logic
-(() => {
-  const cursor = $('#cursor');
-  const dot = $('#cursorDot');
-  if (!cursor || !dot) return;
-
-  document.addEventListener('mousemove', e => {
-    const x = e.clientX;
-    const y = e.clientY;
-    dot.style.left = `${x}px`;
-    dot.style.top = `${y}px`;
-    cursor.style.left = `${x}px`;
-    cursor.style.top = `${y}px`;
-  });
-
-  document.addEventListener('mousedown', () => {
-    cursor.style.transform = 'translate(-50%, -50%) scale(0.8)';
-    cursor.style.borderColor = '#0088ff';
-  });
-
-  document.addEventListener('mouseup', () => {
-    cursor.style.transform = 'translate(-50%, -50%) scale(1)';
-    cursor.style.borderColor = 'var(--cursor-color)';
-  });
-
-  const hoverables = 'a, button, .chip, .tool-card, .path-card, .dz-file, .qi-btn, .dropzone';
-  document.addEventListener('mouseover', e => {
-    if (e.target.closest(hoverables)) {
-      cursor.style.transform = 'translate(-50%, -50%) scale(1.8)';
-      cursor.style.background = 'rgba(0, 255, 136, 0.1)';
-      cursor.style.borderWidth = '1px';
-    }
-  });
-
-  document.addEventListener('mouseout', e => {
-    if (e.target.closest(hoverables)) {
-      cursor.style.transform = 'translate(-50%, -50%) scale(1)';
-      cursor.style.background = 'transparent';
-      cursor.style.borderWidth = '2px';
-    }
-  });
-})();

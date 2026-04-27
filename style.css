@@ -40,12 +40,21 @@
     transform: translate(-50%, -50%);
 }
 
-@media (pointer: coarse) {
-    .custom-cursor, .custom-cursor-dot { display: none; }
+@media (pointer: fine) {
+    * {
+        cursor: none !important;
+    }
 }
 
-* {
-    cursor: none !important;
+.custom-cursor, .custom-cursor-dot {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+body:hover .custom-cursor,
+body:hover .custom-cursor-dot {
+    opacity: 1;
 }
 
 * {
