@@ -13,39 +13,54 @@ const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
   const dot = $('#cursorDot');
   if (!cursor || !dot) return;
 
+  let mouseX = 0, mouseY = 0;
+  let cursorX = 0, cursorY = 0;
+  let dotX = 0, dotY = 0;
+  let isMoving = false;
+
   document.addEventListener('mousemove', e => {
-    const x = e.clientX;
-    const y = e.clientY;
-    dot.style.left = `${x}px`;
-    dot.style.top = `${y}px`;
-    cursor.style.left = `${x}px`;
-    cursor.style.top = `${y}px`;
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    if (!isMoving) {
+      isMoving = true;
+      cursor.style.opacity = '1';
+      dot.style.opacity = '1';
+      requestAnimationFrame(render);
+    }
   });
 
+  function render() {
+    // Smooth trailing effect for the ring (lerp)
+    cursorX += (mouseX - cursorX) * 0.2;
+    cursorY += (mouseY - cursorY) * 0.2;
+    // Dot is more reactive
+    dotX += (mouseX - dotX) * 0.8;
+    dotY += (mouseY - dotY) * 0.8;
+
+    cursor.style.transform = `translate3d(${cursorX}px, ${cursorY}px, 0) translate(-50%, -50%)`;
+    dot.style.transform = `translate3d(${dotX}px, ${dotY}px, 0) translate(-50%, -50%)`;
+
+    requestAnimationFrame(render);
+  }
+
   document.addEventListener('mousedown', () => {
-    cursor.style.transform = 'translate(-50%, -50%) scale(0.8)';
-    cursor.style.borderColor = '#0088ff';
+    cursor.classList.add('clicking');
   });
 
   document.addEventListener('mouseup', () => {
-    cursor.style.transform = 'translate(-50%, -50%) scale(1)';
-    cursor.style.borderColor = 'var(--cursor-color)';
+    cursor.classList.remove('clicking');
   });
 
-  const hoverables = 'a, button, .chip, .tool-card, .path-card, .dz-file, .qi-btn, .dropzone';
+  const hoverables = 'a, button, .chip, .tool-card, .path-card, .dz-file, .qi-btn, .dropzone, input, select, textarea';
   document.addEventListener('mouseover', e => {
     if (e.target.closest(hoverables)) {
-      cursor.style.transform = 'translate(-50%, -50%) scale(1.8)';
-      cursor.style.background = 'rgba(0, 255, 136, 0.1)';
-      cursor.style.borderWidth = '1px';
+      cursor.classList.add('hovering');
     }
   });
 
   document.addEventListener('mouseout', e => {
     if (e.target.closest(hoverables)) {
-      cursor.style.transform = 'translate(-50%, -50%) scale(1)';
-      cursor.style.background = 'transparent';
-      cursor.style.borderWidth = '2px';
+      cursor.classList.remove('hovering');
     }
   });
 })();

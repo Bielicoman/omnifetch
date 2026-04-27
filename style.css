@@ -18,26 +18,30 @@
 /* Custom Cursor */
 .custom-cursor {
     position: fixed;
+    left: 0;
+    top: 0;
     width: 20px;
     height: 20px;
     border: 2px solid var(--cursor-color);
     border-radius: 50%;
     pointer-events: none;
-    z-index: 9999;
-    transition: transform 0.1s ease-out, width 0.2s, height 0.2s, border-color 0.2s;
-    transform: translate(-50%, -50%);
+    z-index: 10000;
+    transition: width 0.2s, height 0.2s, border-color 0.2s, background 0.2s;
     box-shadow: 0 0 15px var(--cursor-color);
+    opacity: 0;
 }
 
 .custom-cursor-dot {
     position: fixed;
+    left: 0;
+    top: 0;
     width: 4px;
     height: 4px;
     background: var(--cursor-color);
     border-radius: 50%;
     pointer-events: none;
-    z-index: 9999;
-    transform: translate(-50%, -50%);
+    z-index: 10001;
+    opacity: 0;
 }
 
 @media (pointer: fine) {
@@ -46,15 +50,17 @@
     }
 }
 
-.custom-cursor, .custom-cursor-dot {
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
+.custom-cursor.hovering {
+    width: 40px;
+    height: 40px;
+    background: rgba(0, 255, 136, 0.15);
+    border-width: 1px;
 }
 
-body:hover .custom-cursor,
-body:hover .custom-cursor-dot {
-    opacity: 1;
+.custom-cursor.clicking {
+    transform: translate(-50%, -50%) scale(0.8) !important;
+    border-color: #0088ff;
+    box-shadow: 0 0 20px #0088ff;
 }
 
 * {
