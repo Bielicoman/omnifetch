@@ -10,6 +10,8 @@ const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 // Pool de instancias Cobalt tenta uma apos a outra ate alguma funcionar.
 // A lista pode ser editada em "Avancado" pelo usuario.
 const DEFAULT_INSTANCES = [
+  'https://cobalt.qis.sh/',
+  'https://cobalt.bcow.xyz/',
   'https://cobalt-api.meowing.de/',
   'https://cobalt-backend.canine.tools/',
   'https://kityune.imput.net/',
@@ -18,12 +20,6 @@ const DEFAULT_INSTANCES = [
   'https://sunny.imput.net/',
   'https://api.cobalt.tools/',
   'https://co.eepy.today/',
-  'https://capi.oak.li/',
-  'https://cobalt.moe/',
-  'https://cobalt.inst.m-99.net/',
-  'https://cobalt.conduit.ac/',
-  'https://api.dl.khryptorgraphics.com/',
-  'https://cobalt.synzr.ru/',
 ];
 
 const LOCAL_AGENT = 'http://127.0.0.1:7777';
@@ -369,13 +365,25 @@ function normalizeLinks(text) {
 }
 
 function validateUrl(url) {
-  if (!url) {
-    return 'Cole um link primeiro.';
-  }
-  if (!/^https?:\/\//i.test(url)) {
-    return 'URL invalida precisa comecar com http:// ou https://';
-  }
+  if (!url) return 'Cole um link primeiro.';
+  if (!/^https?:\/\//i.test(url)) return 'URL invalida precisa comecar com http:// ou https://';
   return '';
+}
+
+function sanitizeUrl(url) {
+  try {
+    const u = new URL(url);
+    if (u.hostname.includes('youtube.com') || u.hostname.includes('youtu.be')) {
+      // Remove playlist params which often trigger bot detection or Cobalt errors
+      u.searchParams.delete('list');
+      u.searchParams.delete('index');
+      u.searchParams.delete('pp');
+      u.searchParams.delete('feature');
+    }
+    return u.toString();
+  } catch {
+    return url;
+  }
 }
 
 function buildDownloadBody(url) {
@@ -440,8 +448,21 @@ async function runDownload(url, item) {
     return;
   }
 
-  updateItem(item, { sub: 'Tentando instancias publicas', status: 'processing', indeterminate: true });
-  const data = await postWithFallback(buildDownloadBody(url));
+  const cleanUrl = sanitizeUrl(url);
+  updateItem(item, { sub: 'Tentando instancias publicas...', status: 'processing', indeterminate: true });
+  
+  let data;
+  try {
+    data = await postWithFallback(buildDownloadBody(cleanUrl));
+  } catch (err) {
+    // If it failed, try one more time with 'auto' quality and no codec forcing
+    updateItem(item, { sub: 'Refazendo com modo de compatibilidade...', indeterminate: true });
+    const body = buildDownloadBody(cleanUrl);
+    body.videoQuality = '720'; // Force 720p which is often more available
+    body.youtubeVideoCodec = null;
+    body.youtubeVideoContainer = null;
+    data = await postWithFallback(body);
+  }
 
   if (data.status === 'error') {
     throw new Error(data.error?.code || 'API retornou erro');
