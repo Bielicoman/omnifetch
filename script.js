@@ -35,6 +35,23 @@
             targetX = 48 + ((e.clientX / window.innerWidth) - 0.5) * 8;
             targetY = 32 + ((e.clientY / window.innerHeight) - 0.5) * 7;
             if (!raf) raf = requestAnimationFrame(animateAmbient);
+
+            // Magnetic Button Effect
+            const btn = document.querySelector('.v3-btn-primary');
+            if (btn) {
+                const rect = btn.getBoundingClientRect();
+                const btnX = rect.left + rect.width / 2;
+                const btnY = rect.top + rect.height / 2;
+                const dist = Math.hypot(e.clientX - btnX, e.clientY - btnY);
+
+                if (dist < 150) {
+                    const pullX = (e.clientX - btnX) * 0.15;
+                    const pullY = (e.clientY - btnY) * 0.15;
+                    btn.style.transform = `translate3d(${pullX}px, ${pullY}px, 0) scale(1.05)`;
+                } else {
+                    btn.style.transform = `translate3d(0, 0, 0) scale(1)`;
+                }
+            }
         });
     }
 
@@ -78,6 +95,26 @@
             if (e.target.closest(hoverables)) cursor.classList.remove('hovering');
         });
     }
+
+    // 3D Tilt Interaction for Cards
+    const cards = document.querySelectorAll('.tool-card, .v3-btn-primary');
+    document.addEventListener('mousemove', (e) => {
+        const xAxis = (window.innerWidth / 2 - e.pageX) / 45;
+        const yAxis = (window.innerHeight / 2 - e.pageY) / 45;
+        
+        cards.forEach(card => {
+            if (motionOk) {
+                card.style.transform = `rotateY(${xAxis}deg) rotateX(${-yAxis}deg)`;
+            }
+        });
+    });
+
+    // Reset cards on mouse leave
+    document.addEventListener('mouseleave', () => {
+        cards.forEach(card => {
+            card.style.transform = 'rotateY(0deg) rotateX(0deg)';
+        });
+    });
 
     // Auto-update copyright year if present
     document.querySelectorAll('[data-year]').forEach(el => el.textContent = new Date().getFullYear());
