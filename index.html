@@ -38,12 +38,11 @@
         <div class="logo-text official-logo" data-text="OMNIFETCH">OMNIFETCH<span>ULTIMATE</span></div>
       </a>
       <div class="nav-links">
-        <a href="app.html">Usar Online</a>
-        <a href="downloads/OmniFetch-Desktop-v4.0.0.zip" download>Baixar Desktop</a>
+        <div class="system-status-indicator">
+          <span class="status-dot-blink"></span>
+          <span>System: Active</span>
+        </div>
         <a href="#faq">FAQ</a>
-        <a href="app.html" class="github-link" title="Abrir Web App">
-          <i data-lucide="layout-grid"></i>
-        </a>
         <a href="https://github.com/Bielicoman/omnifetch" target="_blank" class="github-link">
           <i data-lucide="github"></i>
         </a>
@@ -52,82 +51,54 @@
   </nav>
 
   <header class="hero-section">
-    <div class="container hero-content">
-      <div class="badge-container">
-        <span class="badge">v4.0 Trinity Edition</span>
+    <div class="container v3-hero-content">
+      <div class="v3-badge">Version 3.0 Ultimate</div>
+
+      <div class="v3-block-logo">OMNIFETCH</div>
+
+      <p class="v3-description">O toolkit definitivo de engenharia reversa e download para desenvolvedores, criativos e profissionais de midia.</p>
+
+      <div style="margin-bottom: 60px;">
+        <a href="app.html" class="v3-btn-primary">
+          <i data-lucide="download-cloud"></i>
+          <span>Get Started Now</span>
+        </a>
       </div>
 
-      <pre class="ascii-art official-ascii" aria-label="Logo oficial OmniFetch em estilo terminal">
- OOO   M   M  N   N  III  FFFFF  EEEEE  TTTTT  CCCC  H   H
-O   O  MM MM  NN  N   I   F      E        T   C      H   H
-O   O  M M M  N N N   I   FFFF   EEEE     T   C      HHHHH
-O   O  M   M  N  NN   I   F      E        T   C      H   H
- OOO   M   M  N   N  III  F      EEEEE    T    CCCC  H   H
-      </pre>
-
-      <h1 class="glitch-text" data-text="OmniFetch">OmniFetch</h1>
-      <p class="hero-description">Baixe videos, PDFs e arquivos por link. Converta videos, imagens e audios. Use <b>direto no navegador</b> ou baixe a <b>versao Desktop gratis</b> para maxima compatibilidade.</p>
-
-      <div class="dual-path">
-        <a href="app.html" class="path-card primary">
-          <span class="path-tag">Sem instalar</span>
-          <div class="path-icon"><i data-lucide="globe"></i></div>
-          <h3>Usar no navegador</h3>
-          <p>Abra o downloader e o conversor universal online. Quando a OmniFetch Engine estiver conectada, o site baixa e converte sem abrir o Desktop.</p>
-          <span class="path-cta">Abrir Downloader Online <i data-lucide="arrow-right"></i></span>
-        </a>
-        <a href="downloads/OmniFetch-Desktop-v4.0.0.zip" class="path-card" download>
-          <span class="path-tag">Gratis para Windows</span>
-          <div class="path-icon"><i data-lucide="download-cloud"></i></div>
-          <h3>Baixar Desktop</h3>
-          <p>Pacote completo com Launcher, Downloader, Conversor e OmniTools. O setup instala yt-dlp, ffmpeg e aria2 automaticamente.</p>
-          <span class="path-cta">Baixar OmniFetch Desktop <i data-lucide="arrow-right"></i></span>
+      <div style="margin-bottom: 60px;">
+        <a href="downloads/OmniFetch-Desktop-v4.0.0.zip" class="v3-btn-primary" download>
+          <i data-lucide="download-cloud"></i>
+          <span>Baixar OmniFetch Desktop</span>
         </a>
       </div>
 
       <div class="system-status">
-        <span class="status-item"><span class="dot-small green-bg"></span> Web App: pronto</span>
-        <span class="status-item"><span class="dot-small blue-bg"></span> Engine: conectavel</span>
         <span class="status-item"><span class="dot-small green-bg"></span> Desktop: v4.0</span>
+        <span class="status-item"><span class="dot-small blue-bg"></span> Trinity Edition</span>
       </div>
-
-      <a href="https://instagram.com/alexascencioai" target="_blank" class="owner-pill">
-        <img src="https://github.com/Bielicoman.png" alt="Alex Ascencio" class="owner-img">
-        <div class="owner-info">
-          <span class="name">Alex Ascencio</span>
-          <span class="handle">@alexascencioai</span>
-        </div>
-      </a>
     </div>
   </header>
 
   <main class="container">
     <section id="products" class="grid-section">
       <div class="section-header">
-        <h2 class="section-title">Online + Desktop, no mesmo ecossistema</h2>
-        <p>O site e o app local usam a mesma experiencia. O Desktop e o fallback forte; a Online Engine transforma o site em ferramenta real de download e conversao.</p>
+        <h2 class="section-title">O motor mais potente, agora no seu desktop</h2>
+        <p>A versao Desktop e o auge da OmniFetch. Sem limites de tamanho, sem bloqueios de IP e com velocidade maxima usando os motores nativos do seu sistema.</p>
       </div>
 
-      <div class="arsenal-grid">
-        <div class="tool-card glass">
-          <div class="icon-box"><i data-lucide="globe"></i></div>
-          <h3>Web App Online</h3>
-          <p>Funciona no navegador, sem instalacao. Baixa videos/arquivos via OmniFetch Engine e converte arquivos pelo servidor ou FFmpeg no navegador.</p>
-          <a href="app.html" class="btn-outline" style="text-decoration:none;display:inline-block;">Abrir agora</a>
-        </div>
-
+      <div class="arsenal-grid" style="grid-template-columns: 1fr 1fr; max-width: 800px; margin: 0 auto;">
         <div class="tool-card glass">
           <div class="icon-box"><i data-lucide="terminal"></i></div>
           <h3>Terminal CLI</h3>
           <p>Batches com cores, atalhos e UX cuidada. Aperte <b>Enter</b> e o video ja vai para Downloads na maior qualidade disponivel.</p>
-          <a href="downloads/OmniFetch-Desktop-v4.0.0.zip" class="btn-outline" download style="text-decoration:none;display:inline-block;">Baixar Desktop</a>
+          <a href="downloads/OmniFetch-Desktop-v4.0.0.zip" class="btn-outline" download style="text-decoration:none;display:inline-block;">Baixar Agora</a>
         </div>
 
         <div class="tool-card glass">
           <div class="icon-box"><i data-lucide="layout-dashboard"></i></div>
           <h3>Desktop GUI</h3>
-          <p>Interface grafica identica Online, mas rodando no <code>localhost:7777</code> com motores nativos, velocidade maxima e menos bloqueios.</p>
-          <a href="downloads/OmniFetch-Desktop-v4.0.0.zip" class="btn-outline" download style="text-decoration:none;display:inline-block;">Baixar pacote</a>
+          <p>Interface grafica moderna rodando localmente com motores nativos, velocidade maxima e total privacidade.</p>
+          <a href="downloads/OmniFetch-Desktop-v4.0.0.zip" class="btn-outline" download style="text-decoration:none;display:inline-block;">Baixar Pacote</a>
         </div>
       </div>
     </section>
@@ -205,7 +176,6 @@ O   O  M   M  N  NN   I   F      E        T   C      H   H
       <div class="footer-column">
         <h5>Produtos</h5>
         <ul class="footer-ul">
-          <li><a href="app.html"><i data-lucide="globe"></i> Web App</a></li>
           <li><a href="downloads/OmniFetch-Desktop-v4.0.0.zip" download><i data-lucide="download"></i> Desktop</a></li>
           <li><a href="#products"><i data-lucide="layout-grid"></i> Comparativo</a></li>
         </ul>

@@ -42,46 +42,40 @@
     const cursor = document.getElementById('cursor');
     const dot = document.getElementById('cursorDot');
     if (cursor && dot) {
+        document.body.classList.add('custom-cursor-active');
+
+        let mouseX = window.innerWidth / 2;
+        let mouseY = window.innerHeight / 2;
+        let cursorX = mouseX, cursorY = mouseY;
+        let dotX = mouseX, dotY = mouseY;
+
         document.addEventListener('mousemove', e => {
-            const x = e.clientX;
-            const y = e.clientY;
-            
-            // The dot follows instantly
-            dot.style.left = `${x}px`;
-            dot.style.top = `${y}px`;
-            
-            // The ring follows with a slight delay (via CSS transition or manual lerp)
-            // Here we use CSS transition for simplicity but could use requestAnimationFrame for "stickier" feel
-            cursor.style.left = `${x}px`;
-            cursor.style.top = `${y}px`;
+            mouseX = e.clientX;
+            mouseY = e.clientY;
         });
 
-        document.addEventListener('mousedown', () => {
-            cursor.style.transform = 'translate(-50%, -50%) scale(0.8)';
-            cursor.style.borderColor = '#0088ff';
-        });
+        const render = () => {
+            cursorX += (mouseX - cursorX) * 0.15;
+            cursorY += (mouseY - cursorY) * 0.15;
+            dotX += (mouseX - dotX) * 0.45;
+            dotY += (mouseY - dotY) * 0.45;
 
-        document.addEventListener('mouseup', () => {
-            cursor.style.transform = 'translate(-50%, -50%) scale(1)';
-            cursor.style.borderColor = 'var(--cursor-color)';
-        });
+            cursor.style.transform = `translate3d(${cursorX}px, ${cursorY}px, 0) translate(-50%, -50%)`;
+            dot.style.transform = `translate3d(${dotX}px, ${dotY}px, 0) translate(-50%, -50%)`;
+            requestAnimationFrame(render);
+        };
+        requestAnimationFrame(render);
 
-        // Hover effect on links and buttons
+        document.addEventListener('mousedown', () => cursor.classList.add('clicking'));
+        document.addEventListener('mouseup', () => cursor.classList.remove('clicking'));
+
         const hoverables = 'a, button, .chip, .tool-card, .path-card, .dz-file, .qi-btn';
         document.addEventListener('mouseover', e => {
-            if (e.target.closest(hoverables)) {
-                cursor.style.transform = 'translate(-50%, -50%) scale(1.8)';
-                cursor.style.background = 'rgba(0, 255, 136, 0.1)';
-                cursor.style.borderWidth = '1px';
-            }
+            if (e.target.closest(hoverables)) cursor.classList.add('hovering');
         });
 
         document.addEventListener('mouseout', e => {
-            if (e.target.closest(hoverables)) {
-                cursor.style.transform = 'translate(-50%, -50%) scale(1)';
-                cursor.style.background = 'transparent';
-                cursor.style.borderWidth = '2px';
-            }
+            if (e.target.closest(hoverables)) cursor.classList.remove('hovering');
         });
     }
 
