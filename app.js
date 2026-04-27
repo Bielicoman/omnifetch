@@ -887,12 +887,10 @@ async function initFFmpeg() {
     }
 
     await loadScriptOnce('ffmpeg-wasm', [
-      'https://unpkg.com/@ffmpeg/ffmpeg@0.12.10/dist/umd/ffmpeg.js',
-      'https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.12.10/dist/umd/ffmpeg.js',
+      '/lib/ffmpeg.js',
     ]);
     await loadScriptOnce('ffmpeg-util', [
-      'https://unpkg.com/@ffmpeg/util@0.12.1/dist/umd/index.js',
-      'https://cdn.jsdelivr.net/npm/@ffmpeg/util@0.12.1/dist/umd/index.js',
+      '/lib/ffmpeg-util.js',
     ]);
 
     if (!window.FFmpegWASM?.FFmpeg || !window.FFmpegUtil?.fetchFile) {
@@ -909,7 +907,7 @@ async function initFFmpeg() {
       fill.style.width = Math.min(100, Math.max(0, progress * 100)) + '%';
     });
 
-    const baseURL = 'https://unpkg.com/@ffmpeg/core@0.12.6/dist/umd';
+    const baseURL = '/lib';
     await ff.load({
       coreURL: await toBlobURL(`${baseURL}/ffmpeg-core.js`, 'text/javascript'),
       wasmURL: await toBlobURL(`${baseURL}/ffmpeg-core.wasm`, 'application/wasm'),
