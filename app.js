@@ -10,6 +10,12 @@ const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 // Pool de instancias Cobalt tenta uma apos a outra ate alguma funcionar.
 // A lista pode ser editada em "Avancado" pelo usuario.
 const DEFAULT_INSTANCES = [
+  'https://cobalt-api.meowing.de/',
+  'https://cobalt-backend.canine.tools/',
+  'https://kityune.imput.net/',
+  'https://capi.3kh0.net/',
+  'https://nachos.imput.net/',
+  'https://sunny.imput.net/',
   'https://api.cobalt.tools/',
   'https://co.eepy.today/',
   'https://capi.oak.li/',
@@ -384,6 +390,7 @@ function buildDownloadBody(url) {
     disableMetadata: false,
     tiktokFullAudio: true,
     allowH265: true,
+    twitterGif: true,
   };
   if (state.mode !== 'audio') body.videoQuality = state.videoQuality;
   if (state.mode !== 'mute') body.audioFormat = state.audioFormat;

@@ -91,11 +91,11 @@ gh release create v4.0.0 dist/OmniFetch-Desktop-v4.0.0.zip \
 - **Terminal CLI** → batches puros chamando `yt-dlp.exe` e `ffmpeg.exe` da pasta `motores/`
 - **Web GUI** → `server.ps1` levanta `System.Net.HttpListener` na porta 7777, expõe `/api/download`, `/api/convert`, `/api/jobs/:id` e serve os estáticos de `webui/` — interface idêntica à online mas chamando os motores nativos
 
-## 🔒 Privacidade
+## 🔒 Privacidade e Confiabilidade
 
-- Web App Online: **arquivos para conversão nunca saem do seu navegador** (FFmpeg WASM é local)
-- Desktop: **100% local**, nada vai para servidor algum
-- Site: zero analytics, zero cookies de tracking
+- **Web App Online (Público)**: Usa instâncias compartilhadas que podem ser bloqueadas pelo YouTube.
+- **Web App + Online Engine (Privado)**: **Recomendado para 100% de funcionamento.** Você hospeda o `online-engine/` (em um VPS ou serviço como Railway) e configura a URL no site. Isso usa `yt-dlp` nativo e nunca bloqueia.
+- **Desktop**: **Poder total local.** 100% privado e sem limites.
 
 ## 📄 Licença
 
