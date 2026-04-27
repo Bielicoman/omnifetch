@@ -10,10 +10,28 @@ const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 // Pool de instancias Cobalt tenta uma apos a outra ate alguma funcionar.
 // A lista pode ser editada em "Avancado" pelo usuario.
 const DEFAULT_INSTANCES = [
+  'https://cobalt.vinidit.xyz/',
+  'https://cobalt.mizore.dev/',
   'https://cobalt-api.meowing.de/',
   'https://cobalt.moe/',
   'https://api.cobalt.tools/',
   'https://cobalt.inst.m-99.net/',
+  'https://dl01.yt-dl.click/',
+  'https://dl02.yt-dl.click/',
+  'https://dl03.yt-dl.click/',
+  'https://dl04.yt-dl.click/',
+  'https://dl05.yt-dl.click/',
+  'https://dl06.yt-dl.click/',
+  'https://dl07.yt-dl.click/',
+  'https://dl08.yt-dl.click/',
+  'https://dl09.yt-dl.click/',
+  'https://cdn1.tik.live/',
+  'https://cdn2.tik.live/',
+  'https://cdn3.tik.live/',
+  'https://cdn4.tik.live/',
+  'https://cdn5.tik.live/',
+  'https://cobalt-api.ayo.tf/',
+  'https://ytapi.edd1e.xyz/',
   'https://cobalt.qis.sh/',
   'https://cobalt.bcow.xyz/',
   'https://cobalt-backend.canine.tools/',
@@ -374,7 +392,12 @@ function validateUrl(url) {
 
 function sanitizeUrl(url) {
   try {
-    const u = new URL(url);
+    let finalUrl = url;
+    // Handle Shorts: shorts/ID -> watch?v=ID
+    if (finalUrl.includes('/shorts/')) {
+      finalUrl = finalUrl.replace('/shorts/', '/watch?v=');
+    }
+    const u = new URL(finalUrl);
     if (u.hostname.includes('youtube.com') || u.hostname.includes('youtu.be')) {
       // Remove playlist params which often trigger bot detection or Cobalt errors
       u.searchParams.delete('list');
