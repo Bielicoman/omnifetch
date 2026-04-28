@@ -1,9 +1,16 @@
-motores/
+# OmniFetch — .gitignore
+
+# ── Binários e releases ──
+desktop/motores/
+releases/
 *.zip
 *.exe
-!README.md
-!index.html
-!style.css
-!script.js
-!*.bat
+
+# ── Vercel deploy cache ──
 .vercel
+
+# ── OS e IDE ──
+.DS_Store
+Thumbs.db
+desktop/data/
+desktop/logs/

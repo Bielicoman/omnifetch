@@ -3,100 +3,69 @@
 [![Version](https://img.shields.io/badge/version-4.0-00ff88)](https://github.com/Bielicoman/omnifetch)
 [![Platform](https://img.shields.io/badge/desktop-Windows-0088ff)](#)
 [![Web](https://img.shields.io/badge/web-omnifetch.vercel.app-00ff88)](https://omnifetch.vercel.app)
-[![License](https://img.shields.io/badge/license-MIT-888)](#)
 
-Suíte universal pra **baixar vídeos** e **converter arquivos** — três produtos compartilhando o mesmo design e o mesmo motor.
+Suite universal para baixar videos, converter arquivos e organizar midias com uma experiencia desktop premium no Windows.
 
-| Produto | O que é | Onde está | Para quem |
-|---|---|---|---|
-| 🌐 **Site** | Landing page de divulgação | [omnifetch.vercel.app](https://omnifetch.vercel.app) | Quem está descobrindo |
-| 🟢 **Web App Online** | Baixa & converte direto no browser | [omnifetch.vercel.app/app](https://omnifetch.vercel.app/app) | Quem quer usar sem instalar |
-| 🖥️ **Desktop** | Pacote Windows com terminal CLI **+** GUI local em `localhost:7777` | [Releases](https://github.com/Bielicoman/omnifetch/releases/latest) | Quem quer poder máximo, sem limites |
+## Produtos
 
-## 📂 Estrutura do repositório
+| Produto | O que entrega | Onde fica |
+|---|---|---|
+| Site | Landing page do projeto | `website/` |
+| Desktop Launcher | Hub principal com UX premium, status dos motores e preferencias globais | `desktop/OmniFetch.bat` |
+| Downloader | yt-dlp com aria2 turbo, fila, cookies, presets 4K/MP3 e historico | `desktop/Downloader.bat` |
+| Conversor | FFmpeg + Calibre opcional para video, audio, imagem e e-books | `desktop/Conversor.bat` |
+| OmniTools | Inspector, thumbnails, cortes, legendas, renomeador e relatorios | `desktop/core/OmniTools.bat` |
 
-```
+## Estrutura
+
+```text
 OmniFetch/
-├── 📂 api/                     ← Vercel Functions (Download/Jobs proxy)
-├── index.html                  ← Landing page
-├── app.html                    ← Web App Online
-├── app.js                      ← Lógica do Web App
-├── style.css                   ← Design System mestre
-├── script.js                   ← Micro-interações landing
-├── vercel.json                 ← Configuração Vercel
-│
-├── 📂 desktop/                 ← Código da versão Desktop
-│   ├── 0_OMNIFETCH.bat         Menu mestre
-│   ├── ...
-│   └── webui/                  Interface local
-│
-├── 📂 online-engine/           ← Servidor Node.js autônomo (opcional)
-├── build-desktop-zip.ps1       Gera o ZIP de release
-└── README.md
+├── desktop/
+│   ├── OmniFetch.bat
+│   ├── Instalar.bat
+│   ├── Downloader.bat
+│   ├── Conversor.bat
+│   ├── LEIA-ME.txt
+│   ├── assets/icons/          # icones oficiais dos atalhos
+│   └── core/                  # UI compartilhada, logo, shortcuts e OmniTools
+├── scripts/
+│   ├── build-desktop-zip.ps1
+│   └── generate-desktop-icons.ps1
+├── website/
+└── vercel.json
 ```
 
-## 🚀 Para usuários finais
+## Uso Desktop
 
-### Online (mais rápido)
-Vá em **[omnifetch.vercel.app/app](https://omnifetch.vercel.app/app)** e cole um link. Pronto.
+1. Baixe o ZIP em [Releases](https://github.com/Bielicoman/omnifetch/releases/latest).
+2. Extraia para uma pasta gravavel, como `C:\OmniFetch`.
+3. Rode `Instalar.bat`.
+4. Use `OmniFetch.bat` como entrada diaria.
 
-### Desktop (poder máximo)
-1. Baixe o ZIP em **[Releases](https://github.com/Bielicoman/omnifetch/releases/latest)**
-2. Extraia onde quiser
-3. Rode `1_SETUP.bat` — baixa os motores portáteis
-4. Rode `0_OMNIFETCH.bat` — escolha entre **Web GUI**, **Downloader CLI**, **Conversor CLI**
+O setup baixa motores portateis em `desktop/motores/`, cria atalhos com icones oficiais no Desktop/Menu Iniciar e pode adicionar o menu de contexto "Converter com OmniFetch".
 
-> Atalho turbo do Downloader CLI: cole o link, aperte **ENTER duas vezes** → vídeo em melhor qualidade direto em `~/Downloads`.
+## Configuracoes Premium
 
-## 🛠️ Para desenvolvedores
+O launcher e o downloader salvam preferencias em `desktop/data/config.ini`:
 
-### Rodar o site localmente
-```bash
-cd site
-npx serve .
-# abre http://localhost:3000
-```
+- `SPEED_PROFILE`: `turbo`, `balanced`, `conservative` ou `custom`.
+- `CONCURRENT_FRAGMENTS`, `ARIA_CONNECTIONS`, `ARIA_SPLITS`: controle de aceleracao.
+- `EMBED_METADATA`, `EMBED_THUMBNAIL`, `DOWNLOAD_SUBS`: qualidade e extras.
+- `INTRO_ANIMATION`: `full`, `fast` ou `off`.
 
-### Rodar o Desktop em dev
-```cmd
-cd desktop
-1_SETUP.bat                  REM uma vez
-0_OMNIFETCH.bat              REM menu mestre
-```
+## Build
 
-### Gerar o ZIP de distribuição
 ```powershell
-# da raiz do repo
-./build-desktop-zip.ps1 -Version 4.0.0
-# gera dist/OmniFetch-Desktop-v4.0.0.zip
-
-# ou incluindo os motores ja baixados (zip pesado, ~80 MB):
-./build-desktop-zip.ps1 -Version 4.0.0 -IncludeMotores
+.\scripts\generate-desktop-icons.ps1
+.\scripts\build-desktop-zip.ps1 -Version 4.0.0
 ```
 
-### Publicar no GitHub Releases
-```bash
-gh release create v4.0.0 dist/OmniFetch-Desktop-v4.0.0.zip \
-    --title "v4.0.0 — Trinity Edition" \
-    --notes-file CHANGELOG.md
+Para incluir motores ja baixados:
+
+```powershell
+.\scripts\build-desktop-zip.ps1 -Version 4.0.0 -IncludeMotores
 ```
 
-## 🧠 Como funciona
+## Licenca
 
-### Web App Online
-- **Download** → POST para uma instância [Cobalt](https://github.com/imputnet/cobalt) (configurável em "Avançado"; padrão é `api.cobalt.tools`, que tem proteção contra bots — recomendado self-host)
-- **Conversão** → [ffmpeg.wasm](https://github.com/ffmpegwasm/ffmpeg.wasm) carregado via CDN, roda 100% no browser do usuário (privacidade total, sem upload)
-
-### Desktop
-- **Terminal CLI** → batches puros chamando `yt-dlp.exe` e `ffmpeg.exe` da pasta `motores/`
-- **Web GUI** → `server.ps1` levanta `System.Net.HttpListener` na porta 7777, expõe `/api/download`, `/api/convert`, `/api/jobs/:id` e serve os estáticos de `webui/` — interface idêntica à online mas chamando os motores nativos
-
-## 🔒 Privacidade e Confiabilidade
-
-- **Web App Online (Público)**: Usa instâncias compartilhadas que podem ser bloqueadas pelo YouTube.
-- **Web App + Online Engine (Privado)**: **Recomendado para 100% de funcionamento.** Você hospeda o `online-engine/` (em um VPS ou serviço como Railway) e configura a URL no site. Isso usa `yt-dlp` nativo e nunca bloqueia.
-- **Desktop**: **Poder total local.** 100% privado e sem limites.
-
-## 📄 Licença
-
-MIT — feito por [Alex Ascencio](https://instagram.com/alexascencioai).
+MIT — feito por Alex Ascencio.

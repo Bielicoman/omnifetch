@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OmniFetch | Download & Conversão Universal</title>
+  <meta name="description" content="OmniFetch baixa videos, PDFs, audios e arquivos por link, alem de converter videos, imagens e audios. Baixe o Desktop gratis para Windows.">
+  <meta name="theme-color" content="#050505">
+
+  <meta property="og:title" content="OmniFetch — Downloader & Conversor Universal">
+  <meta property="og:description" content="Baixe videos do YouTube, Vimeo, TikTok e converta arquivos em alta qualidade. Desktop para Windows.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://omnifetch.vercel.app/">
+
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+  <!-- LIQUID BACKGROUND -->
+  <div class="bg-liquid" aria-hidden="true">
+    <div class="bg-orb bg-orb--1"></div>
+    <div class="bg-orb bg-orb--2"></div>
+    <div class="bg-orb bg-orb--3"></div>
+  </div>
+  <div class="bg-noise" aria-hidden="true"></div>
+  <div class="bg-grid" aria-hidden="true"></div>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="#" class="nav-brand">
+        <div class="nav-brand-icon"><i data-lucide="terminal"></i></div>
+        <span class="nav-brand-text">OMNIFETCH</span>
+      </a>
+      <div class="nav-links" id="navLinks">
+        <a href="#features" class="nav-link">Recursos</a>
+        <a href="#terminal" class="nav-link">Tutorial</a>
+        <a href="#how" class="nav-link">Como Usar</a>
+        <a href="#faq" class="nav-link">FAQ</a>
+        <a href="https://github.com/Bielicoman/omnifetch" target="_blank" class="nav-link nav-link--icon" aria-label="GitHub">
+          <i data-lucide="github"></i>
+        </a>
+      </div>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu">
+        <i data-lucide="menu"></i>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero" id="hero">
+    <div class="container hero-inner">
+      <div class="hero-badge reveal-item">
+        <span class="pulse-dot"></span>
+        <span>v4.0 — Desktop para Windows</span>
+      </div>
+
+      <h1 class="hero-title reveal-item" style="position:relative">OMNIFETCH</h1>
+
+      <p class="hero-desc reveal-item">Downloader e conversor universal de alta performance. Sem limites, sem anúncios e processamento 100% local.</p>
+
+      <div class="hero-actions reveal-item">
+        <a href="releases/OmniFetch-Desktop-v4.0.0.zip" class="btn-hero" download id="heroBtn">
+          <i data-lucide="download-cloud"></i>
+          <span>Baixar Desktop</span>
+          <div class="btn-hero-shine"></div>
+        </a>
+        <a href="#terminal" class="btn-ghost-hero">
+          <i data-lucide="play"></i>
+          <span>Ver Tutorial</span>
+        </a>
+      </div>
+
+      <div class="hero-status reveal-item">
+        <span class="status-pill"><span class="dot-live green"></span>Desktop v4.0</span>
+        <span class="status-pill"><span class="dot-live blue"></span>1000+ sites</span>
+        <span class="status-pill"><span class="dot-live cyan"></span>Open Source</span>
+      </div>
+    </div>
+    <div class="hero-scroll-hint" aria-hidden="true">
+      <i data-lucide="chevrons-down"></i>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- FEATURES -->
+    <section id="features" class="section">
+      <div class="container">
+        <div class="section-head reveal-item">
+          <span class="section-tag">Performance</span>
+          <h2 class="section-title">Controle total sobre sua mídia</h2>
+          <p class="section-desc">Download e conversão sem intermediários. Potência bruta via motores nativos yt-dlp e ffmpeg.</p>
+        </div>
+
+        <div class="features-grid">
+          <div class="feature-card liquid-glass reveal-item">
+            <div class="feature-icon"><i data-lucide="zap"></i></div>
+            <h3>Alta Velocidade</h3>
+            <p>Motores nativos <code>yt-dlp</code> + <code>ffmpeg</code> rodando direto no seu sistema. Sem proxy, sem throttle.</p>
+          </div>
+          <div class="feature-card liquid-glass reveal-item">
+            <div class="feature-icon"><i data-lucide="shield-check"></i></div>
+            <h3>Privacidade Local</h3>
+            <p>Tudo roda localmente. Nenhum dado sai do seu computador. Código aberto e auditável no GitHub.</p>
+          </div>
+          <div class="feature-card liquid-glass reveal-item">
+            <div class="feature-icon"><i data-lucide="globe"></i></div>
+            <h3>Ampla Compatibilidade</h3>
+            <p>YouTube, Vimeo, Instagram, TikTok, Twitter/X, Twitch, Reddit, Facebook e centenas de outros sites.</p>
+          </div>
+          <div class="feature-card liquid-glass reveal-item">
+            <div class="feature-icon"><i data-lucide="layers"></i></div>
+            <h3>Formatos Suportados</h3>
+            <p>Download em 4K, 1080p, 720p. Extração de áudio em MP3 320kbps e conversão entre múltiplos formatos.</p>
+          </div>
+          <div class="feature-card liquid-glass reveal-item">
+            <div class="feature-icon"><i data-lucide="terminal"></i></div>
+            <h3>Interface CLI</h3>
+            <p>Terminal otimizado com cores, atalhos e suporte a colagem direta de URLs para processamento imediato.</p>
+          </div>
+          <div class="feature-card liquid-glass reveal-item">
+            <div class="feature-icon"><i data-lucide="package"></i></div>
+            <h3>Instalação Portátil</h3>
+            <p>Execução via <code>Instalar.bat</code>. Motores portáteis sem necessidade de instalação global ou PATH.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TERMINAL TUTORIAL -->
+    <section id="terminal" class="section terminal-section">
+      <div class="container">
+        <div class="section-head reveal-item">
+          <span class="section-tag">Tutorial</span>
+          <h2 class="section-title">Veja em ação</h2>
+          <p class="section-desc">Um download real no terminal, passo a passo.</p>
+        </div>
+
+        <div class="terminal-steps reveal-item" id="termSteps">
+          <div class="term-step-pill" data-step="1">
+            <span class="term-step-num">1</span>
+            <span>Instalação</span>
+          </div>
+          <div class="term-step-pill" data-step="2">
+            <span class="term-step-num">2</span>
+            <span>Menu Principal</span>
+          </div>
+          <div class="term-step-pill" data-step="3">
+            <span class="term-step-num">3</span>
+            <span>Download</span>
+          </div>
+        </div>
+
+        <div class="terminal-window liquid-glass reveal-item" id="terminalWindow">
+          <div class="terminal-bar">
+            <div class="terminal-dots">
+              <span class="t-dot t-dot--red"></span>
+              <span class="t-dot t-dot--yellow"></span>
+              <span class="t-dot t-dot--green"></span>
+            </div>
+            <span class="terminal-title">OmniFetch — Terminal CLI</span>
+            <button class="terminal-replay" id="termReplay" aria-label="Repetir">
+              <i data-lucide="rotate-ccw"></i>
+            </button>
+          </div>
+          <div class="terminal-body" id="terminalBody">
+            <div class="terminal-lines" id="termLines"></div>
+            <div class="terminal-cursor" id="termCursor"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW TO USE -->
+    <section id="how" class="section">
+      <div class="container">
+        <div class="section-head reveal-item">
+          <span class="section-tag">Como usar</span>
+          <h2 class="section-title">3 passos simples</h2>
+        </div>
+
+        <div class="steps-timeline">
+          <div class="step-card reveal-item">
+            <div class="step-num">01</div>
+            <div class="step-content">
+              <div class="step-icon"><i data-lucide="download"></i></div>
+              <h4>Instale</h4>
+              <p>Baixe o ZIP, extraia, e rode <code>Instalar.bat</code>. Os motores são baixados automaticamente.</p>
+            </div>
+          </div>
+          <div class="step-card reveal-item">
+            <div class="step-num">02</div>
+            <div class="step-content">
+              <div class="step-icon"><i data-lucide="link"></i></div>
+              <h4>Cole o link</h4>
+              <p>Abra o <code>OmniFetch.bat</code>, cole a URL do vídeo e aperte Enter. A melhor qualidade é selecionada automaticamente.</p>
+            </div>
+          </div>
+          <div class="step-card reveal-item">
+            <div class="step-num">03</div>
+            <div class="step-content">
+              <div class="step-icon"><i data-lucide="check-circle"></i></div>
+              <h4>Pronto</h4>
+              <p>O arquivo aparece na sua pasta <code>Downloads</code>. Rápido, sem cadastro, sem limites.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="section">
+      <div class="container">
+        <div class="section-head reveal-item">
+          <span class="section-tag">FAQ</span>
+          <h2 class="section-title">Perguntas frequentes</h2>
+        </div>
+
+        <div class="faq-grid">
+          <div class="faq-card liquid-glass reveal-item">
+            <h5>O que é o OmniFetch?</h5>
+            <p>Um toolkit Desktop para Windows que baixa vídeos, áudios e arquivos de +1000 sites e converte entre qualquer formato. Roda motores nativos, sem limites e com privacidade total.</p>
+          </div>
+          <div class="faq-card liquid-glass reveal-item">
+            <h5>É grátis e seguro?</h5>
+            <p>Sim. O projeto é open source, sem anúncios e sem coleta de dados. Tudo roda 100% local no seu computador.</p>
+          </div>
+          <div class="faq-card liquid-glass reveal-item">
+            <h5>De quais sites posso baixar?</h5>
+            <p>YouTube, Vimeo, Instagram, TikTok, Twitter/X, Twitch, Reddit, Facebook e +1000 sites suportados pelo <code>yt-dlp</code>.</p>
+          </div>
+          <div class="faq-card liquid-glass reveal-item">
+            <h5>Onde os arquivos são salvos?</h5>
+            <p>Por padrão em <code>~/Downloads</code>, mas você pode escolher qualquer pasta na configuração.</p>
+          </div>
+          <div class="faq-card liquid-glass reveal-item">
+            <h5>O Desktop precisa de quê?</h5>
+            <p>Apenas Windows 10/11. O <code>Instalar.bat</code> baixa <code>yt-dlp</code> e <code>ffmpeg</code> portáteis automaticamente sem PATH global.</p>
+          </div>
+          <div class="faq-card liquid-glass reveal-item">
+            <h5>Erro 403 / vídeo não baixa?</h5>
+            <p>Sites mudam protocolos com frequência. Rode o <code>Instalar.bat</code> para atualizar o <code>yt-dlp</code> e resolver na hora.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <span class="nav-brand-text footer-logo">OMNIFETCH</span>
+        <p>Suite universal de download e conversão de mídia. Open source, privada, rápida.</p>
+        <div class="footer-badges">
+          <span class="f-badge">v4.0</span>
+          <span class="f-badge">Trinity</span>
+          <span class="f-badge">MIT</span>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h5>Produtos</h5>
+        <ul>
+          <li><a href="releases/OmniFetch-Desktop-v4.0.0.zip" download><i data-lucide="download"></i>Desktop</a></li>
+          <li><a href="#features"><i data-lucide="layers"></i>Recursos</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Comunidade</h5>
+        <ul>
+          <li><a href="https://github.com/Bielicoman/omnifetch" target="_blank"><i data-lucide="github"></i>GitHub</a></li>
+          <li><a href="https://instagram.com/alexascencioai" target="_blank"><i data-lucide="instagram"></i>Instagram</a></li>
+          <li><a href="#faq"><i data-lucide="help-circle"></i>FAQ</a></li>
+        </ul>
+      </div>
+      <div class="footer-author">
+        <h5>Feito por</h5>
+        <a href="https://instagram.com/alexascencioai" target="_blank" class="author-card">
+          <img src="https://github.com/Bielicoman.png" alt="Alex Ascencio" width="48" height="48" loading="lazy">
+          <div>
+            <span class="author-name">Alex Ascencio</span>
+            <span class="author-role">AI & Tools Engineer</span>
+          </div>
+        </a>
+        <p class="copyright">Feito com <i data-lucide="heart" class="heart-icon"></i> no Brasil</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
