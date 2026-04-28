@@ -1,0 +1,28 @@
+name: Build and Release Desktop
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build Desktop ZIP
+        shell: pwsh
+        run: |
+          ./scripts/build-desktop-zip.ps1 -Version "${{ github.ref_name }}".replace('v','') -Clean
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/*.zip
+          name: Release ${{ github.ref_name }}
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
