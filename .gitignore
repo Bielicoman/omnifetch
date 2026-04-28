@@ -2,12 +2,17 @@
 
 # ── Binários e releases ──
 desktop/motores/
-releases/
+# releases/ (Removido para permitir rastreamento se necessário, mas recomendado usar GitHub Releases)
 *.zip
 *.exe
 
-# ── Vercel deploy cache ──
+# ── Vercel deploy cache e Builds ──
 .vercel
+dist/
+build/
+out/
+bin/
+obj/
 
 # ── OS e IDE ──
 .DS_Store

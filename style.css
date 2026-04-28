@@ -83,7 +83,7 @@ img{max-width:100%;display:block}
 .hero-actions{display:flex;align-items:center;gap:16px;flex-wrap:wrap;justify-content:center;margin-bottom:40px}
 
 .btn-hero{position:relative;display:inline-flex;align-items:center;gap:12px;padding:18px 40px;background:var(--primary);color:#000;border-radius:14px;font-weight:800;font-size:1.05rem;overflow:hidden;transition:all .4s cubic-bezier(.19,1,.22,1);box-shadow:0 0 30px rgba(0,255,136,.25);cursor:pointer}
-.btn-hero:hover{transform:translateY(-4px) scale(1.03);box-shadow:0 0 50px rgba(0,255,136,.45);background:#fff}
+.btn-hero:hover{transform:translateY(-4px) scale(1.03);box-shadow:0 0 50px rgba(0,255,136,.45), 0 0 100px rgba(0,255,136,.15);background:#fff}
 .btn-hero svg{width:20px;height:20px}
 .btn-hero-shine{position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(120deg,transparent,rgba(255,255,255,.35),transparent);transition:.6s}
 .btn-hero:hover .btn-hero-shine{left:100%}
@@ -92,8 +92,41 @@ img{max-width:100%;display:block}
 .btn-ghost-hero:hover{color:var(--primary);border-color:var(--primary);background:rgba(0,255,136,0.08);transform:translateY(-4px)}
 .btn-ghost-hero svg{width:20px;height:20px}
 
+/* Trust Badge & Status */
+.hero-trust {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  margin-top: -30px;
+  margin-bottom: 30px;
+  opacity: 0.8;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0,255,136,0.03);
+  padding: 6px 16px;
+  border-radius: 100px;
+  border: 1px solid rgba(0,255,136,0.1);
+  transition: .3s;
+}
+.hero-trust:hover {
+  opacity: 1;
+  border-color: rgba(0,255,136,0.3);
+  box-shadow: 0 0 20px rgba(0,255,136,0.1);
+}
+.hero-trust svg {
+  width: 14px;
+  height: 14px;
+  color: var(--primary);
+  filter: drop-shadow(0 0 5px var(--primary));
+}
+
 .hero-status{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
 .status-pill{display:inline-flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--text-dim);padding:6px 14px;border-radius:100px;background:rgba(255,255,255,.03);border:1px solid var(--border);backdrop-filter:blur(5px);transition:.3s}
+.status-pill:hover{border-color:rgba(255,255,255,.2);color:#fff;transform:translateY(-2px);box-shadow: 0 5px 15px rgba(0,0,0,0.3)}
+.status-pill:hover .dot-live.green { box-shadow: 0 0 15px var(--primary); }
+.status-pill:hover .dot-live.blue { box-shadow: 0 0 15px #3b82f6; }
+.status-pill:hover .dot-live.cyan { box-shadow: 0 0 15px #06b6d4; }
 .status-pill:hover{border-color:rgba(255,255,255,.2);color:#fff;transform:translateY(-2px)}
 .dot-live{width:6px;height:6px;border-radius:50%;position:relative}
 .dot-live::after{content:'';position:absolute;inset:-3px;border-radius:50%;background:inherit;opacity:.4;animation:pulse-ring 2s infinite}
