@@ -7,7 +7,7 @@ title OmniFetch - Conversor
 call :colors
 call :init_app
 call :load_config
-call "%~dp0core\omni-ui.bat" splash "CONVERSOR" "presets profissionais sem friccao"
+call "%~dp0..\core\omni-ui.bat" splash "CONVERSOR" "presets profissionais sem friccao"
 
 set "ENGINES=%~dp0motores"
 set "FFMPEG=%ENGINES%\ffmpeg.exe"
@@ -294,7 +294,7 @@ if exist "!OUTFILE!" (
 )
 
 call :timestamp
-set "LOG=logs\convert-!STAMP!.log"
+set "LOG=..\logs\convert-!STAMP!.log"
 cls
 call :banner "CONVERSOR" "processando"
 echo   %CYAN%Preset:%RST%  !PRESET!
@@ -383,25 +383,25 @@ if "!SOPT!"=="3" (
     if "!I!"=="3" set "INTRO_ANIMATION=off"
     call :save_config
 )
-if "!SOPT!"=="4" start "" explorer.exe "%~dp0data"
+if "!SOPT!"=="4" start "" explorer.exe "%~dp0..\data"
 if /I "!SOPT!"=="B" goto :main
 goto :settings
 
 :human_error
 echo.
-findstr /I /C:"Invalid argument" /C:"No such file" /C:"Permission denied" "!LOG!" >nul
+findstr /I /C:"Invalid argument" /C:"No such file" /C:"Permission denied" "%~dp0..\!LOG!" >nul
 if not errorlevel 1 (
     echo   %YELLOW%Diagnostico:%RST% caminho, permissao ou arquivo em uso.
     echo   %DIM%Feche o arquivo em outro programa e tente uma pasta simples como Downloads.%RST%
     exit /b
 )
-findstr /I /C:"Unknown encoder" /C:"Encoder" /C:"not found" "!LOG!" >nul
+findstr /I /C:"Unknown encoder" /C:"Encoder" /C:"not found" "%~dp0..\!LOG!" >nul
 if not errorlevel 1 (
     echo   %YELLOW%Diagnostico:%RST% codec indisponivel neste motor FFmpeg.
     echo   %DIM%Rode o Setup para reparar/atualizar os motores.%RST%
     exit /b
 )
-findstr /I /C:"Invalid data found" /C:"moov atom not found" "!LOG!" >nul
+findstr /I /C:"Invalid data found" /C:"moov atom not found" "%~dp0..\!LOG!" >nul
 if not errorlevel 1 (
     echo   %YELLOW%Diagnostico:%RST% o arquivo parece corrompido ou incompleto.
     echo   %DIM%Tente abrir o arquivo original antes ou baixe novamente.%RST%
@@ -496,9 +496,9 @@ exit /b
 :init_app
 if not exist "data" mkdir "data" >nul 2>&1
 if not exist "logs" mkdir "logs" >nul 2>&1
-set "CONFIG=%~dp0data\config.ini"
-set "CONVERT_HISTORY=%~dp0data\convert_history.tsv"
-if exist "%~dp0core\ensure-config.bat" call "%~dp0core\ensure-config.bat" "%~dp0"
+set "CONFIG=%~dp0..\data\config.ini"
+set "CONVERT_HISTORY=%~dp0..\data\convert_history.tsv"
+if exist "%~dp0..\core\ensure-config.bat" call "%~dp0..\core\ensure-config.bat" "%~dp0..\"
 if not exist "%CONFIG%" (
     set "DEFAULT_DEST=%USERPROFILE%\Downloads"
     set "DEFAULT_BROWSER=edge"
@@ -549,7 +549,7 @@ exit /b
 
 :banner
 echo.
-call "%~dp0core\brand-logo.bat"
+call "%~dp0..\core\brand-logo.bat"
 echo.
 echo   %WHITE%%BOLD%OmniFetch %~1%RST%   %DIM%- %~2%RST%
 echo   %BAR%

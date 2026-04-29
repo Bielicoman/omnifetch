@@ -6,9 +6,9 @@ title OmniFetch - Downloader
 
 call :colors
 call :init_app
-call "%~dp0core\omni-ui.bat" splash "DOWNLOADER" "qualidade maxima com aceleracao real"
+call "%~dp0..\core\omni-ui.bat" splash "DOWNLOADER" "qualidade maxima com aceleracao real"
 
-set "ENGINES=%~dp0motores"
+set "ENGINES=%~dp0..\motores"
 set "YTDLP=%ENGINES%\yt-dlp.exe"
 set "FFMPEG=%ENGINES%\ffmpeg.exe"
 set "ARIA2=%ENGINES%\aria2c.exe"
@@ -242,7 +242,7 @@ goto :after_run
 
 :run_download
 call :timestamp
-set "LOG=logs\download-!STAMP!.log"
+set "LOG=..\logs\download-!STAMP!.log"
 set "ARIA_ARGS="
 if "!HAS_ARIA!"=="1" set "ARIA_ARGS=--downloader aria2c --downloader-args "aria2c:-x !ARIA_CONNECTIONS! -s !ARIA_SPLITS! -k !ARIA_CHUNK! --file-allocation=none --summary-interval=0""
 set "META_ARGS="
@@ -251,7 +251,7 @@ if /I "!EMBED_THUMBNAIL!"=="S" set "META_ARGS=!META_ARGS! --embed-thumbnail --co
 set "SUBTITLE_ARGS="
 if /I "!DOWNLOAD_SUBS!"=="S" set "SUBTITLE_ARGS=--write-subs --write-auto-subs --sub-langs pt.*,en.* --convert-subs srt"
 set "ARCHIVE_ARGS="
-set "ARCHIVE_FILE=%~dp0data\download_archive.txt"
+set "ARCHIVE_FILE=%~dp0..\data\download_archive.txt"
 if /I "!DOWNLOAD_ARCHIVE!"=="S" set "ARCHIVE_ARGS=--download-archive "!ARCHIVE_FILE!""
 cls
 call :banner "DOWNLOADER" "baixando"
@@ -639,7 +639,7 @@ if "!SOPT!"=="7" (
     call :save_config
 )
 if "!SOPT!"=="8" goto :settings_intro
-if "!SOPT!"=="9" start "" explorer.exe "%~dp0data"
+if "!SOPT!"=="9" start "" explorer.exe "%~dp0..\data"
 if /I "!SOPT!"=="B" goto :main
 goto :settings
 
@@ -740,19 +740,19 @@ goto :settings
 
 :human_error
 echo.
-findstr /I /C:"HTTP Error 403" /C:"Forbidden" /C:"Sign in" /C:"login" /C:"cookies" "!LOG!" >nul
+findstr /I /C:"HTTP Error 403" /C:"Forbidden" /C:"Sign in" /C:"login" /C:"cookies" "%~dp0..\!LOG!" >nul
 if not errorlevel 1 (
     echo   %YELLOW%Diagnostico:%RST% esse site provavelmente exige login ou cookies.
     echo   %DIM%Use a opcao C e escolha o navegador onde voce ja esta logado.%RST%
     exit /b
 )
-findstr /I /C:"HTTP Error 404" /C:"Unsupported URL" "!LOG!" >nul
+findstr /I /C:"HTTP Error 404" /C:"Unsupported URL" "%~dp0..\!LOG!" >nul
 if not errorlevel 1 (
     echo   %YELLOW%Diagnostico:%RST% o link nao foi aceito ou nao existe mais.
     echo   %DIM%Confira se o link abre no navegador e copie a URL completa.%RST%
     exit /b
 )
-findstr /I /C:"ffmpeg" /C:"Postprocessing" "!LOG!" >nul
+findstr /I /C:"ffmpeg" /C:"Postprocessing" "%~dp0..\!LOG!" >nul
 if not errorlevel 1 (
     echo   %YELLOW%Diagnostico:%RST% houve problema na etapa de conversao/merge.
     echo   %DIM%Rode o Setup para reparar FFmpeg e tente de novo.%RST%

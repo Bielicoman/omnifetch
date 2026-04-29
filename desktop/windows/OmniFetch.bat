@@ -6,7 +6,7 @@ title OmniFetch - Launcher
 
 call :colors
 call :init_app
-call "%~dp0core\omni-ui.bat" splash "LAUNCHER" "hub premium para baixar, converter e organizar"
+call "%~dp0..\core\omni-ui.bat" splash "LAUNCHER" "hub premium para baixar, converter e organizar"
 call :load_config
 call :refresh_status
 
@@ -72,7 +72,7 @@ if not exist "%~dp0core\OmniTools.bat" (
     pause
     goto :menu
 )
-call "%~dp0core\OmniTools.bat"
+call "%~dp0..\core\OmniTools.bat"
 call :load_config
 call :refresh_status
 goto :menu
@@ -231,8 +231,8 @@ goto :preferences
 :pref_shortcuts
 cls
 call :banner "ATALHOS" "icones oficiais"
-if exist "%~dp0core\install-shortcuts.ps1" (
-    powershell.exe -NoProfile -ExecutionPolicy Bypass -File "%~dp0core\install-shortcuts.ps1"
+if exist "%~dp0..\core\install-shortcuts.ps1" (
+    powershell.exe -NoProfile -ExecutionPolicy Bypass -File "%~dp0..\core\install-shortcuts.ps1"
 ) else (
     echo   %RED%[erro]%RST% Instalador de atalhos nao encontrado.
 )
@@ -322,7 +322,7 @@ if not exist "motores\yt-dlp.exe" (
     goto :tools
 )
 echo   %CYAN%Atualizando yt-dlp...%RST%
-"motores\yt-dlp.exe" -U
+"..\motores\yt-dlp.exe" -U
 echo.
 pause
 goto :tools
@@ -350,7 +350,7 @@ endlocal
 exit /b 0
 
 :load_config
-set "CONFIG=%~dp0data\config.ini"
+set "CONFIG=%~dp0..\data\config.ini"
 set "DEFAULT_DEST=%USERPROFILE%\Downloads"
 set "DEFAULT_BROWSER=edge"
 set "OPEN_WHEN_DONE=N"
@@ -405,9 +405,9 @@ exit /b
 exit /b
 
 :init_app
-if not exist "data" mkdir "data" >nul 2>&1
-if not exist "logs" mkdir "logs" >nul 2>&1
-if exist "%~dp0core\ensure-config.bat" call "%~dp0core\ensure-config.bat" "%~dp0"
+if not exist "..\data" mkdir "..\data" >nul 2>&1
+if not exist "..\logs" mkdir "..\logs" >nul 2>&1
+if exist "%~dp0..\core\ensure-config.bat" call "%~dp0..\core\ensure-config.bat" "%~dp0..\"
 if not exist "data\config.ini" (
     (
         echo DEFAULT_DEST=%USERPROFILE%\Downloads
@@ -469,7 +469,7 @@ exit /b
 
 :banner
 echo.
-call "%~dp0core\brand-logo.bat"
+call "%~dp0..\core\brand-logo.bat"
 echo.
 echo   %WHITE%%BOLD%OmniFetch %~1%RST%   %DIM%- %~2%RST%
 echo   %BAR%

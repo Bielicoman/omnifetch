@@ -57,7 +57,7 @@
     <div class="container hero-inner">
       <div class="hero-badge reveal-item">
         <span class="pulse-dot"></span>
-        <span>v4.0 — Desktop para Windows</span>
+        <span>v4.0 — Windows, Mac OS & Linux</span>
       </div>
 
       <h1 class="hero-title reveal-item" style="position:relative">OMNIFETCH</h1>
@@ -66,13 +66,17 @@
 
       <div class="hero-actions reveal-item">
         <a href="https://github.com/Bielicoman/omnifetch/releases/download/v4.0.0/OmniFetch-Desktop-v4.0.0.zip" class="btn-hero" download id="heroBtn">
-          <i data-lucide="download-cloud"></i>
-          <span>Baixar Desktop</span>
+          <i data-lucide="monitor"></i>
+          <span>Download Windows</span>
           <div class="btn-hero-shine"></div>
         </a>
-        <a href="#terminal" class="btn-ghost-hero">
-          <i data-lucide="play"></i>
-          <span>Ver Tutorial</span>
+        <a href="#macos" class="btn-ghost-hero">
+          <i data-lucide="apple"></i>
+          <span>Mac OS</span>
+        </a>
+        <a href="#linux" class="btn-ghost-hero">
+          <i data-lucide="terminal"></i>
+          <span>Linux</span>
         </a>
       </div>
 
@@ -178,6 +182,129 @@
       </div>
     </section>
 
+    <!-- MACOS SETUP -->
+    <section id="macos" class="section macos-section">
+      <div class="container">
+        <div class="section-head reveal-item">
+          <span class="section-tag">Mac OS</span>
+          <h2 class="section-title">OmniFetch para Mac</h2>
+          <p class="section-desc">Instalação nativa via terminal para usuários Apple.</p>
+        </div>
+
+        <div class="macos-grid">
+          <div class="macos-tutorial reveal-item">
+            <div class="tutorial-step">
+              <div class="t-step-num">1</div>
+              <div class="t-step-info">
+                <h4>Instale o Homebrew</h4>
+                <p>Se ainda não tem, cole no terminal:</p>
+                <div class="code-block">
+                  <code>/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"</code>
+                  <button class="copy-btn" onclick="copyCode(this)"><i data-lucide="copy"></i></button>
+                </div>
+              </div>
+            </div>
+            <div class="tutorial-step">
+              <div class="t-step-num">2</div>
+              <div class="t-step-info">
+                <h4>Clone e Prepare</h4>
+                <p>Dentro da pasta do projeto, dê permissão:</p>
+                <div class="code-block">
+                  <code>cd desktop/macos && chmod +x *.sh && ./setup.sh</code>
+                  <button class="copy-btn" onclick="copyCode(this)"><i data-lucide="copy"></i></button>
+                </div>
+              </div>
+            </div>
+            <div class="tutorial-step">
+              <div class="t-step-num">3</div>
+              <div class="t-step-info">
+                <h4>Inicie o OmniFetch</h4>
+                <p>Sempre que quiser usar:</p>
+                <div class="code-block">
+                  <code>./omnifetch.sh</code>
+                  <button class="copy-btn" onclick="copyCode(this)"><i data-lucide="copy"></i></button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="macos-visual reveal-item">
+            <div class="macos-card liquid-glass">
+              <div class="macos-header">
+                <i data-lucide="apple"></i>
+                <span>Apple Silicon & Intel Ready</span>
+              </div>
+              <p>O OmniFetch para Mac utiliza as bibliotecas nativas do sistema para garantir a maior velocidade de download e conversão possível no seu hardware.</p>
+              <div class="macos-deps">
+                <span class="dep-pill">yt-dlp</span>
+                <span class="dep-pill">ffmpeg</span>
+                <span class="dep-pill">aria2</span>
+              </div>
+              <a href="https://github.com/Bielicoman/omnifetch/releases/download/v4.0.0/OmniFetch-Desktop-v4.0.0.zip" class="btn-ghost-hero" style="width:100%; justify-content:center; margin-top:10px">
+                <i data-lucide="download"></i>
+                <span>Baixar ZIP Universal</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    <!-- LINUX SETUP -->
+    <section id="linux" class="section macos-section" style="border-top: none; background: rgba(0,255,162,0.01)">
+      <div class="container">
+        <div class="section-head reveal-item">
+          <span class="section-tag">Linux</span>
+          <h2 class="section-title">OmniFetch para Linux</h2>
+          <p class="section-desc">Script universal compatível com Ubuntu, Fedora, Arch e mais.</p>
+        </div>
+
+        <div class="macos-grid">
+          <div class="macos-visual reveal-item">
+            <div class="macos-card liquid-glass">
+              <div class="macos-header">
+                <i data-lucide="terminal"></i>
+                <span>Open Source Native</span>
+              </div>
+              <p>O OmniFetch no Linux é pura performance. Sem wrappers, rodando direto no seu shell favorito com suporte total a pipe e automação.</p>
+              <div class="macos-deps">
+                <span class="dep-pill">Apt / Dnf / Pacman</span>
+                <span class="dep-pill">yt-dlp</span>
+                <span class="dep-pill">ffmpeg</span>
+              </div>
+              <a href="https://github.com/Bielicoman/omnifetch/releases/download/v4.0.0/OmniFetch-Desktop-v4.0.0.zip" class="btn-ghost-hero" style="width:100%; justify-content:center; margin-top:10px">
+                <i data-lucide="download"></i>
+                <span>Baixar ZIP Universal</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="macos-tutorial reveal-item">
+            <div class="tutorial-step">
+              <div class="t-step-num">1</div>
+              <div class="t-step-info">
+                <h4>Prepare o ambiente</h4>
+                <p>Dê permissão de execução aos scripts:</p>
+                <div class="code-block">
+                  <code>cd desktop/linux && chmod +x *.sh && ./setup.sh</code>
+                  <button class="copy-btn" onclick="copyCode(this)"><i data-lucide="copy"></i></button>
+                </div>
+              </div>
+            </div>
+            <div class="tutorial-step">
+              <div class="t-step-num">2</div>
+              <div class="t-step-info">
+                <h4>Execute o Launcher</h4>
+                <p>Abra o menu principal do OmniFetch:</p>
+                <div class="code-block">
+                  <code>./omnifetch.sh</code>
+                  <button class="copy-btn" onclick="copyCode(this)"><i data-lucide="copy"></i></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- HOW TO USE -->
     <section id="how" class="section">
       <div class="container">
@@ -192,7 +319,7 @@
             <div class="step-content">
               <div class="step-icon"><i data-lucide="download"></i></div>
               <h4>Instale</h4>
-              <p>Baixe o ZIP, extraia, e rode <code>Instalar.bat</code>. Os motores são baixados automaticamente.</p>
+              <p>Windows: Baixe o ZIP e rode <code>Instalar.bat</code>.<br>Mac: Siga o tutorial acima.</p>
             </div>
           </div>
           <div class="step-card reveal-item">
@@ -200,7 +327,7 @@
             <div class="step-content">
               <div class="step-icon"><i data-lucide="link"></i></div>
               <h4>Cole o link</h4>
-              <p>Abra o <code>OmniFetch.bat</code>, cole a URL do vídeo e aperte Enter. A melhor qualidade é selecionada automaticamente.</p>
+              <p>Cole a URL do vídeo e escolha a qualidade. O resto é com a gente.</p>
             </div>
           </div>
           <div class="step-card reveal-item">
@@ -208,7 +335,7 @@
             <div class="step-content">
               <div class="step-icon"><i data-lucide="check-circle"></i></div>
               <h4>Pronto</h4>
-              <p>O arquivo aparece na sua pasta <code>Downloads</code>. Rápido, sem cadastro, sem limites.</p>
+              <p>O arquivo aparece na sua pasta <code>Downloads</code> em segundos.</p>
             </div>
           </div>
         </div>

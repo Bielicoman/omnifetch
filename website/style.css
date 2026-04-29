@@ -238,3 +238,25 @@ img{max-width:100%;display:block}
   .reveal-item{opacity:1;transform:none;transition:none}
   .bg-orb,.pulse-dot,.dot-live::after,.hero-scroll-hint,.terminal-cursor,.heart-icon{animation:none}
 }
+/* ── MACOS SECTION ── */
+.macos-section { background: rgba(255,255,255,0.01); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.macos-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 40px; margin-top: 40px; align-items: start; }
+.macos-tutorial { display: flex; flex-direction: column; gap: 32px; }
+.tutorial-step { display: flex; gap: 20px; }
+.t-step-num { flex-shrink: 0; width: 40px; height: 40px; border-radius: 50%; background: var(--primary); color: #000; display: grid; place-items: center; font-weight: 800; font-family: 'JetBrains Mono', monospace; box-shadow: 0 0 15px var(--glow); }
+.t-step-info h4 { font-size: 1.1rem; margin-bottom: 6px; color: #fff; }
+.t-step-info p { font-size: 0.9rem; color: var(--text-dim); margin-bottom: 12px; }
+
+.code-block { position: relative; background: #000; border: 1px solid var(--border); border-radius: 12px; padding: 16px 50px 16px 16px; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: var(--primary); overflow-x: auto; }
+.code-block code { background: none; color: inherit; padding: 0; font-size: inherit; }
+.copy-btn { position: absolute; top: 12px; right: 12px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: var(--text-dim); width: 32px; height: 32px; border-radius: 8px; display: grid; place-items: center; cursor: pointer; transition: 0.2s; }
+.copy-btn:hover { background: rgba(0,255,162,0.1); border-color: var(--primary); color: var(--primary); }
+.copy-btn svg { width: 16px; height: 16px; }
+
+.macos-card { padding: 40px; text-align: center; display: flex; flex-direction: column; gap: 20px; align-items: center; }
+.macos-header { display: flex; align-items: center; gap: 12px; font-family: 'JetBrains Mono', monospace; font-size: 1.1rem; font-weight: 700; color: #fff; }
+.macos-header svg { width: 28px; height: 28px; color: var(--primary); }
+.macos-deps { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-top: 10px; }
+.dep-pill { background: rgba(255,255,255,0.05); border: 1px solid var(--border); padding: 4px 12px; border-radius: 100px; font-size: 0.75rem; font-family: 'JetBrains Mono', monospace; color: var(--text-dim); }
+
+@media(max-width: 900px) { .macos-grid { grid-template-columns: 1fr; } .macos-visual { order: -1; } }

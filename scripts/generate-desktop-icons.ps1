@@ -8,11 +8,12 @@ New-Item -ItemType Directory -Force -Path $iconDir | Out-Null
 Add-Type -AssemblyName System.Drawing
 
 $icons = @(
-    @{ File = 'omnifetch.ico';  Mark = '>_';  Accent = [System.Drawing.Color]::FromArgb(0, 255, 136) },
-    @{ File = 'downloader.ico'; Mark = 'DL';  Accent = [System.Drawing.Color]::FromArgb(0, 190, 255) },
-    @{ File = 'conversor.ico';  Mark = 'CV';  Accent = [System.Drawing.Color]::FromArgb(255, 205, 80) },
-    @{ File = 'setup.ico';      Mark = 'ST';  Accent = [System.Drawing.Color]::FromArgb(0, 255, 136) },
-    @{ File = 'omnitools.ico';  Mark = 'OT';  Accent = [System.Drawing.Color]::FromArgb(160, 120, 255) }
+    @{ File = 'omnifetch.ico';  AccentA = [System.Drawing.Color]::FromArgb(0, 255, 136); AccentB = [System.Drawing.Color]::FromArgb(0, 136, 255) },
+    @{ File = 'app.ico';        AccentA = [System.Drawing.Color]::FromArgb(0, 255, 200); AccentB = [System.Drawing.Color]::FromArgb(0, 136, 255) },
+    @{ File = 'downloader.ico'; AccentA = [System.Drawing.Color]::FromArgb(0, 190, 255); AccentB = [System.Drawing.Color]::FromArgb(0, 255, 136) },
+    @{ File = 'conversor.ico';  AccentA = [System.Drawing.Color]::FromArgb(255, 205, 80); AccentB = [System.Drawing.Color]::FromArgb(0, 255, 136) },
+    @{ File = 'setup.ico';      AccentA = [System.Drawing.Color]::FromArgb(0, 255, 136); AccentB = [System.Drawing.Color]::FromArgb(255, 205, 80) },
+    @{ File = 'omnitools.ico';  AccentA = [System.Drawing.Color]::FromArgb(160, 120, 255); AccentB = [System.Drawing.Color]::FromArgb(0, 255, 136) }
 )
 
 function New-RoundedRectPath {
@@ -28,7 +29,7 @@ function New-RoundedRectPath {
 }
 
 function New-IconPngBytes {
-    param([int]$Size, [string]$Mark, [System.Drawing.Color]$Accent)
+    param([int]$Size, [System.Drawing.Color]$AccentA, [System.Drawing.Color]$AccentB)
 
     $bmp = [System.Drawing.Bitmap]::new($Size, $Size, [System.Drawing.Imaging.PixelFormat]::Format32bppArgb)
     $g = [System.Drawing.Graphics]::FromImage($bmp)
@@ -37,30 +38,29 @@ function New-IconPngBytes {
 
     $bg = New-Object System.Drawing.Drawing2D.LinearGradientBrush(
         [System.Drawing.RectangleF]::new(0, 0, $Size, $Size),
-        [System.Drawing.Color]::FromArgb(8, 18, 24),
-        [System.Drawing.Color]::FromArgb(0, 92, 140),
+        $AccentA,
+        $AccentB,
         135
     )
     $card = New-RoundedRectPath 0 0 $Size $Size ([math]::Round($Size * 0.23))
     $g.FillPath($bg, $card)
 
-    $glow = [System.Drawing.SolidBrush]::new([System.Drawing.Color]::FromArgb(90, $Accent))
+    $glow = [System.Drawing.SolidBrush]::new([System.Drawing.Color]::FromArgb(90, $AccentB))
     $g.FillEllipse($glow, $Size * 0.43, -$Size * 0.12, $Size * 0.74, $Size * 0.74)
 
-    $ringPen = [System.Drawing.Pen]::new([System.Drawing.Color]::FromArgb(180, $Accent), [math]::Max(2, $Size * 0.035))
+    $ringPen = [System.Drawing.Pen]::new([System.Drawing.Color]::FromArgb(210, 255, 255, 255), [math]::Max(2, $Size * 0.028))
     $g.DrawPath($ringPen, (New-RoundedRectPath ($Size * 0.07) ($Size * 0.07) ($Size * 0.86) ($Size * 0.86) ($Size * 0.18)))
 
-    $fontSize = if ($Mark -eq '>_') { $Size * 0.34 } else { $Size * 0.38 }
-    $font = [System.Drawing.Font]::new('Consolas', $fontSize, [System.Drawing.FontStyle]::Bold, [System.Drawing.GraphicsUnit]::Pixel)
+    $font = [System.Drawing.Font]::new('Consolas', $Size * 0.34, [System.Drawing.FontStyle]::Bold, [System.Drawing.GraphicsUnit]::Pixel)
     $format = [System.Drawing.StringFormat]::new()
     $format.Alignment = [System.Drawing.StringAlignment]::Center
     $format.LineAlignment = [System.Drawing.StringAlignment]::Center
     $shadow = [System.Drawing.SolidBrush]::new([System.Drawing.Color]::FromArgb(160, 0, 0, 0))
     $fg = [System.Drawing.SolidBrush]::new([System.Drawing.Color]::FromArgb(245, 255, 255, 255))
-    $rect = [System.Drawing.RectangleF]::new(0, $Size * 0.03, $Size, $Size * 0.9)
-    $shadowRect = [System.Drawing.RectangleF]::new($Size * 0.02, $Size * 0.05, $Size, $Size * 0.9)
-    $g.DrawString($Mark, $font, $shadow, $shadowRect, $format)
-    $g.DrawString($Mark, $font, $fg, $rect, $format)
+    $rect = [System.Drawing.RectangleF]::new(0, $Size * 0.02, $Size, $Size * 0.9)
+    $shadowRect = [System.Drawing.RectangleF]::new($Size * 0.02, $Size * 0.04, $Size, $Size * 0.9)
+    $g.DrawString('>_', $font, $shadow, $shadowRect, $format)
+    $g.DrawString('>_', $font, $fg, $rect, $format)
 
     $ms = [System.IO.MemoryStream]::new()
     $bmp.Save($ms, [System.Drawing.Imaging.ImageFormat]::Png)
@@ -81,11 +81,11 @@ function New-IconPngBytes {
 }
 
 function Write-Ico {
-    param([string]$Path, [string]$Mark, [System.Drawing.Color]$Accent)
+    param([string]$Path, [System.Drawing.Color]$AccentA, [System.Drawing.Color]$AccentB)
 
     $sizes = @(256, 64, 48, 32)
     $images = foreach ($size in $sizes) {
-        [pscustomobject]@{ Size = $size; Bytes = New-IconPngBytes -Size $size -Mark $Mark -Accent $Accent }
+        [pscustomobject]@{ Size = $size; Bytes = New-IconPngBytes -Size $size -AccentA $AccentA -AccentB $AccentB }
     }
 
     $fs = [System.IO.File]::Open($Path, [System.IO.FileMode]::Create, [System.IO.FileAccess]::Write)
@@ -120,6 +120,6 @@ function Write-Ico {
 
 foreach ($icon in $icons) {
     $path = Join-Path $iconDir $icon.File
-    Write-Ico -Path $path -Mark $icon.Mark -Accent $icon.Accent
+    Write-Ico -Path $path -AccentA $icon.AccentA -AccentB $icon.AccentB
     Write-Host "  [ok] $path"
 }

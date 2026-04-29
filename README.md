@@ -20,19 +20,17 @@ Suite universal para baixar videos, converter arquivos e organizar midias com um
 
 ```text
 OmniFetch/
-├── desktop/
-│   ├── OmniFetch.bat
-│   ├── Instalar.bat
-│   ├── Downloader.bat
-│   ├── Conversor.bat
-│   ├── LEIA-ME.txt
-│   ├── assets/icons/          # icones oficiais dos atalhos
-│   └── core/                  # UI compartilhada, logo, shortcuts e OmniTools
-├── scripts/
-│   ├── build-desktop-zip.ps1
-│   └── generate-desktop-icons.ps1
-├── website/
-└── vercel.json
+├── desktop/                # Suite Desktop (Win/Mac/Linux)
+│   ├── windows/            # Versão Windows (.bat)
+│   ├── macos/              # Versão Mac OS (.sh)
+│   ├── linux/              # Versão Linux (.sh)
+│   ├── core/               # UI/Logic compartilhada
+│   ├── motores/            # Motores portáteis (Windows)
+│   ├── data/               # Configs e Histórico
+│   └── logs/               # Registros de operação
+├── website/                # Site oficial (Vercel)
+├── scripts/                # Scripts de Build/Ícones
+└── README.md
 ```
 
 ## Uso Desktop

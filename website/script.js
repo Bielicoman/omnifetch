@@ -335,5 +335,19 @@
     }
   }
 
+  // ── Copy Code ──
+  window.copyCode = (btn) => {
+    const code = btn.previousElementSibling.innerText;
+    navigator.clipboard.writeText(code).then(() => {
+      const original = btn.innerHTML;
+      btn.innerHTML = '<i data-lucide="check"></i>';
+      if (window.lucide) lucide.createIcons();
+      setTimeout(() => {
+        btn.innerHTML = original;
+        if (window.lucide) lucide.createIcons();
+      }, 2000);
+    });
+  };
+
   if (window.lucide) lucide.createIcons();
 })();

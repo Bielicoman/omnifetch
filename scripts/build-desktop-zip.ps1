@@ -37,13 +37,12 @@ Write-Host "  -----------------------------------------------" -ForegroundColor 
 
 # Itens que vao pro zip
 $items = @(
-    'OmniFetch.bat',
-    'Instalar.bat',
-    'Downloader.bat',
-    'Conversor.bat',
-    'LEIA-ME.txt',
+    'windows',
+    'macos',
+    'linux',
     'core',
-    'assets'
+    'assets',
+    'LEIA-ME.txt'
 )
 
 foreach ($it in $items) {

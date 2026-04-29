@@ -5,11 +5,11 @@ cd /d "%~dp0"
 title OmniFetch - Setup
 
 call :colors
-set "ENGINES=motores"
-set "ENGINES_DISPLAY=%~dp0motores"
+set "ENGINES=..\motores"
+set "ENGINES_DISPLAY=%~dp0..\motores"
 if not exist "%ENGINES%" mkdir "%ENGINES%" >nul 2>&1
 call :init_app
-call "%~dp0core\omni-ui.bat" splash "SETUP" "motores portateis, atalhos e icones oficiais"
+call "%~dp0..\core\omni-ui.bat" splash "SETUP" "motores portateis, atalhos e icones oficiais"
 
 if /I "%~1"=="--check" goto :doctor
 if /I "%~1"=="/check" goto :doctor
@@ -128,10 +128,10 @@ if errorlevel 1 (
 exit /b
 
 :init_app
-if not exist "data" mkdir "data" >nul 2>&1
-if not exist "logs" mkdir "logs" >nul 2>&1
-if exist "%~dp0core\ensure-config.bat" call "%~dp0core\ensure-config.bat" "%~dp0"
-if not exist "data\config.ini" (
+if not exist "..\data" mkdir "..\data" >nul 2>&1
+if not exist "..\logs" mkdir "..\logs" >nul 2>&1
+if exist "%~dp0..\core\ensure-config.bat" call "%~dp0..\core\ensure-config.bat" "%~dp0..\"
+if not exist "..\data\config.ini" (
     (
         echo DEFAULT_DEST=%USERPROFILE%\Downloads
         echo DEFAULT_BROWSER=edge
@@ -147,7 +147,7 @@ if not exist "data\config.ini" (
         echo EMBED_THUMBNAIL=S
         echo DOWNLOAD_SUBS=N
         echo DOWNLOAD_ARCHIVE=N
-    ) > "data\config.ini"
+    ) > "..\data\config.ini"
 )
 exit /b
 
@@ -157,11 +157,11 @@ if errorlevel 1 (
     echo   %YELLOW%[skip]%RST% PowerShell ausente; atalhos pulados.
     exit /b
 )
-if not exist "%~dp0core\install-shortcuts.ps1" (
+if not exist "%~dp0..\core\install-shortcuts.ps1" (
     echo   %YELLOW%[aviso]%RST% instalador de atalhos nao encontrado.
     exit /b
 )
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File "%~dp0core\install-shortcuts.ps1" >nul 2>&1
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File "%~dp0..\core\install-shortcuts.ps1" >nul 2>&1
 if errorlevel 1 (
     echo   %YELLOW%[aviso]%RST% Nao consegui criar todos os atalhos.
 ) else (
@@ -178,7 +178,7 @@ if /I not "!CTX_CHOICE!"=="S" (
     echo   %DIM%Menu de botao direito pulado.%RST%
     exit /b
 )
-powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "$root=(Resolve-Path '.').Path; $base='HKCU:\Software\Classes\*\shell\OmniFetchConvert'; $q=[char]34; $target=Join-Path $root 'Conversor.bat'; $icon=Join-Path $root 'assets\icons\conversor.ico'; $cmd=$q+$target+$q+' '+$q+'%%1'+$q; New-Item -Path $base -Force -Value 'Converter com OmniFetch' | Out-Null; Set-ItemProperty -Path $base -Name Icon -Value $icon; New-Item -Path ($base + '\command') -Force -Value $cmd | Out-Null" >nul 2>&1
+powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "$root=(Resolve-Path '.').Path; $parent=(Resolve-Path '..').Path; $base='HKCU:\Software\Classes\*\shell\OmniFetchConvert'; $q=[char]34; $target=Join-Path $root 'Conversor.bat'; $icon=Join-Path $parent 'assets\icons\conversor.ico'; $cmd=$q+$target+$q+' '+$q+'%%1'+$q; New-Item -Path $base -Force -Value 'Converter com OmniFetch' | Out-Null; Set-ItemProperty -Path $base -Name Icon -Value $icon; New-Item -Path ($base + '\command') -Force -Value $cmd | Out-Null" >nul 2>&1
 if errorlevel 1 (
     echo   %YELLOW%[aviso]%RST% Nao consegui criar o menu de botao direito.
 ) else (
@@ -314,7 +314,7 @@ exit /b
 
 :banner
 echo.
-call "%~dp0core\brand-logo.bat"
+call "%~dp0..\core\brand-logo.bat"
 echo.
 echo   %WHITE%%BOLD%OmniFetch %~1%RST%   %DIM%- %~2%RST%
 echo   %BAR%
