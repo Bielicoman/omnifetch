@@ -1,5 +1,8 @@
 {
   "cleanUrls": true,
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/website/$1" }
+  ],
   "headers": [
     {
       "source": "/(.*)",
