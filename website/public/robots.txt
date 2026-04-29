@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://omnifetch.vercel.app/sitemap.xml
+Sitemap: https://omnifetch.vercel.app/sitemap.txt

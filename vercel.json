@@ -2,10 +2,25 @@
   "cleanUrls": true,
   "rewrites": [
     { "source": "/sitemap.xml", "destination": "/website/public/sitemap.xml" },
+    { "source": "/sitemap.txt", "destination": "/website/public/sitemap.txt" },
     { "source": "/robots.txt", "destination": "/website/public/robots.txt" },
     { "source": "/(.*)", "destination": "/website/$1" }
   ],
   "headers": [
+    {
+      "source": "/sitemap.xml",
+      "headers": [
+        { "key": "Content-Type", "value": "application/xml" },
+        { "key": "X-Content-Type-Options", "value": "nosniff" }
+      ]
+    },
+    {
+      "source": "/sitemap.txt",
+      "headers": [
+        { "key": "Content-Type", "value": "text/plain" },
+        { "key": "X-Content-Type-Options", "value": "nosniff" }
+      ]
+    },
     {
       "source": "/(.*)",
       "headers": [
