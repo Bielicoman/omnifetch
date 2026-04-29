@@ -1,6 +1,8 @@
 {
   "cleanUrls": true,
   "rewrites": [
+    { "source": "/sitemap.xml", "destination": "/website/public/sitemap.xml" },
+    { "source": "/robots.txt", "destination": "/website/public/robots.txt" },
     { "source": "/(.*)", "destination": "/website/$1" }
   ],
   "headers": [
