@@ -111,12 +111,12 @@ if "!PLAYLIST_MODE!"=="yes" echo   %CYAN%Modo:%RST%    playlist inteira
 if "!USE_COOKIES!"=="1" echo   %CYAN%Login:%RST%   cookies do !DEFAULT_BROWSER!
 if /I "!DOWNLOAD_SUBS!"=="S" echo   %CYAN%Legendas:%RST% pt/en automaticas quando disponiveis
 echo.
-echo   %GREEN%%BOLD%[ENTER]%RST%  Melhor qualidade disponivel
+echo   %GREEN%%BOLD%[ENTER]%RST%  MP4 Automatico (Max Qualidade)
 echo.
 echo   %DIM%PRESETS RAPIDOS%RST%
-echo     %WHITE%[1]%RST% MP4 automatico        %WHITE%[5]%RST% 720p MP4
-echo     %WHITE%[2]%RST% 4K / 2160p            %WHITE%[6]%RST% 480p MP4
-echo     %WHITE%[3]%RST% 2K / 1440p            %WHITE%[7]%RST% Menor arquivo
+echo     %WHITE%[1]%RST% MP4 Automatico        %WHITE%[5]%RST% 720p MP4
+echo     %WHITE%[2]%RST% 4K MP4                %WHITE%[6]%RST% 480p MP4
+echo     %WHITE%[3]%RST% 2K MP4                %WHITE%[7]%RST% Menor arquivo
 echo     %WHITE%[4]%RST% 1080p MP4             %GREEN%[A]%RST% Audio MP3 320
 echo.
 echo   %DIM%FERRAMENTAS%RST%
@@ -145,44 +145,44 @@ timeout /t 1 >nul
 goto :choice
 
 :best
-set "PRESET=Melhor qualidade"
-set "FORMAT=bv*+ba/b"
-set "EXTRA="
+set "PRESET=MP4 Automatico"
+set "FORMAT=bv*[ext=mp4][vcodec^=avc1]+ba[ext=m4a]/bv*[ext=mp4][vcodec^=avc1]+ba/b[ext=mp4]/bv*+ba/b"
+set "EXTRA=--merge-output-format mp4"
 goto :run
 
 :mp4_auto
-set "PRESET=MP4 automatico"
-set "FORMAT=bv*[ext=mp4]+ba[ext=m4a]/b[ext=mp4]/b"
+set "PRESET=MP4 Automatico"
+set "FORMAT=bv*[ext=mp4][vcodec^=avc1]+ba[ext=m4a]/bv*[ext=mp4][vcodec^=avc1]+ba/b[ext=mp4]/bv*+ba/b"
 set "EXTRA=--merge-output-format mp4"
 goto :run
 
 :q_2160
-set "PRESET=4K"
+set "PRESET=4K MP4"
 set "FORMAT=bv*[height<=2160]+ba/b[height<=2160]/b"
-set "EXTRA="
+set "EXTRA=--merge-output-format mp4"
 goto :run
 
 :q_1440
-set "PRESET=2K"
+set "PRESET=2K MP4"
 set "FORMAT=bv*[height<=1440]+ba/b[height<=1440]/b"
-set "EXTRA="
+set "EXTRA=--merge-output-format mp4"
 goto :run
 
 :q_1080
 set "PRESET=1080p MP4"
-set "FORMAT=bv*[height<=1080][ext=mp4]+ba[ext=m4a]/b[height<=1080][ext=mp4]/b[height<=1080]"
+set "FORMAT=bv*[ext=mp4][vcodec^=avc1][height<=1080]+ba[ext=m4a]/bv*[ext=mp4][height<=1080]+ba[ext=m4a]/b[ext=mp4][height<=1080]/b"
 set "EXTRA=--merge-output-format mp4"
 goto :run
 
 :q_720
 set "PRESET=720p MP4"
-set "FORMAT=bv*[height<=720][ext=mp4]+ba[ext=m4a]/b[height<=720][ext=mp4]/b[height<=720]"
+set "FORMAT=bv*[ext=mp4][vcodec^=avc1][height<=720]+ba[ext=m4a]/bv*[ext=mp4][height<=720]+ba[ext=m4a]/b[ext=mp4][height<=720]/b"
 set "EXTRA=--merge-output-format mp4"
 goto :run
 
 :q_480
 set "PRESET=480p MP4"
-set "FORMAT=bv*[height<=480][ext=mp4]+ba[ext=m4a]/b[height<=480][ext=mp4]/b[height<=480]"
+set "FORMAT=bv*[ext=mp4][vcodec^=avc1][height<=480]+ba[ext=m4a]/bv*[ext=mp4][height<=480]+ba[ext=m4a]/b[ext=mp4][height<=480]/b"
 set "EXTRA=--merge-output-format mp4"
 goto :run
 
@@ -244,7 +244,7 @@ goto :after_run
 call :timestamp
 set "LOG=..\logs\download-!STAMP!.log"
 set "ARIA_ARGS="
-if "!HAS_ARIA!"=="1" set "ARIA_ARGS=--downloader aria2c --downloader-args "aria2c:-x !ARIA_CONNECTIONS! -s !ARIA_SPLITS! -k !ARIA_CHUNK! --file-allocation=none --summary-interval=0""
+if "!HAS_ARIA!"=="1" set ARIA_ARGS=--downloader aria2c --downloader-args aria2c:"-x !ARIA_CONNECTIONS! -s !ARIA_SPLITS! -k !ARIA_CHUNK! --file-allocation=none --summary-interval=0"
 set "META_ARGS="
 if /I "!EMBED_METADATA!"=="S" set "META_ARGS=!META_ARGS! --embed-metadata"
 if /I "!EMBED_THUMBNAIL!"=="S" set "META_ARGS=!META_ARGS! --embed-thumbnail --convert-thumbnails jpg"
@@ -292,23 +292,23 @@ if defined RUN_LABEL >> "!LOG!" echo [OmniFetch] !RUN_LABEL!
   !PLAYLIST_ARG! ^
   !ARIA_ARGS! ^
   !COOKIE_ARGS! ^
+  !EXTRA! ^
   -P "!DEST!" ^
   -o "!OUTPUT_TEMPLATE!" ^
   -f "!FORMAT!" ^
-  !EXTRA! ^
   "!LINK!" 2>&1
 
 set "RC=!errorlevel!"
 >> "!LOG!" echo ExitCode=!RC!
 if not "!RC!"=="0" (
     if "!RETRIED_FORMAT!"=="0" (
-        if /I not "!PRESET!"=="Melhor qualidade" (
+        if /I not "!PRESET!"=="MP4 Automatico" (
             echo.
             echo   %YELLOW%[auto]%RST% Tentando novamente com a melhor qualidade disponivel.
             set "RETRIED_FORMAT=1"
-            set "PRESET=Melhor qualidade fallback"
+            set "PRESET=MP4 Automatico fallback"
             set "FORMAT=bv*+ba/b"
-            set "EXTRA="
+            set "EXTRA=--merge-output-format mp4"
             timeout /t 2 >nul
             goto :run_download
         )
@@ -416,9 +416,9 @@ goto :main
 
 :queue_options
 set "QUEUE_DEST=!DEFAULT_DEST!"
-set "QUEUE_PRESET=Melhor qualidade"
-set "QUEUE_FORMAT=bv*+ba/b"
-set "QUEUE_EXTRA="
+set "QUEUE_PRESET=MP4 Automatico"
+set "QUEUE_FORMAT=bv*[ext=mp4][vcodec^=avc1]+ba[ext=m4a]/bv*[ext=mp4][vcodec^=avc1]+ba/b[ext=mp4]/bv*+ba/b"
+set "QUEUE_EXTRA=--merge-output-format mp4"
 set "QUEUE_COOKIE_ARGS="
 set "QUEUE_USE_COOKIES=0"
 set "QUEUE_PLAYLIST_ARG=--no-playlist"
@@ -444,8 +444,8 @@ echo.
 echo   %GREEN%%BOLD%[ENTER]%RST% iniciar fila agora
 echo.
 echo   %DIM%QUALIDADE DA FILA%RST%
-echo     %WHITE%[1]%RST% Melhor qualidade      %WHITE%[4]%RST% 1080p MP4
-echo     %WHITE%[2]%RST% MP4 automatico        %WHITE%[5]%RST% 720p MP4
+echo     %WHITE%[1]%RST% MP4 Automatico        %WHITE%[4]%RST% 1080p MP4
+echo     %WHITE%[2]%RST% 4K MP4                %WHITE%[5]%RST% 720p MP4
 echo     %WHITE%[3]%RST% Arquivo leve          %GREEN%[A]%RST% Audio MP3 320
 echo.
 echo   %DIM%OPCOES%RST%
@@ -466,14 +466,14 @@ if /I "!QOPT!"=="A" (
     goto :queue_options_menu
 )
 if "!QOPT!"=="1" (
-    set "QUEUE_PRESET=Melhor qualidade"
-    set "QUEUE_FORMAT=bv*+ba/b"
-    set "QUEUE_EXTRA="
+    set "QUEUE_PRESET=MP4 Automatico"
+    set "QUEUE_FORMAT=bv*[ext=mp4][vcodec^=avc1]+ba[ext=m4a]/bv*[ext=mp4][vcodec^=avc1]+ba/b[ext=mp4]/bv*+ba/b"
+    set "QUEUE_EXTRA=--merge-output-format mp4"
     goto :queue_options_menu
 )
 if "!QOPT!"=="2" (
-    set "QUEUE_PRESET=MP4 automatico"
-    set "QUEUE_FORMAT=bv*[ext=mp4]+ba[ext=m4a]/b[ext=mp4]/b"
+    set "QUEUE_PRESET=4K MP4"
+    set "QUEUE_FORMAT=bv*[height<=2160]+ba/b[height<=2160]/b"
     set "QUEUE_EXTRA=--merge-output-format mp4"
     goto :queue_options_menu
 )
@@ -485,13 +485,13 @@ if "!QOPT!"=="3" (
 )
 if "!QOPT!"=="4" (
     set "QUEUE_PRESET=1080p MP4"
-    set "QUEUE_FORMAT=bv*[height<=1080][ext=mp4]+ba[ext=m4a]/b[height<=1080][ext=mp4]/b[height<=1080]"
+    set "QUEUE_FORMAT=bv*[ext=mp4][vcodec^=avc1][height<=1080]+ba[ext=m4a]/bv*[ext=mp4][height<=1080]+ba[ext=m4a]/b[ext=mp4][height<=1080]/b"
     set "QUEUE_EXTRA=--merge-output-format mp4"
     goto :queue_options_menu
 )
 if "!QOPT!"=="5" (
     set "QUEUE_PRESET=720p MP4"
-    set "QUEUE_FORMAT=bv*[height<=720][ext=mp4]+ba[ext=m4a]/b[height<=720][ext=mp4]/b[height<=720]"
+    set "QUEUE_FORMAT=bv*[ext=mp4][vcodec^=avc1][height<=720]+ba[ext=m4a]/bv*[ext=mp4][height<=720]+ba[ext=m4a]/b[ext=mp4][height<=720]/b"
     set "QUEUE_EXTRA=--merge-output-format mp4"
     goto :queue_options_menu
 )

@@ -9,7 +9,7 @@ call :init_app
 call :load_config
 call "%~dp0..\core\omni-ui.bat" splash "CONVERSOR" "presets profissionais sem friccao"
 
-set "ENGINES=%~dp0motores"
+set "ENGINES=%~dp0..\motores"
 set "FFMPEG=%ENGINES%\ffmpeg.exe"
 set "FFPROBE=%ENGINES%\ffprobe.exe"
 
@@ -72,21 +72,24 @@ if defined PRETTY_SIZE echo   %CYAN%Tamanho:%RST% !PRETTY_SIZE!
 echo.
 echo   %DIM%CATEGORIA DE SAIDA%RST%
 echo     %GREEN%[P]%RST% Presets premium  WhatsApp, Instagram, podcast, compactar
-echo     %GREEN%[V]%RST% Video            MP4, MKV, WEBM, MOV, GIF
-echo     %GREEN%[A]%RST% Audio            MP3, WAV, FLAC, OPUS, AAC
-echo     %GREEN%[I]%RST% Imagem           JPG, PNG, WEBP, ICO
+echo     %GREEN%[V]%RST% Video            MP4, MKV, WEBM, MOV, GIF, AVI, etc
+echo     %GREEN%[A]%RST% Audio            MP3, WAV, FLAC, OPUS, AAC, OGG, etc
+echo     %GREEN%[I]%RST% Imagem           JPG, PNG, WEBP, ICO, TIFF, BMP
 echo     %GREEN%[E]%RST% E-book/doc       EPUB, MOBI, AZW3, PDF, DOCX
+echo     %GREEN%[F]%RST% Fonte (Texto)    TTF, OTF, WOFF, WOFF2, EOT
 echo     %YELLOW%[N]%RST% Novo arquivo
 echo     %DIM%[Q] Sair%RST%
 echo.
 set "CAT="
 set /p "CAT=  %GREEN%>%RST% "
+if "!CAT!"=="" set "CAT=V"
 
 if /I "!CAT!"=="P" goto :presets
 if /I "!CAT!"=="V" goto :video
 if /I "!CAT!"=="A" goto :audio
 if /I "!CAT!"=="I" goto :image
 if /I "!CAT!"=="E" goto :ebook
+if /I "!CAT!"=="F" goto :font
 if /I "!CAT!"=="N" goto :main
 if /I "!CAT!"=="Q" goto :bye
 echo.
@@ -112,9 +115,9 @@ set "USE_CALIBRE="
 set "FF_ARGS="
 set "OUT_EXT="
 set "PRESET="
-if "!OPT!"=="1" (set "PRESET=Video WhatsApp" & set "FF_ARGS=-vf scale=-2:720 -c:v libx264 -preset medium -crf 26 -c:a aac -b:a 128k -movflags +faststart" & set "OUT_EXT=mp4")
-if "!OPT!"=="2" (set "PRESET=Video Instagram" & set "FF_ARGS=-vf scale=-2:1080 -c:v libx264 -preset medium -crf 20 -c:a aac -b:a 192k -movflags +faststart" & set "OUT_EXT=mp4")
-if "!OPT!"=="3" (set "PRESET=Compactar video" & set "FF_ARGS=-c:v libx264 -preset medium -crf 28 -c:a aac -b:a 128k -movflags +faststart" & set "OUT_EXT=mp4")
+if "!OPT!"=="1" (set "PRESET=Video WhatsApp" & set "FF_ARGS=-vf scale=-2:720 -c:v libx264 -preset faster -crf 26 -pix_fmt yuv420p -c:a aac -b:a 128k -movflags +faststart" & set "OUT_EXT=mp4")
+if "!OPT!"=="2" (set "PRESET=Video Instagram" & set "FF_ARGS=-vf scale=-2:1080 -c:v libx264 -preset fast -crf 19 -pix_fmt yuv420p -c:a aac -b:a 256k -movflags +faststart" & set "OUT_EXT=mp4")
+if "!OPT!"=="3" (set "PRESET=Compactar video" & set "FF_ARGS=-c:v libx264 -preset faster -crf 28 -pix_fmt yuv420p -c:a aac -b:a 128k -movflags +faststart" & set "OUT_EXT=mp4")
 if "!OPT!"=="4" (set "PRESET=Podcast MP3" & set "FF_ARGS=-vn -ac 1 -ar 44100 -c:a libmp3lame -b:a 128k" & set "OUT_EXT=mp3")
 if "!OPT!"=="5" (set "PRESET=Audio MP3 320" & set "FF_ARGS=-vn -c:a libmp3lame -b:a 320k" & set "OUT_EXT=mp3")
 if "!OPT!"=="6" (set "PRESET=Imagem WEBP web" & set "FF_ARGS=-frames:v 1 -c:v libwebp -q:v 85" & set "OUT_EXT=webp")
@@ -130,28 +133,37 @@ goto :presets
 :video
 cls
 call :banner "VIDEO" "!F_NAME!.!F_EXT!"
-echo     %WHITE%[1]%RST% MP4 H.264 + AAC        universal, alta qualidade
+echo     %WHITE%[1]%RST% MP4 H.264 + AAC        %GREEN%[ENTER]%RST% universal, ultra rapido
 echo     %WHITE%[2]%RST% MP4 H.265 / HEVC       menor arquivo, moderno
 echo     %WHITE%[3]%RST% MKV H.264 + FLAC       qualidade alta
 echo     %WHITE%[4]%RST% WEBM VP9 + OPUS        web moderno
-echo     %WHITE%[5]%RST% MOV H.264 + AAC        Apple/editor
-echo     %WHITE%[6]%RST% GIF 720p 12fps
-echo     %WHITE%[7]%RST% Remux rapido MP4       sem recodificar, quando possivel
+echo     %WHITE%[5]%RST% MOV Apple ProRes       perfeito p/ edicao (pesado)
+echo     %WHITE%[6]%RST% GIF 720p 12fps         otimizado
+echo     %WHITE%[7]%RST% Remux rapido MP4       sem recodificar, instantaneo
+echo     %WHITE%[8]%RST% AVI Xvid + MP3         legado universal
+echo     %WHITE%[9]%RST% WMV Windows Media      compatibilidade antiga
+echo     %WHITE%[10]%RST% FLV Flash Video       web legado
+echo     %WHITE%[11]%RST% OGV Theora            video aberto
 echo     %YELLOW%[B]%RST% Voltar
 echo.
 set "OPT="
 set /p "OPT=  %GREEN%>%RST% "
+if "!OPT!"=="" set "OPT=1"
 set "USE_CALIBRE="
 set "FF_ARGS="
 set "OUT_EXT="
 set "PRESET="
-if "!OPT!"=="1" (set "PRESET=MP4 H264" & set "FF_ARGS=-c:v libx264 -preset slow -crf 18 -c:a aac -b:a 320k -movflags +faststart" & set "OUT_EXT=mp4")
-if "!OPT!"=="2" (set "PRESET=MP4 HEVC" & set "FF_ARGS=-c:v libx265 -preset slow -crf 23 -c:a aac -b:a 256k -tag:v hvc1" & set "OUT_EXT=mp4")
-if "!OPT!"=="3" (set "PRESET=MKV alta qualidade" & set "FF_ARGS=-c:v libx264 -preset slow -crf 18 -c:a flac" & set "OUT_EXT=mkv")
-if "!OPT!"=="4" (set "PRESET=WEBM VP9" & set "FF_ARGS=-c:v libvpx-vp9 -crf 30 -b:v 0 -c:a libopus -b:a 160k" & set "OUT_EXT=webm")
-if "!OPT!"=="5" (set "PRESET=MOV H264" & set "FF_ARGS=-c:v libx264 -preset slow -crf 18 -c:a aac -b:a 320k" & set "OUT_EXT=mov")
+if "!OPT!"=="1" (set "PRESET=MP4 H264" & set "FF_ARGS=-c:v libx264 -preset ultrafast -crf 16 -pix_fmt yuv420p -c:a aac -b:a 320k -movflags +faststart" & set "OUT_EXT=mp4")
+if "!OPT!"=="2" (set "PRESET=MP4 HEVC" & set "FF_ARGS=-c:v libx265 -preset superfast -crf 20 -pix_fmt yuv420p -c:a aac -b:a 320k -tag:v hvc1 -movflags +faststart" & set "OUT_EXT=mp4")
+if "!OPT!"=="3" (set "PRESET=MKV alta qualidade" & set "FF_ARGS=-c:v libx264 -preset ultrafast -crf 16 -pix_fmt yuv420p -c:a flac" & set "OUT_EXT=mkv")
+if "!OPT!"=="4" (set "PRESET=WEBM VP9" & set "FF_ARGS=-c:v libvpx-vp9 -row-mt 1 -cpu-used 4 -crf 24 -b:v 0 -c:a libopus -b:a 160k" & set "OUT_EXT=webm")
+if "!OPT!"=="5" (set "PRESET=MOV Apple ProRes" & set "FF_ARGS=-c:v prores_ks -profile:v 3 -vendor apl0 -pix_fmt yuv422p10le -c:a pcm_s16le" & set "OUT_EXT=mov")
 if "!OPT!"=="6" (set "PRESET=GIF 720p" & set "FF_ARGS=-vf fps=12,scale=720:-1:flags=lanczos -loop 0" & set "OUT_EXT=gif")
 if "!OPT!"=="7" (set "PRESET=Remux MP4" & set "FF_ARGS=-c copy" & set "OUT_EXT=mp4")
+if "!OPT!"=="8" (set "PRESET=AVI Xvid" & set "FF_ARGS=-c:v libxvid -qscale:v 3 -c:a libmp3lame -b:a 192k" & set "OUT_EXT=avi")
+if "!OPT!"=="9" (set "PRESET=WMV" & set "FF_ARGS=-c:v wmv2 -b:v 2M -c:a wmav2 -b:a 128k" & set "OUT_EXT=wmv")
+if "!OPT!"=="10" (set "PRESET=FLV" & set "FF_ARGS=-c:v flv -b:v 1M -c:a libmp3lame -b:a 128k" & set "OUT_EXT=flv")
+if "!OPT!"=="11" (set "PRESET=OGV Theora" & set "FF_ARGS=-c:v libtheora -q:v 7 -c:a libvorbis -q:a 5" & set "OUT_EXT=ogv")
 if /I "!OPT!"=="B" goto :category
 if not defined OUT_EXT goto :bad_video
 goto :ask_dest
@@ -163,7 +175,7 @@ goto :video
 :audio
 cls
 call :banner "AUDIO" "!F_NAME!.!F_EXT!"
-echo     %WHITE%[1]%RST% MP3 320 kbps
+echo     %WHITE%[1]%RST% MP3 320 kbps           %GREEN%[ENTER]%RST% universal, qualidade max
 echo     %WHITE%[2]%RST% MP3 192 kbps
 echo     %WHITE%[3]%RST% WAV 16-bit PCM
 echo     %WHITE%[4]%RST% WAV 24-bit PCM
@@ -172,10 +184,14 @@ echo     %WHITE%[6]%RST% AAC 256 kbps
 echo     %WHITE%[7]%RST% M4A AAC 256 kbps
 echo     %WHITE%[8]%RST% OPUS 128 kbps
 echo     %WHITE%[9]%RST% OGG Vorbis q5
+echo     %WHITE%[10]%RST% ALAC Apple Lossless
+echo     %WHITE%[11]%RST% WMA Windows Media
+echo     %WHITE%[12]%RST% AC3 Dolby Digital
 echo     %YELLOW%[B]%RST% Voltar
 echo.
 set "OPT="
 set /p "OPT=  %GREEN%>%RST% "
+if "!OPT!"=="" set "OPT=1"
 set "USE_CALIBRE="
 set "FF_ARGS="
 set "OUT_EXT="
@@ -184,11 +200,14 @@ if "!OPT!"=="1" (set "PRESET=MP3 320" & set "FF_ARGS=-vn -c:a libmp3lame -b:a 32
 if "!OPT!"=="2" (set "PRESET=MP3 192" & set "FF_ARGS=-vn -c:a libmp3lame -b:a 192k" & set "OUT_EXT=mp3")
 if "!OPT!"=="3" (set "PRESET=WAV 16-bit" & set "FF_ARGS=-vn -c:a pcm_s16le" & set "OUT_EXT=wav")
 if "!OPT!"=="4" (set "PRESET=WAV 24-bit" & set "FF_ARGS=-vn -c:a pcm_s24le" & set "OUT_EXT=wav")
-if "!OPT!"=="5" (set "PRESET=FLAC" & set "FF_ARGS=-vn -c:a flac -compression_level 8" & set "OUT_EXT=flac")
+if "!OPT!"=="5" (set "PRESET=FLAC" & set "FF_ARGS=-vn -c:a flac -compression_level 5" & set "OUT_EXT=flac")
 if "!OPT!"=="6" (set "PRESET=AAC 256" & set "FF_ARGS=-vn -c:a aac -b:a 256k" & set "OUT_EXT=aac")
 if "!OPT!"=="7" (set "PRESET=M4A AAC" & set "FF_ARGS=-vn -c:a aac -b:a 256k" & set "OUT_EXT=m4a")
 if "!OPT!"=="8" (set "PRESET=OPUS" & set "FF_ARGS=-vn -c:a libopus -b:a 128k" & set "OUT_EXT=opus")
 if "!OPT!"=="9" (set "PRESET=OGG Vorbis" & set "FF_ARGS=-vn -c:a libvorbis -q:a 5" & set "OUT_EXT=ogg")
+if "!OPT!"=="10" (set "PRESET=ALAC" & set "FF_ARGS=-vn -c:a alac" & set "OUT_EXT=m4a")
+if "!OPT!"=="11" (set "PRESET=WMA" & set "FF_ARGS=-vn -c:a wmav2 -b:a 192k" & set "OUT_EXT=wma")
+if "!OPT!"=="12" (set "PRESET=AC3" & set "FF_ARGS=-vn -c:a ac3 -b:a 384k" & set "OUT_EXT=ac3")
 if /I "!OPT!"=="B" goto :category
 if not defined OUT_EXT goto :bad_audio
 goto :ask_dest
@@ -200,16 +219,19 @@ goto :audio
 :image
 cls
 call :banner "IMAGEM" "!F_NAME!.!F_EXT!"
-echo     %WHITE%[1]%RST% JPG alta qualidade
+echo     %WHITE%[1]%RST% JPG alta qualidade     %GREEN%[ENTER]%RST%
 echo     %WHITE%[2]%RST% JPG leve para web
 echo     %WHITE%[3]%RST% PNG lossless
 echo     %WHITE%[4]%RST% WEBP 90
 echo     %WHITE%[5]%RST% WEBP lossless
 echo     %WHITE%[6]%RST% ICO 256x256
+echo     %WHITE%[7]%RST% BMP sem compressao
+echo     %WHITE%[8]%RST% TIFF lossless
 echo     %YELLOW%[B]%RST% Voltar
 echo.
 set "OPT="
 set /p "OPT=  %GREEN%>%RST% "
+if "!OPT!"=="" set "OPT=1"
 set "USE_CALIBRE="
 set "FF_ARGS="
 set "OUT_EXT="
@@ -220,6 +242,8 @@ if "!OPT!"=="3" (set "PRESET=PNG" & set "FF_ARGS=-frames:v 1" & set "OUT_EXT=png
 if "!OPT!"=="4" (set "PRESET=WEBP 90" & set "FF_ARGS=-frames:v 1 -c:v libwebp -q:v 90" & set "OUT_EXT=webp")
 if "!OPT!"=="5" (set "PRESET=WEBP lossless" & set "FF_ARGS=-frames:v 1 -c:v libwebp -lossless 1" & set "OUT_EXT=webp")
 if "!OPT!"=="6" (set "PRESET=ICO" & set "FF_ARGS=-frames:v 1 -vf scale=256:256" & set "OUT_EXT=ico")
+if "!OPT!"=="7" (set "PRESET=BMP" & set "FF_ARGS=-frames:v 1" & set "OUT_EXT=bmp")
+if "!OPT!"=="8" (set "PRESET=TIFF" & set "FF_ARGS=-frames:v 1" & set "OUT_EXT=tiff")
 if /I "!OPT!"=="B" goto :category
 if not defined OUT_EXT goto :bad_image
 goto :ask_dest
@@ -247,6 +271,8 @@ echo     %WHITE%[4]%RST% PDF
 echo     %WHITE%[5]%RST% DOCX
 echo     %WHITE%[6]%RST% RTF
 echo     %WHITE%[7]%RST% TXT
+echo     %WHITE%[8]%RST% LRF
+echo     %WHITE%[9]%RST% FB2
 echo     %YELLOW%[B]%RST% Voltar
 echo.
 set "OPT="
@@ -262,6 +288,8 @@ if "!OPT!"=="4" (set "PRESET=PDF" & set "OUT_EXT=pdf")
 if "!OPT!"=="5" (set "PRESET=DOCX" & set "OUT_EXT=docx")
 if "!OPT!"=="6" (set "PRESET=RTF" & set "OUT_EXT=rtf")
 if "!OPT!"=="7" (set "PRESET=TXT" & set "OUT_EXT=txt")
+if "!OPT!"=="8" (set "PRESET=LRF" & set "OUT_EXT=lrf")
+if "!OPT!"=="9" (set "PRESET=FB2" & set "OUT_EXT=fb2")
 if /I "!OPT!"=="B" goto :category
 if not defined OUT_EXT goto :bad_ebook
 goto :ask_dest
@@ -269,6 +297,19 @@ goto :ask_dest
 echo   %RED%[erro]%RST% Opcao invalida.
 timeout /t 1 >nul
 goto :ebook
+
+:font
+cls
+call :banner "FONTE" "!F_NAME!.!F_EXT!"
+echo   %YELLOW%Nota:%RST% A conversao de fontes de texto ^(TTF, OTF, WOFF, etc^) requer
+echo         ferramentas externas especificas como %WHITE%FontForge%RST% instaladas no sistema.
+echo.
+echo   %DIM%Como o FFmpeg e Calibre nao processam fontes nativamente,
+echo   esta ferramenta suporta apenas visualizacao da categoria no momento.%RST%
+echo.
+echo   Pressione qualquer tecla para voltar...
+pause >nul
+goto :category
 
 :ask_dest
 echo.
@@ -304,11 +345,14 @@ echo   %CYAN%Log:%RST%     !LOG!
 echo.
 if defined USE_CALIBRE (
     ebook-convert.exe "!INFILE!" "!OUTFILE!" > "!LOG!" 2>&1
+    set "RC=!errorlevel!"
+    type "!LOG!"
 ) else (
-    "%FFMPEG%" -y -hide_banner -stats -i "!INFILE!" !FF_ARGS! "!OUTFILE!" > "!LOG!" 2>&1
+    echo [OmniFetch] Conversao iniciada. Progresso exibido no console. > "!LOG!"
+    "%FFMPEG%" -nostdin -y -hide_banner -stats -i "!INFILE!" !FF_ARGS! "!OUTFILE!"
+    set "RC=!errorlevel!"
+    echo [OmniFetch] Codigo de saida: !RC! >> "!LOG!"
 )
-set "RC=!errorlevel!"
-type "!LOG!"
 set "USE_CALIBRE="
 
 echo.
@@ -426,9 +470,10 @@ exit /b
 set "EXT=%~1"
 set "KIND=generico"
 for %%X in (mp4 mkv mov avi webm wmv flv mpg mpeg ts mts m4v 3gp ogv) do if /I "!EXT!"=="%%X" set "KIND=video"
-for %%X in (mp3 m4a aac wav flac ogg opus wma aiff alac mka) do if /I "!EXT!"=="%%X" set "KIND=audio"
-for %%X in (jpg jpeg png webp gif bmp tiff tif heic heif raw dng svg) do if /I "!EXT!"=="%%X" set "KIND=imagem"
+for %%X in (mp3 m4a aac wav flac ogg opus wma aiff alac mka ac3) do if /I "!EXT!"=="%%X" set "KIND=audio"
+for %%X in (jpg jpeg png webp gif bmp tiff tif heic heif raw dng svg ico) do if /I "!EXT!"=="%%X" set "KIND=imagem"
 for %%X in (epub mobi azw3 pdf docx rtf txt fb2 lit lrf cbz) do if /I "!EXT!"=="%%X" set "KIND=e-book/doc"
+for %%X in (ttf otf woff woff2 eot) do if /I "!EXT!"=="%%X" set "KIND=fonte"
 exit /b
 
 :pretty_size
