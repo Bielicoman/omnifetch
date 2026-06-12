@@ -4,12 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>OmniFetch | Download & Conversão Universal</title>
-  <meta name="description" content="OmniFetch baixa videos, PDFs, audios e arquivos por link, alem de converter videos, imagens e audios. Baixe o Desktop gratis para Windows.">
+  <meta name="description" content="OmniFetch baixa vídeos, playlists e áudios de +1000 sites com interface moderna no navegador. 100% local, sem anúncios. Grátis para Windows, Mac e Linux.">
   <meta name="theme-color" content="#050505">
   <meta name="google-site-verification" content="-rL9zjURCjIorFQjsmlo3B5oOqtNTKuFzlsKpaHjwzo" />
 
   <meta property="og:title" content="OmniFetch — Downloader & Conversor Universal">
-  <meta property="og:description" content="Baixe videos do YouTube, Vimeo, TikTok e converta arquivos em alta qualidade. Desktop para Windows.">
+  <meta property="og:description" content="Baixe vídeos do YouTube, Vimeo, TikTok e +1000 sites com interface no navegador. 100% local e privado. Windows, Mac e Linux.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://omnifetch.vercel.app/">
 
@@ -59,7 +59,7 @@
     <div class="container hero-inner">
       <div class="hero-badge reveal-item">
         <span class="pulse-dot"></span>
-        <span>v4.0 — Windows, Mac OS & Linux</span>
+        <span>v5.0 — Windows, Mac OS & Linux</span>
       </div>
 
       <h1 class="hero-title reveal-item" style="position:relative">OMNIFETCH</h1>
@@ -67,7 +67,7 @@
       <p class="hero-desc reveal-item">Downloader e conversor universal de alta performance. Sem limites, sem anúncios e processamento 100% local.</p>
 
       <div class="hero-actions reveal-item">
-        <a href="https://github.com/Bielicoman/omnifetch/releases/download/v4.0.1/OmniFetch-Desktop-v4.0.1.zip" class="btn-hero" download id="heroBtn">
+        <a href="https://github.com/Bielicoman/omnifetch/releases/download/v5.0.0/OmniFetch-Desktop-v5.0.0.zip" class="btn-hero" download id="heroBtn">
           <i data-lucide="monitor"></i>
           <span>Download Windows</span>
           <div class="btn-hero-shine"></div>
@@ -83,7 +83,7 @@
       </div>
 
       <div class="hero-status reveal-item">
-        <span class="status-pill"><span class="dot-live green"></span>Desktop v4.0</span>
+        <span class="status-pill"><span class="dot-live green"></span>Desktop v5.0</span>
         <span class="status-pill"><span class="dot-live blue"></span>1000+ sites</span>
         <span class="status-pill"><span class="dot-live cyan"></span>Open Source</span>
         <span class="status-pill"><i data-lucide="check-circle-2"></i>Verificado</span>
@@ -127,14 +127,14 @@
             <p>Download em 4K, 1080p, 720p. Extração de áudio em MP3 320kbps e conversão entre múltiplos formatos.</p>
           </div>
           <div class="feature-card liquid-glass reveal-item">
-            <div class="feature-icon"><i data-lucide="terminal"></i></div>
-            <h3>Interface CLI</h3>
-            <p>Terminal otimizado com cores, atalhos e suporte a colagem direta de URLs para processamento imediato.</p>
+            <div class="feature-icon"><i data-lucide="monitor"></i></div>
+            <h3>Interface no Navegador</h3>
+            <p>Dashboard moderno que abre no seu navegador: cole o link, veja o preview com thumbnail e acompanhe a fila em tempo real.</p>
           </div>
           <div class="feature-card liquid-glass reveal-item">
             <div class="feature-icon"><i data-lucide="package"></i></div>
-            <h3>Instalação Portátil</h3>
-            <p>Execução via <code>Instalar.bat</code>. Motores portáteis sem necessidade de instalação global ou PATH.</p>
+            <h3>Instalação Simples</h3>
+            <p>Extraia o ZIP e dê dois cliques. Os motores <code>yt-dlp</code> e <code>ffmpeg</code> são baixados automaticamente na primeira execução.</p>
           </div>
         </div>
       </div>
@@ -146,7 +146,7 @@
         <div class="section-head reveal-item">
           <span class="section-tag">Tutorial</span>
           <h2 class="section-title">Veja em ação</h2>
-          <p class="section-desc">Um download real no terminal, passo a passo.</p>
+          <p class="section-desc">Por baixo do capô: instalação automática, servidor local e download.</p>
         </div>
 
         <div class="terminal-steps reveal-item" id="termSteps">
@@ -156,7 +156,7 @@
           </div>
           <div class="term-step-pill" data-step="2">
             <span class="term-step-num">2</span>
-            <span>Menu Principal</span>
+            <span>Interface Web</span>
           </div>
           <div class="term-step-pill" data-step="3">
             <span class="term-step-num">3</span>
@@ -171,7 +171,7 @@
               <span class="t-dot t-dot--yellow"></span>
               <span class="t-dot t-dot--green"></span>
             </div>
-            <span class="terminal-title">OmniFetch — Terminal CLI</span>
+            <span class="terminal-title">OMNIFETCH — Motor local</span>
             <button class="terminal-replay" id="termReplay" aria-label="Repetir">
               <i data-lucide="rotate-ccw"></i>
             </button>
@@ -209,10 +209,10 @@
             <div class="tutorial-step">
               <div class="t-step-num">2</div>
               <div class="t-step-info">
-                <h4>Clone e Prepare</h4>
-                <p>Dentro da pasta do projeto, dê permissão:</p>
+                <h4>Instale o Node.js e o ffmpeg</h4>
+                <p>Uma vez só, no terminal:</p>
                 <div class="code-block">
-                  <code>cd desktop/macos && chmod +x *.sh && ./setup.sh</code>
+                  <code>brew install node ffmpeg</code>
                   <button class="copy-btn" onclick="copyCode(this)"><i data-lucide="copy"></i></button>
                 </div>
               </div>
@@ -221,9 +221,9 @@
               <div class="t-step-num">3</div>
               <div class="t-step-info">
                 <h4>Inicie o OmniFetch</h4>
-                <p>Sempre que quiser usar:</p>
+                <p>Na pasta extraída do ZIP — a interface abre no navegador:</p>
                 <div class="code-block">
-                  <code>./omnifetch.sh</code>
+                  <code>bash iniciar.sh</code>
                   <button class="copy-btn" onclick="copyCode(this)"><i data-lucide="copy"></i></button>
                 </div>
               </div>
@@ -238,11 +238,11 @@
               </div>
               <p>O OmniFetch para Mac utiliza as bibliotecas nativas do sistema para garantir a maior velocidade de download e conversão possível no seu hardware.</p>
               <div class="macos-deps">
+                <span class="dep-pill">node</span>
                 <span class="dep-pill">yt-dlp</span>
                 <span class="dep-pill">ffmpeg</span>
-                <span class="dep-pill">aria2</span>
               </div>
-              <a href="https://github.com/Bielicoman/omnifetch/releases/download/v4.0.1/OmniFetch-Desktop-v4.0.1.zip" class="btn-ghost-hero" style="width:100%; justify-content:center; margin-top:10px">
+              <a href="https://github.com/Bielicoman/omnifetch/releases/download/v5.0.0/OmniFetch-Desktop-v5.0.0.zip" class="btn-ghost-hero" style="width:100%; justify-content:center; margin-top:10px">
                 <i data-lucide="download"></i>
                 <span>Baixar ZIP Universal</span>
               </a>
@@ -272,7 +272,7 @@
                 <span class="dep-pill">yt-dlp</span>
                 <span class="dep-pill">ffmpeg</span>
               </div>
-              <a href="https://github.com/Bielicoman/omnifetch/releases/download/v4.0.1/OmniFetch-Desktop-v4.0.1.zip" class="btn-ghost-hero" style="width:100%; justify-content:center; margin-top:10px">
+              <a href="https://github.com/Bielicoman/omnifetch/releases/download/v5.0.0/OmniFetch-Desktop-v5.0.0.zip" class="btn-ghost-hero" style="width:100%; justify-content:center; margin-top:10px">
                 <i data-lucide="download"></i>
                 <span>Baixar ZIP Universal</span>
               </a>
@@ -284,9 +284,9 @@
               <div class="t-step-num">1</div>
               <div class="t-step-info">
                 <h4>Prepare o ambiente</h4>
-                <p>Dê permissão de execução aos scripts:</p>
+                <p>Instale o Node.js e o ffmpeg (Ubuntu/Debian; use dnf ou pacman na sua distro):</p>
                 <div class="code-block">
-                  <code>cd desktop/linux && chmod +x *.sh && ./setup.sh</code>
+                  <code>sudo apt install nodejs npm ffmpeg</code>
                   <button class="copy-btn" onclick="copyCode(this)"><i data-lucide="copy"></i></button>
                 </div>
               </div>
@@ -295,9 +295,9 @@
               <div class="t-step-num">2</div>
               <div class="t-step-info">
                 <h4>Execute o Launcher</h4>
-                <p>Abra o menu principal do OmniFetch:</p>
+                <p>Na pasta extraída do ZIP — a interface abre no navegador:</p>
                 <div class="code-block">
-                  <code>./omnifetch.sh</code>
+                  <code>bash iniciar.sh</code>
                   <button class="copy-btn" onclick="copyCode(this)"><i data-lucide="copy"></i></button>
                 </div>
               </div>
@@ -321,7 +321,7 @@
             <div class="step-content">
               <div class="step-icon"><i data-lucide="download"></i></div>
               <h4>Instale</h4>
-              <p>Windows: Baixe o ZIP e rode <code>Instalar.bat</code>.<br>Mac: Siga o tutorial acima.</p>
+              <p>Instale o <a href="https://nodejs.org" target="_blank">Node.js</a>, baixe o ZIP, extraia e dê dois cliques em <code>OMNIFETCH.vbs</code>. Os motores baixam sozinhos.</p>
             </div>
           </div>
           <div class="step-card reveal-item">
@@ -329,7 +329,7 @@
             <div class="step-content">
               <div class="step-icon"><i data-lucide="link"></i></div>
               <h4>Cole o link</h4>
-              <p>Cole a URL do vídeo e escolha a qualidade. O resto é com a gente.</p>
+              <p>A interface abre no navegador. Cole o link, veja o preview e escolha o formato — MP4, MP3 e mais.</p>
             </div>
           </div>
           <div class="step-card reveal-item">
@@ -337,7 +337,7 @@
             <div class="step-content">
               <div class="step-icon"><i data-lucide="check-circle"></i></div>
               <h4>Pronto</h4>
-              <p>O arquivo aparece na sua pasta <code>Downloads</code> em segundos.</p>
+              <p>Acompanhe o progresso em tempo real. O arquivo aparece em <code>Downloads/OMNIFETCH</code>.</p>
             </div>
           </div>
         </div>
@@ -355,7 +355,7 @@
         <div class="faq-grid">
           <div class="faq-card liquid-glass reveal-item">
             <h5>O que é o OmniFetch?</h5>
-            <p>Um toolkit Desktop para Windows que baixa vídeos, áudios e arquivos de +1000 sites e converte entre qualquer formato. Roda motores nativos, sem limites e com privacidade total.</p>
+            <p>Um app local com interface no navegador que baixa vídeos, playlists e áudios de +1000 sites e converte entre formatos. Roda motores nativos, sem limites e com privacidade total.</p>
           </div>
           <div class="faq-card liquid-glass reveal-item">
             <h5>É grátis e seguro?</h5>
@@ -367,15 +367,15 @@
           </div>
           <div class="faq-card liquid-glass reveal-item">
             <h5>Onde os arquivos são salvos?</h5>
-            <p>Por padrão em <code>~/Downloads</code>, mas você pode escolher qualquer pasta na configuração.</p>
+            <p>Por padrão em <code>Downloads/OMNIFETCH</code>, mas você pode escolher qualquer pasta nas configurações do app.</p>
           </div>
           <div class="faq-card liquid-glass reveal-item">
             <h5>O Desktop precisa de quê?</h5>
-            <p>Apenas Windows 10/11. O <code>Instalar.bat</code> baixa <code>yt-dlp</code> e <code>ffmpeg</code> portáteis automaticamente sem PATH global.</p>
+            <p>Windows 10/11, macOS ou Linux + <a href="https://nodejs.org" target="_blank">Node.js</a> (grátis). Na primeira execução o app baixa <code>yt-dlp</code> e <code>ffmpeg</code> portáteis automaticamente.</p>
           </div>
           <div class="faq-card liquid-glass reveal-item">
             <h5>Erro 403 / vídeo não baixa?</h5>
-            <p>Sites mudam protocolos com frequência. Rode o <code>Instalar.bat</code> para atualizar o <code>yt-dlp</code> e resolver na hora.</p>
+            <p>Sites mudam protocolos com frequência. Rode <code>scripts\get-binaries.ps1</code> para atualizar o <code>yt-dlp</code> e resolver na hora.</p>
           </div>
         </div>
       </div>
@@ -389,15 +389,15 @@
         <span class="nav-brand-text footer-logo">OMNIFETCH</span>
         <p>Suite universal de download e conversão de mídia. Open source, privada, rápida.</p>
         <div class="footer-badges">
-          <span class="f-badge">v4.0</span>
-          <span class="f-badge">Trinity</span>
+          <span class="f-badge">v5.0</span>
+          <span class="f-badge">100% Local</span>
           <span class="f-badge">MIT</span>
         </div>
       </div>
       <div class="footer-col">
         <h5>Produtos</h5>
         <ul>
-          <li><a href="https://github.com/Bielicoman/omnifetch/releases/download/v4.0.0/OmniFetch-Desktop-v4.0.0.zip" download><i data-lucide="download"></i>Desktop</a></li>
+          <li><a href="https://github.com/Bielicoman/omnifetch/releases/download/v5.0.0/OmniFetch-Desktop-v5.0.0.zip" download><i data-lucide="download"></i>Desktop</a></li>
           <li><a href="#features"><i data-lucide="layers"></i>Recursos</a></li>
         </ul>
       </div>

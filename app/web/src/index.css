@@ -1,0 +1,97 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    @apply bg-ink-950 text-white font-sans antialiased;
+    background-image:
+      radial-gradient(900px 500px at 15% -10%, rgba(0, 230, 118, 0.10), transparent 60%),
+      radial-gradient(800px 600px at 95% 0%, rgba(0, 200, 83, 0.06), transparent 55%),
+      radial-gradient(1000px 700px at 50% 110%, rgba(0, 230, 118, 0.05), transparent 60%);
+    background-attachment: fixed;
+  }
+
+  ::selection {
+    background: rgba(0, 230, 118, 0.35);
+  }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 230, 118, 0.25) transparent;
+  }
+  *::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  *::-webkit-scrollbar-thumb {
+    background: rgba(0, 230, 118, 0.2);
+    border-radius: 8px;
+  }
+  *::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 230, 118, 0.4);
+  }
+}
+
+@layer components {
+  /* Card de vidro padrão */
+  .glass {
+    @apply rounded-2xl border border-white/[0.07] bg-white/[0.035] backdrop-blur-xl shadow-card;
+  }
+
+  .glass-hover {
+    @apply transition-colors duration-200 hover:border-omni/30 hover:bg-white/[0.05];
+  }
+
+  /* Botão principal verde com glow */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 font-semibold text-ink-950
+      bg-gradient-to-b from-omni-bright to-omni-dim
+      shadow-glow transition-all duration-200
+      hover:shadow-glow-lg hover:brightness-110 active:scale-[0.98]
+      disabled:opacity-40 disabled:shadow-none disabled:hover:brightness-100 disabled:cursor-not-allowed;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-3 font-medium text-omni
+      border border-omni/30 bg-omni/[0.06] transition-all duration-200
+      hover:bg-omni/[0.12] hover:border-omni/50 active:scale-[0.98]
+      disabled:opacity-40 disabled:cursor-not-allowed;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-3 py-3 font-medium text-white/60
+      transition-all duration-200 hover:text-white hover:bg-white/[0.06] active:scale-[0.98]
+      disabled:opacity-40 disabled:cursor-not-allowed;
+  }
+
+  .icon-btn {
+    @apply inline-flex h-9 w-9 items-center justify-center rounded-lg text-white/55
+      transition-colors hover:text-omni hover:bg-omni/10;
+  }
+
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium
+      border border-white/10 bg-white/[0.05] text-white/75;
+  }
+
+  .input-base {
+    @apply w-full rounded-xl border border-white/10 bg-ink-900/80 px-3.5 py-2.5 text-sm text-white
+      placeholder:text-white/30 outline-none transition-colors
+      focus:border-omni/50 focus:ring-2 focus:ring-omni/20;
+  }
+
+  .skeleton {
+    @apply rounded-lg bg-gradient-to-r from-white/[0.04] via-white/[0.09] to-white/[0.04] bg-[length:400px_100%] animate-shimmer;
+  }
+
+  .section-title {
+    @apply flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-omni/80;
+  }
+}

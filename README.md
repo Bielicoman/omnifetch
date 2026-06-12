@@ -1,69 +1,75 @@
-# OmniFetch · Trinity Edition
+# ⚡ OMNIFETCH
 
-[![Version](https://img.shields.io/badge/version-4.0-00ff88)](https://github.com/Bielicoman/omnifetch)
-[![Platform](https://img.shields.io/badge/desktop-Windows-0088ff)](#)
+[![Version](https://img.shields.io/badge/version-5.0-00ff88)](https://github.com/Bielicoman/omnifetch/releases/latest)
+[![Platform](https://img.shields.io/badge/desktop-Windows%20·%20macOS%20·%20Linux-0088ff)](#)
 [![Web](https://img.shields.io/badge/web-omnifetch.vercel.app-00ff88)](https://omnifetch.vercel.app)
 
-Suite universal para baixar videos, converter arquivos e organizar midias com uma experiencia desktop premium no Windows.
+**Downloader e conversor universal de vídeos — 100% local, rápido e privado.**
 
-## Produtos
+Interface moderna no navegador: cole um link, analise, escolha o formato e baixe na melhor qualidade. Compatível com YouTube, Instagram, TikTok, X/Twitter, Vimeo, Twitch, Facebook, Reddit e +1000 sites suportados pelo [yt-dlp](https://github.com/yt-dlp/yt-dlp).
 
-| Produto | O que entrega | Onde fica |
-|---|---|---|
-| Site | Landing page do projeto | `website/` |
-| Desktop Launcher | Hub principal com UX premium, status dos motores e preferencias globais | `desktop/OmniFetch.bat` |
-| Downloader | yt-dlp com aria2 turbo, fila, cookies, presets 4K/MP3 e historico | `desktop/Downloader.bat` |
-| Conversor | FFmpeg + Calibre opcional para video, audio, imagem e e-books | `desktop/Conversor.bat` |
-| OmniTools | Inspector, thumbnails, cortes, legendas, renomeador e relatorios | `desktop/core/OmniTools.bat` |
+> ⚠️ **Uso legal e responsável:** baixe apenas conteúdos próprios, livres, autorizados ou permitidos pela lei e pelos termos de cada plataforma. O OMNIFETCH **não** contorna DRM, paywall ou login.
 
-## Estrutura
+## Download
+
+**[⬇ Baixar a última versão](https://github.com/Bielicoman/omnifetch/releases/latest)** — ou visite [omnifetch.vercel.app](https://omnifetch.vercel.app)
+
+### Como usar (Windows)
+
+1. Instale o [Node.js](https://nodejs.org) (LTS, grátis)
+2. Extraia o ZIP e dê dois cliques em **`OMNIFETCH.vbs`**
+   - Na primeira vez, o app baixa os motores (`yt-dlp` + `ffmpeg`) automaticamente
+   - A interface abre no navegador — sem janela preta
+3. Opcional: `scripts\criar-atalho.ps1` cria um atalho com ícone na área de trabalho
+
+### Como usar (macOS / Linux)
+
+```bash
+# macOS:  brew install node ffmpeg
+# Linux:  sudo apt install nodejs npm ffmpeg
+bash iniciar.sh
+```
+
+## Destaques
+
+- 🖥️ Dashboard escuro com verde neon, preview com thumbnail e fila em tempo real
+- 📦 Vídeos, playlists, canais e listas de links
+- 🎚️ Presets prontos: MP4 H.264 (padrão), 4K, 1080p, 720p, MP3 320, WAV, MKV, modo completo
+- 📝 Legendas, metadados, capítulos, thumbnail embutida e mais
+- 🔒 Tudo roda localmente — zero telemetria, zero anúncios
+- 📱 Responsivo/PWA — controle pelo celular na mesma rede (opcional)
+
+## Estrutura do repositório
 
 ```text
-OmniFetch/
-├── desktop/                # Suite Desktop (Win/Mac/Linux)
-│   ├── windows/            # Versão Windows (.bat)
-│   ├── macos/              # Versão Mac OS (.sh)
-│   ├── linux/              # Versão Linux (.sh)
-│   ├── core/               # UI/Logic compartilhada
-│   ├── motores/            # Motores portáteis (Windows)
-│   ├── data/               # Configs e Histórico
-│   └── logs/               # Registros de operação
+omnifetch/
+├── app/                    # O aplicativo (Node + Express + React + Vite)
+│   ├── server/             # Backend local: fila, yt-dlp, ffmpeg, SSE
+│   ├── web/                # Interface (React + Tailwind + Framer Motion)
+│   └── scripts/            # get-binaries, atalho, ícone
 ├── website/                # Site oficial (Vercel)
-├── scripts/                # Scripts de Build/Ícones
-└── README.md
+├── scripts/                # build-desktop-zip.ps1 (gera o ZIP de release)
+└── .github/workflows/      # Release automático ao enviar tag v*
 ```
 
-## Uso Desktop
+## Desenvolvimento
 
-1. Baixe o ZIP em [Releases](https://github.com/Bielicoman/omnifetch/releases/latest).
-2. Extraia para uma pasta gravavel, como `C:\OmniFetch`.
-3. Rode `Instalar.bat`.
-4. Use `OmniFetch.bat` como entrada diaria.
+```bash
+cd app
+npm install
+npm run dev      # hot reload (server + web)
+npm run build    # produção
+npm start
+```
 
-O setup baixa motores portateis em `desktop/motores/`, cria atalhos com icones oficiais no Desktop/Menu Iniciar e pode adicionar o menu de contexto "Converter com OmniFetch".
-
-## Configuracoes Premium
-
-O launcher e o downloader salvam preferencias em `desktop/data/config.ini`:
-
-- `SPEED_PROFILE`: `turbo`, `balanced`, `conservative` ou `custom`.
-- `CONCURRENT_FRAGMENTS`, `ARIA_CONNECTIONS`, `ARIA_SPLITS`: controle de aceleracao.
-- `EMBED_METADATA`, `EMBED_THUMBNAIL`, `DOWNLOAD_SUBS`: qualidade e extras.
-- `INTRO_ANIMATION`: `full`, `fast` ou `off`.
-
-## Build
+Para gerar o pacote de download localmente:
 
 ```powershell
-.\scripts\generate-desktop-icons.ps1
-.\scripts\build-desktop-zip.ps1 -Version 4.0.0
+./scripts/build-desktop-zip.ps1 -Version "5.0.0" -Clean
 ```
 
-Para incluir motores ja baixados:
+Releases são publicados automaticamente pelo GitHub Actions ao enviar um tag `v*`.
 
-```powershell
-.\scripts\build-desktop-zip.ps1 -Version 4.0.0 -IncludeMotores
-```
+---
 
-## Licenca
-
-MIT — feito por Alex Ascencio.
+Feito com ⚡ por [Alex Ascencio](https://instagram.com/alexascencioai) · Licença MIT
