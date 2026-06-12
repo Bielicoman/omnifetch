@@ -74,6 +74,12 @@ foreach ($s in 'get-binaries.ps1', 'get-binaries.sh', 'criar-atalho.ps1', 'gerar
     if (Test-Path $p) { Copy-Item $p (Join-Path $stage 'scripts\') }
 }
 
+# garante LF nos .sh do pacote (CRLF quebra bash no macOS/Linux)
+Get-ChildItem $stage -Recurse -Filter '*.sh' | ForEach-Object {
+    $txt = [System.IO.File]::ReadAllText($_.FullName)
+    [System.IO.File]::WriteAllText($_.FullName, $txt.Replace("`r`n", "`n"))
+}
+
 Copy-Item (Join-Path $appDir 'omnifetch.ico') $stage
 Copy-Item (Join-Path $appDir '.env.example') $stage
 
